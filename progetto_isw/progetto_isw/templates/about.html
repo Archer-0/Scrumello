@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>About Scrumello</title>
     <meta name="viewport">
-    <link rel="stylesheet" href="/progetto_isw/progetto_isw/templates/about_style.css">
+{#    <link rel="stylesheet" href="/progetto_isw/progetto_isw/static/styles/about_style.css">#}
+    <link rel="stylesheet" href="{% static 'styles/about_style.css' %}">
 </head>
 <body>
     <div class="page">
         <main class="content">
             <div class="content_inner">
                 <div class="navigation">
-                    <a href="#">Homepage</a>
+                    <a href="#">👷</a>
                 </div>
                 <div class="site_name">
                     <h1>Welcome to Scrumello</h1>
-                    <p>Scrumello is the best way to organize your team. Join us NOW!</p>
+                    <p>🚧 This site is currently under construction. Come back later! 🚧</p>
                 </div>
             </div>
         </main>

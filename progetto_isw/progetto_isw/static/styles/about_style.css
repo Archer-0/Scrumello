@@ -26,7 +26,14 @@ p {
 
 .page {
     height: 100%;
-    background-color: #203d52;
+    /*background-color: #203d52;*/
+    background: repeating-linear-gradient(
+        45deg,
+        #292929,
+        #292929 20px,
+        #e1c600 20px,
+        #e1c600 40px
+    );
 }
 
 .navigation {
@@ -74,5 +81,5 @@ p {
     overflow-y: auto;
     padding: 100px 20%;
     line-height: 30px;
-    background-color: rgba(34, 34, 34, 0.7);
+    background-color: rgba(34, 34, 34, 0.9);
 }
