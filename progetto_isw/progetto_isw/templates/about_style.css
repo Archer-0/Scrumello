@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #ffffff;
+}
+
+h1 {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #DDDDDD;
+    color: #ffffff;
+}
+
+p {
+    color: #DDDDDD;
+}
+
+.page {
+    height: 100%;
+    background-color: #203d52;
+}
+
+.navigation {
+    text-align: end;
+}
+
+.navigation a {
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .5);
+    padding: .5em .8em;
+    position: relative;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    transition: color 300ms ease-in-out;
+}
+
+.navigation a:before,
+.navigation a:after {
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    content: '';
+    transition: all 350ms ease;
+    opacity: 0;
+}
+
+.navigation a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.content {
+    height: 100%;
+    transform-origin: top left;
+    transition: transform 700ms cubic-bezier(1, .005, .24, 1),
+        -webkit-transform 700ms cubic-bezier(1, .005, .24, 1);
+    box-shadow: 0 0 5rem rgba(0, 0, 0, .5);
+    /*background: url('/static/assets/background-login.jpg') no-repeat center;*/
+    background-size: cover;
+}
+
+.content_inner {
+    height: 100%;
+    justify-self: center;
+    overflow-y: auto;
+    padding: 100px 20%;
+    line-height: 30px;
+    background-color: rgba(34, 34, 34, 0.7);
+}
