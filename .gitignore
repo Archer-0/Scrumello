@@ -107,3 +107,4 @@ venv.bak/
 
 # pycharm editor stuff
 .idea
+/static/
