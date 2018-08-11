@@ -18,6 +18,13 @@ def about(request):
 
 # login_signup page
 def login_signup(request):
+    # se l'utente e' gia' loggato
+    if str(request.user) != 'AnonymousUser':
+        print('User \"' + request.user.username + '\" already authenticated.')
+        return HttpResponseRedirect("/dashboard/", {
+            "user": request.user,
+        })
+
     # se e' stata effettuata una richiesta POST
     if request.method == "POST":
         login_form = LoginForm(request.POST)
@@ -91,9 +98,11 @@ def log_out(request):
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html', {
-        'user': request.user,
-        'message': 'Hey ' + request.user.username + ', all is working like a charm. Yeah! \\m/'
-    })
-
-
+    if str(request.user) != 'AnonymousUser':
+        return render(request, 'dashboard.html', {
+            'user': request.user,
+            'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/'
+        })
+    else:
+        print('Unauthorized access. Redirecting user to login page')
+        return HttpResponseRedirect("/login_signup/")
