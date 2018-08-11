@@ -1,8 +1,9 @@
 from django import forms
+from models import Board, Column, Card
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(
+    login_username = forms.CharField(
         label="Username",
         max_length=32,
         required=True,
@@ -12,7 +13,7 @@ class LoginForm(forms.Form):
                    'required': 'true',
                    'autofocus': 'true'}))
 
-    password = forms.CharField(
+    login_password = forms.CharField(
         label="Password",
         max_length=32,
         required=True,
@@ -23,7 +24,7 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.Form):
-    username = forms.CharField(
+    signup_username = forms.CharField(
         label="Username",
         max_length=32,
         required=True,
@@ -33,7 +34,7 @@ class SignupForm(forms.Form):
                    'required': 'true',
                    'autofocus': 'true'}))
 
-    password = forms.CharField(
+    signup_password = forms.CharField(
         label="Password",
         max_length=32,
         required=True,
@@ -42,7 +43,7 @@ class SignupForm(forms.Form):
                    'placeholder': 'Password',
                    'required': 'true'}))
 
-    password_confirm = forms.CharField(
+    signup_password_confirm = forms.CharField(
         label="Repeat Password",
         max_length=32,
         widget=forms.PasswordInput(
@@ -63,3 +64,4 @@ class ColumnCreationForm(forms.Form):
         label="Column Name",
         max_length=512,
         required=True)
+
