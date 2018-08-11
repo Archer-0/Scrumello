@@ -20,6 +20,8 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^welcome/', views.login_signup, name='login_signup'),
+    # url(r'^', views.login_signup, name='login_signup'),
     url(r'^', views.about, name='about'),
     # url(r'^about/', views.about, name='about'),
 ]

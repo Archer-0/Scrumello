@@ -1,0 +1,18 @@
+{% block login_form_block %}
+    <h2 class="forms_title">Login</h2>
+        <form class="forms_form">
+            <fieldset class="forms_fieldset">
+                <div class="forms_field">
+                    <input type="text" placeholder="Username" class="forms_field-input" required autofocus/>
+                </div>
+                <div class="forms_field">
+                    <input type="password" placeholder="Password" class="forms_field-input" required />
+                </div>
+            </fieldset>
+            <div class="forms_buttons">
+                <button type="button" class="forms_buttons-forgot"></button>
+                <input type="submit" value="Log In" class="forms_buttons-action">
+            </div>
+        </form>
+
+{% endblock %}

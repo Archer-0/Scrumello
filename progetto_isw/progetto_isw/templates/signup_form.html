@@ -1,0 +1,23 @@
+{% block signup_form_block %}
+    <div class="user_forms-signup">
+        <h2 class="forms_title">Sign Up</h2>
+        <form class="forms_form" action="" method="post">
+            {% csrf_token %}
+            <fieldset class="forms_fieldset">
+                <div class="forms_field">
+                    <input type="text" placeholder="Username" class="forms_field-input" name="signup_username" id="signup_username" maxlength="32" required autofocus/>
+                </div>
+                <div class="forms_field">
+                    <input type="password" placeholder="Password" class="forms_field-input" name="signup_password" id="signup_password" maxlength="32" required />
+                </div>
+                <div class="forms_field">
+                    <input type="password" placeholder="Repeat Password" class="forms_field-input" name="signup_password_conf" id="signup_password_conf" maxlength="32" required />
+                </div>
+            </fieldset>
+            <div class="forms_buttons">
+                <input type="submit" value="Sign up" class="forms_buttons-action">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
