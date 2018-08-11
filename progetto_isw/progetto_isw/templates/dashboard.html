@@ -3,11 +3,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mattia Frongia">
+    <meta name="keywords" content="Scrumello dashboard homepage personal-dashboard">
     <title>{{ user.username }}'s Scrumello Dashboard</title>
+    <!-- bootstrap library -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <!-- personal styles -->
     <link rel="stylesheet" href="{% static 'styles/dashboard_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
-    <p>{{ message }}</p>
-    <a href="{% url 'logout' %}">logout</a>
+    <header>
+        {% include 'navbar.html' %}
+        {% block navbar %}
+        {% endblock %}
+    </header>
+
+    <main class="page_content">
+        <p>{{ message }}</p>
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+        <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
+    </main>
+
 </body>
 </html>

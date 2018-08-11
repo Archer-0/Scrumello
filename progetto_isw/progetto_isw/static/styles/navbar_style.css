@@ -1,0 +1,181 @@
+:root {
+    --header_animation_time_to-small: 170ms;
+    --header_animation_time_to-big: 500ms;
+    --header_transition_background_color_time: 200ms;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+header {
+    -webkit-font-smoothing: antialiased;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    -webkit-transform: translateZ(0);
+}
+
+@supports (position: sticky) {
+    body {
+        padding-top: 0;
+    }
+
+    header {
+        position: sticky;
+    }
+}
+
+.navbar {
+    position: relative;
+    height: 80px;
+    width: 100%;
+    transition: var(--header_animation_time_to-big) ease, background-color 200ms ease;
+}
+
+.navbar .nav {
+    padding: 0;
+    display: inline-block;
+    float: right;
+    margin: 0 5% 0 0;
+    transition: var(--header_animation_time_to-big) ease;
+}
+
+.navbar .nav .item {
+    list-style: none;
+    display: inline-block;
+    font-size: 18px;
+    padding: 5px;
+    font-weight: 300;
+    line-height: 80px;
+    margin-right: 20px;
+    transition: var(--header_animation_time_to-big) ease;
+}
+
+.navbar .nav .item .profile {
+    display: inline-block;
+    /*background-color: rgba(34, 34, 34, 0.4);*/
+    background-color: transparent;
+    height: 40px;
+    line-height: 30px;
+    padding: .35rem;
+    border-radius: 30px;
+    transition: var(--header_animation_time_to-big) ease;
+    text-transform: none;
+}
+
+.navbar .nav .item .profile img {
+    transition: 400ms;
+    border-radius: 50%;
+}
+
+.navbar .nav .item a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.navbar .logo {
+    float: left;
+    display: flex;
+    margin-top: 0;
+    margin-left: 5%;
+    width: auto;
+    height: 70px;
+    padding: 0 5px 0 5px;
+    background-color: rgba(34, 34, 34, 0.4);
+    transition: var(--header_animation_time_to-big) ease;
+    border-radius: 3px;
+    text-align: center;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-decoration: none;
+}
+
+.navbar .logo h1 {
+    text-align: center;
+    margin-bottom: 0;
+    align-self: auto;
+    transition: var(--header_animation_time_to-big) ease;
+}
+
+.navbar .logo a,
+.navbar .logo a:hover,
+.navbar .logo a:focus {
+    line-height: 1.2;
+    margin-bottom: 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar text {
+    display: none;
+}
+
+.scrolled {
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+.scrolled.navbar .nav {
+    margin: 0;
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+.scrolled.navbar {
+    height: 50px;
+    background-color: rgba(34, 34, 34, 0.6);
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+.scrolled.navbar .nav .item {
+    line-height: 40px;
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+.scrolled.navbar .nav .item .profile {
+    display: inline-block;
+    background-color: rgba(34, 34, 34, 0.4);
+    height: 40px;
+    line-height: 30px;
+    padding: .35rem;
+    border-radius: 30px;
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+.scrolled.navbar .nav .item .profile:hover {
+    border-radius: 3px;
+}
+
+.scrolled.navbar .nav .item .profile:hover img {
+    transition: 700ms;
+    border-radius: 3px;
+}
+
+.scrolled.navbar .logo {
+    float: left;
+    display: flex;
+    margin-top: 0;
+    margin-left: -12px;
+    width: auto;
+    border-radius: 0 0 0 0;
+    height: 50px;
+    padding: 0 5px 0 5px;
+    transition: var(--header_animation_time_to-small) ease;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.scrolled.navbar .logo h1 {
+    text-align: center;
+    margin-bottom: 7px;
+    align-self: auto;
+    transition: var(--header_animation_time_to-small) ease;
+}
+
+/* for all pages */
+
+.page_content {
+    margin: 10px;
+}

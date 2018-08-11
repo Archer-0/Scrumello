@@ -27,51 +27,63 @@ def login_signup(request):
 
     # se e' stata effettuata una richiesta POST
     if request.method == "POST":
-        login_form = LoginForm(request.POST)
         signup_form = SignupForm(request.POST)
-        if request.POST.get('submit') == 'log_in' and login_form.is_valid():
-            username = login_form.cleaned_data['login_username']
-            password = login_form.cleaned_data['login_password']
+        login_form = LoginForm(request.POST)
 
-            # autenticazione dell'utente
-            user = authenticate(username=username, password=password)
+        if request.POST.get('submit') == 'log_in':
+            print ('submit value = ' + str(request.POST.get('submit')))     # log
+            if login_form.is_valid():
+                print ('login form is valid')
+                username = login_form.cleaned_data['login_username']
+                password = login_form.cleaned_data['login_password']
 
-            # se l'utente e' esiste gia' si effettua il login e lo si ridireziona al dashboard
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    # return HttpResponseRedirect("/dashboard/")
-                    return HttpResponseRedirect("/login_signup/")
+                # autenticazione dell'utente
+                user = authenticate(username=username, password=password)
+                # se l'utente esiste ed user.is_active == true
+                if user is not None:
+                    # se l'utente e' attivo si effettua il login e lo si ridireziona alla dashboard
+                    if user.is_active:
+                        login(request, user)
+                        return HttpResponseRedirect("/dashboard/", {
+                            "user": user,
+                        })
+                    # se l'utente non e' attivo vuol dire che e' stato bloccato e si stampa un messaggio di errore
+                    else:
+                        return render(request, "login_signup.html", {
+                            "login_form": login_form, "signup_form": signup_form,
+                        })
+                # se l'utente non esiste si stampa un messaggio di errore
                 else:
                     return render(request, "login_signup.html", {
                         "login_form": login_form, "signup_form": signup_form,
                     })
 
-            else:
-                return render(request, "login_signup.html", {
-                    "login_form": login_form, "signup_form": signup_form,
-                })
-
         # se viene fatto il submit del form di registrazione
+        # "submit" e' l'attributo "name" del button del form
         elif request.POST.get('submit') == 'sign_up' and signup_form.is_valid():
             # creazione nuovo utente
             user = User()
             user_tmp = User.objects.all().filter(username=signup_form.cleaned_data['signup_username'])
+
             if user_tmp.__len__() > 0:
-                error_message = "The user %s already exists. Do you want to login instead?", signup_form.cleaned_data['signup_username']
+                error_message = 'The user \"' + signup_form.cleaned_data['signup_username'] + '\" already exists. Did you want to login instead?'
+                signup_form.fields['signup_username'].widget.attrs['class'] = 'forms_field-input form-error-outline'
                 return render(request, "login_signup.html", {
-                    'login_form': login_form, 'signup_form': signup_form, "error_message": error_message
+                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click', "signup_error_message": error_message
                 })
+
             if signup_form.cleaned_data['signup_password'] == signup_form.cleaned_data['signup_password_confirm']:
                 user.username = signup_form.cleaned_data['signup_username']
                 user.set_password(signup_form.cleaned_data['signup_password'])
                 user.save()
                 login(request, user)
-                return HttpResponseRedirect("/dashboard/")
+                print('ciao')
+                return HttpResponseRedirect("dashboard")
             else:
                 error_message = "Passwords do not match"
+                signup_form.fields['signup_password_confirm'].widget.attrs['class'] = 'forms_field-input form-error-outline'
                 return render(request, "login_signup.html", {
-                    'login_form': login_form, 'signup_form': signup_form, "signup_error_message": error_message
+                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click', "signup_error_message": error_message
                 })
 
     # se non e' stata effettuata nessuna richiesta POST
@@ -84,7 +96,7 @@ def login_signup(request):
         'signup_form': signup_form,
         'welcomeText': welcomeTexts[random.randrange(0, len(welcomeTexts))],
         # 'signup_error_message': 'This is an error for the god of the yedsakjldasd asasjdhas dkjdhad askjdhsd askdjhas dkajsdha kdasjdhas kdjashd akdjhasd kasjdh askdjahd askjdhas kdjashd kjasdhas kjdhad as',
-        # 'login_error_message': 'This is an error'
+        # 'login_error_message': 'This is a error'
     })
 
 
