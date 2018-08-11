@@ -1,14 +1,14 @@
 # coding=utf-8
 import random
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from forms import *
 
-welcomeTexts = ['pandas 🐼!', 'cookies!', 'RGB!', 'the force!', 'ice cream!', 'cmd.exe', 'sudo makeprrr🐱']
+welcomeTexts = ['pandas 🐼!', 'cookies!', 'RGB!', 'the force!', 'ice cream!', 'cmd.exe', 'sudo makeprrr 🐱']
 
 
 # about page
@@ -79,3 +79,21 @@ def login_signup(request):
         # 'signup_error_message': 'This is an error for the god of the yedsakjldasd asasjdhas dkjdhad askjdhsd askdjhas dkajsdha kdasjdhas kdjashd akdjhasd kasjdh askdjahd askjdhas kdjashd kjasdhas kjdhad as',
         # 'login_error_message': 'This is an error'
     })
+
+
+def log_out(request):
+    print ('Logging out user: \"' + request.user.username + '\"...')
+    if request.user.is_authenticated():
+        logout(request)
+        print ('Logged out')
+
+    return HttpResponseRedirect("/login_signup/ ")
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html', {
+        'user': request.user,
+        'message': 'Hey ' + request.user.username + ', all is working like a charm. Yeah! \\m/'
+    })
+
+

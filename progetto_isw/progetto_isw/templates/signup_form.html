@@ -4,15 +4,12 @@
         {% csrf_token %}
         <fieldset class="forms_fieldset">
             <div class="forms_field">
-                <!--<input type="text" placeholder="Full Name" class="forms_field-input" required autofocus maxlength="32"/>-->
                 {{signup_form.signup_username}}
             </div>
             <div class="forms_field">
-                <!--<input type="email" placeholder="Email" class="forms_field-input" required maxlength="32"/>-->
                 {{signup_form.signup_password}}
             </div>
             <div class="forms_field">
-                <!--<input type="password" placeholder="Password" class="forms_field-input" required maxlength="32"/>-->
                 {{signup_form.signup_password_confirm}}
             </div>
         </fieldset>

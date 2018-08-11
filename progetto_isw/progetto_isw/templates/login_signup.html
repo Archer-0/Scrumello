@@ -42,44 +42,14 @@
 
             <div class="user_options-forms {{ form_class }}" id="user_options-forms">
                 <div class="user_forms-login">
-                    <!--<h2 class="forms_title">Login</h2>
-                    <form class="forms_form">
-                        <fieldset class="forms_fieldset">
-                            <div class="forms_field">
-                                <input type="email" placeholder="Email" class="forms_field-input" required autofocus />
-                            </div>
-                            <div class="forms_field">
-                                <input type="password" placeholder="Password" class="forms_field-input" required />
-                            </div>
-                        </fieldset>
-                        <div class="forms_buttons">
-                            <button type="button" class="forms_buttons-forgot"></button>
-                            <input type="submit" value="Log In" class="forms_buttons-action">
-                        </div>
-                    </form>-->
+
                     {% include 'login_form.html' %}
                     {% block login_form_block %}
                     {% endblock %}
                 </div>
 
                 <div class="user_forms-signup">
-                    <!--<h2 class="forms_title">Sign Up</h2>
-                    <form class="forms_form">
-                    <fieldset class="forms_fieldset">
-                        <div class="forms_field">
-                            <input type="text" placeholder="Full Name" class="forms_field-input" required />
-                        </div>
-                        <div class="forms_field">
-                            <input type="email" placeholder="Email" class="forms_field-input" required />
-                        </div>
-                        <div class="forms_field">
-                            <input type="password" placeholder="Password" class="forms_field-input" required />
-                        </div>
-                    </fieldset>
-                        <div class="forms_buttons">
-                            <input type="submit" value="Sign up" class="forms_buttons-action">
-                        </div>
-                    </form>-->
+
                     {% include 'signup_form.html' %}
                     {% block signup_form_block %}
                     {% endblock %}

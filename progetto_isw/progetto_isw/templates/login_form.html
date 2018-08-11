@@ -4,11 +4,9 @@
         {% csrf_token %}
         <fieldset class="forms_fieldset">
             <div class="forms_field">
-                <!--<input type="email" placeholder="Email" class="forms_field-input" required autofocus />-->
                 {{login_form.login_username}}
             </div>
             <div class="forms_field">
-                <!--<input type="password" placeholder="Password" class="forms_field-input" required />-->
                 {{login_form.login_password}}
             </div>
         </fieldset>
