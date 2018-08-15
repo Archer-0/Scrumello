@@ -96,7 +96,7 @@ def login_signup(request):
         'login_form': login_form,
         'signup_form': signup_form,
         'welcomeText': welcomeTexts[random.randrange(0, len(welcomeTexts))],
-        # 'signup_error_message': 'This is an error for the god of the yedsakjldasd asasjdhas dkjdhad askjdhsd askdjhas dkajsdha kdasjdhas kdjashd akdjhasd kasjdh askdjahd askjdhas kdjashd kjasdhas kjdhad as',
+        # 'signup_error_message': 'This is an error for the god of the yedsakjldasd asasjdhas dkjdhad askjdhsd askdjhas dkajsdha kdasjdhas',
         # 'login_error_message': 'This is a error'
     })
 
