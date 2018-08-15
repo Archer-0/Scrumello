@@ -173,9 +173,3 @@ header {
     align-self: auto;
     transition: var(--header_animation_time_to-small) ease;
 }
-
-/* for all pages */
-
-.page_content {
-    margin: 10px;
-}

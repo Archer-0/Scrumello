@@ -1,0 +1,48 @@
+{% block toolbar_block %}
+
+    <div class="toolbar-container">
+
+        <div class="hambbutton">
+            <a href="#">
+                <span></span>
+            </a>
+        </div>
+
+        <ul class="toolbar hidden">
+            <li class="toolbar-item">
+                <a href="#">Add column</a>
+            </li>
+            <li class="toolbar-item">
+                <a href="#">Add card</a>
+            </li>
+            <li class="toolbar-item">
+                <a href="#">Add user</a>
+            </li>
+            <li class="toolbar-item">
+                <a href="#">Burndown</a>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+    hamb = $('.hambbutton a');
+
+    hamb.on('click', function(e) {
+        e.preventDefault();
+        $(this).toggleClass('animate');
+        $('span').toggleClass('back');
+        $('.toolbar').toggleClass('hidden');
+        $('.toolbar-container').toggleClass('expanded');
+    });
+
+    {# quando si clicca un elemento della toolbox essa si chiude #}
+    $('.toolbar-item').on('click', function (e) {
+        e.preventDefault();
+        e.preventDefault();
+        $(this).toggleClass('animate');
+        $('span').toggleClass('back');
+        $('.toolbar').toggleClass('hidden');
+        $('.toolbar-container').toggleClass('expanded');
+    })
+    </script>
+{% endblock %}

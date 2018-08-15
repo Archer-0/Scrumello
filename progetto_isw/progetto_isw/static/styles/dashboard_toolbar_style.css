@@ -1,0 +1,145 @@
+:root {
+    --button_width: 12px;
+    --button_height: 12px;
+}
+
+.toolbar-container {
+    position: fixed;
+    border-radius: 0px 5px 5px 0px;
+    width: 40px;
+    height: 45px;
+    background-color: rgba(34, 34, 34, 0.5);
+    padding: 10px;
+    color: #FFFFFF;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    list-style: none;
+    display: inline-flex;
+    transition: all 500ms ease;
+}
+
+.toolbar-container.expanded {
+    width: 400px;
+}
+
+.toolbar {
+    padding: 0px;
+    list-style: none;
+    margin: 0;
+    margin-left: 20px;
+    display: contents;
+    opacity: 1;
+}
+
+.toolbar.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.toolbar-item {
+    margin: auto 20px auto auto;
+    transition: 1000ms ease;
+    opacity: 1;
+}
+
+.toolbar-item:last-of-type {
+    margin: auto;
+}
+
+.toolbar-item:hover a {
+    color: #e1d5ff;
+}
+
+.toolbar-item a {
+    text-decoration: none;
+    color: #FFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 500ms ease;
+}
+
+.hambbutton {
+    display: block;
+    position: relative;
+    width: 20px;
+    height: auto;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.hambbutton:hover {
+
+}
+
+.hambbutton a {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    height: auto;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hambbutton a.animate {
+    -webkit-transform: rotate(-360deg);
+          transform: rotate(-360deg);
+}
+
+.hambbutton a:hover span {
+    width: 20px;
+}
+
+.hambbutton a:hover span:after {
+    width: 20px;
+}
+
+.hambbutton a span {
+    display: inline-block;
+    position: relative;
+    width: 15px;
+    height: 3px;
+    background: #ffffff;
+    top: 50%;
+    border-radius: 0px;
+    -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hambbutton a span.back {
+    width: 15px;
+}
+
+.hambbutton a span.back:before {
+  width: 10px;
+  -webkit-transform: translateY(2px) translateX(-0.2px) rotate(-40deg);
+          transform: translateY(2px) translateX(-0.2px) rotate(-40deg);
+}
+
+.hambbutton a span.back:after {
+  width: 10px;
+  -webkit-transform: translateY(-2px) translateX(-0.2px) rotate(40deg);
+          transform: translateY(-2px) translateX(-0.2px) rotate(40deg);
+}
+
+.hambbutton a span:before {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 3px;
+  top: -5px;
+  border-radius: 0px;
+  background: #FFFFFF;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hambbutton a span:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 3px;
+  top: 5px;
+  border-radius: 0px;
+  background: #FFFFFF;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

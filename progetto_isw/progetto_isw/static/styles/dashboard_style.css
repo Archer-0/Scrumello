@@ -4,11 +4,19 @@
 
 .page_content {
     border-radius: 3px;
-    width: 98%;
-    margin: auto;
+    width: auto;
     height: auto;
-    background-color: rgba(34, 34, 34, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 75px;
+    margin-bottom: 20px;
     padding: 10px;
+    background: linear-gradient(-45deg, rgba(120, 120, 120, 0), rgba(100, 100, 100, 0.31));
     color: #FFFFFF;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
+.toolbar-div {
+    margin-left: 0px;
+    margin-top: 10px;
 }
