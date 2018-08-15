@@ -4,6 +4,7 @@
 }
 
 .toolbar-container {
+    bottom: 20px;
     position: fixed;
     border-radius: 0px 5px 5px 0px;
     width: 40px;

@@ -9,7 +9,7 @@ from django.shortcuts import render
 from forms import *
 
 welcomeTexts = ['pandas 🐼!', 'cookies!', 'RGB!', 'the force!', 'ice cream!', 'cmd.exe', 'sudo makeprrr 🐱']
-
+new_user = False
 
 # about page
 def about(request):
@@ -77,8 +77,9 @@ def login_signup(request):
                 user.set_password(signup_form.cleaned_data['signup_password'])
                 user.save()
                 login(request, user)
-                print('ciao')
-                return HttpResponseRedirect("dashboard")
+                print('new user registered')
+                new_user = True;
+                return HttpResponseRedirect("/dashboard/")
             else:
                 error_message = "Passwords do not match"
                 signup_form.fields['signup_password_confirm'].widget.attrs['class'] = 'forms_field-input form-error-outline'
@@ -106,15 +107,23 @@ def log_out(request):
         logout(request)
         print ('Logged out')
 
-    return HttpResponseRedirect("/login_signup/ ")
+    return HttpResponseRedirect("/login_signup/")
 
 
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':
-        return render(request, 'dashboard.html', {
-            'user': request.user,
-            'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/'
-        })
+        if new_user is True:
+            return render(request, 'dashboard.html', {
+                'user': request.user,
+                'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
+                'new_user': True,
+            })
+        else:
+            return render(request, 'dashboard.html', {
+                'user': request.user,
+                'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
+                'new_user': False,
+            })
     else:
         print('Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")

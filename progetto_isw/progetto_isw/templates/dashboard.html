@@ -18,16 +18,23 @@
     <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
     <link rel="stylesheet" href="{% static 'styles/dashboard_toolbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/tutorial_box_style.css' %}">
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 <body>
-    <header>
+{#    <header>#}
         {% include 'navbar.html' %}
         {% block navbar %}
         {% endblock %}
-    </header>
+{#    </header>#}
+
+    {% if new_user is True%}
+        {% include 'toolbar_guide.html' %}
+        {% block tutorial_box %}
+        {% endblock %}
+    {% endif %}
 
     <div class="toolbar-div">
         {% include 'dashboard_toolbar.html' %}

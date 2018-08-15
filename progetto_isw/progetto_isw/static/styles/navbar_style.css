@@ -75,6 +75,7 @@ header {
     text-transform: uppercase;
     color: #FFFFFF;
     font-size: 14px;
+    letter-spacing: 1px;
 }
 
 .navbar .logo {
