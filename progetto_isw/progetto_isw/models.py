@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Board(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, default='New Board')
     users = models.ManyToManyField(User)
 
     def __unicode__(self):
@@ -17,7 +17,7 @@ class Board(models.Model):
 
 
 class Column(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, default='New Column')
     mother_board = models.ForeignKey(Board, null=True)
 
     def __unicode__(self):
@@ -25,7 +25,7 @@ class Column(models.Model):
 
 
 class Card(models.Model):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=128, default='New Card')
     description = models.CharField(max_length=1024)
     expire_date = models.DateField(default=datetime.datetime.now)
     story_points = models.IntegerField()

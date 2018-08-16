@@ -30,14 +30,14 @@
         {% endblock %}
 {#    </header>#}
 
-    {% if new_user is True%}
-        {% include 'toolbar_guide.html' %}
-        {% block tutorial_box %}
-        {% endblock %}
-    {% endif %}
+{#    {% if new_user is True %}#}
+{#        {% include 'toolbar_guide.html' %}#}
+{#        {% block tutorial_box %}#}
+{#        {% endblock %}#}
+{#    {% endif %}#}
 
     <div class="toolbar-div">
-        {% include 'dashboard_toolbar.html' %}
+        {% include 'board_toolbar.html' %}
         {% block toolbar_block %}
         {% endblock %}
     </div>
@@ -45,6 +45,7 @@
     <main class="page_content">
 
         <p>{{ message }}</p>
+        <p>new_user === {{ new_user }}</p>
         <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
         <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao
         <br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao<br/>Ciao

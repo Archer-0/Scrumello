@@ -9,7 +9,7 @@
     border-radius: 0px 5px 5px 0px;
     width: 40px;
     height: 45px;
-    background-color: rgba(34, 34, 34, 0.5);
+    background-color: rgba(34, 34, 34, 0.9);
     padding: 10px;
     color: #FFFFFF;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
@@ -19,7 +19,7 @@
 }
 
 .toolbar-container.expanded {
-    width: 400px;
+    width: 450px;
 }
 
 .toolbar {
@@ -40,10 +40,12 @@
     margin: auto 20px auto auto;
     transition: 1000ms ease;
     opacity: 1;
+    /*border-right: 1px solid #FFF;*/
 }
 
 .toolbar-item:last-of-type {
     margin: auto;
+    /*border-right: none;*/
 }
 
 .toolbar-item:hover a {

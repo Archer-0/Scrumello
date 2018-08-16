@@ -51,13 +51,15 @@ def login_signup(request):
                         })
                     # se l'utente non e' attivo vuol dire che e' stato bloccato e si stampa un messaggio di errore
                     else:
+                        error_message = 'The user \"' + login_form.cleaned_data['login_username'] + '\" has been banned.'
                         return render(request, "login_signup.html", {
-                            "login_form": login_form, "signup_form": signup_form,
+                            "login_form": login_form, "signup_form": signup_form, 'login_error_message': error_message
                         })
                 # se l'utente non esiste si stampa un messaggio di errore
                 else:
+                    error_message = 'Wrong username or password. Try again!'
                     return render(request, "login_signup.html", {
-                        "login_form": login_form, "signup_form": signup_form,
+                        "login_form": login_form, "signup_form": signup_form, 'login_error_message': error_message
                     })
 
         # se viene fatto il submit del form di registrazione
@@ -81,7 +83,7 @@ def login_signup(request):
                 login(request, user)
                 print('new user registered')
                 global new_user
-                new_user = False
+                new_user = True
                 return HttpResponseRedirect("/dashboard/")
             else:
                 error_message = "Passwords do not match"
@@ -115,19 +117,18 @@ def log_out(request):
 
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':
-        global new_user
+        if request.user :
+            boards = Board.objects.all().filter(users=request.user)
+
         if new_user is True:
-            new_user = False    # reset the new user variable
             return render(request, 'dashboard.html', {
                 'user': request.user,
                 'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
-                'new_user': True,
             })
         else:
             return render(request, 'dashboard.html', {
                 'user': request.user,
                 'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
-                'new_user': False,
             })
     else:
         print('Unauthorized access. Redirecting user to login page')
