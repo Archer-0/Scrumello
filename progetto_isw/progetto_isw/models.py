@@ -18,7 +18,7 @@ class Board(models.Model):
 
 class Column(models.Model):
     name = models.CharField(max_length=128)
-    mother_board = models.ForeignKey(Board)
+    mother_board = models.ForeignKey(Board, null=True)
 
     def __unicode__(self):
         return self.name
@@ -29,7 +29,7 @@ class Card(models.Model):
     description = models.CharField(max_length=1024)
     expire_date = models.DateField(default=datetime.datetime.now)
     story_points = models.IntegerField()
-    mother_column = models.ForeignKey(Column)
+    mother_column = models.ForeignKey(Column, null=True)
     users = models.ManyToManyField(User)
 
     def __unicode__(self):

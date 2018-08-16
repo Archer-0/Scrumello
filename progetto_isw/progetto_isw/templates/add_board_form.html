@@ -1,0 +1,13 @@
+{% block add_board_form_block %}
+    <h2 class="forms_title">Add Board</h2>
+    <form class="forms_form" action="" method="get">
+        {% csrf_token %}
+        <fieldset class="forms_fieldset">
+            <div class="forms_field">
+                {{board_form.board_name}}
+            </div>
+        </fieldset>
+            <button type="submit" value="create_board" name="submit" class="forms_buttons-action">Create</button>
+        </div>
+    </form>
+{% endblock %}

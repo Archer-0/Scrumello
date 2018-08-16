@@ -132,3 +132,9 @@ def dashboard(request):
     else:
         print('Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")
+
+
+def add_board(request):
+    return render(request, 'add_board_form.html', {
+        'name': request.name,
+    })
