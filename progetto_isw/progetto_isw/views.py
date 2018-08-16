@@ -117,25 +117,22 @@ def log_out(request):
 
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':
-        if request.user :
+        if request.user:
             boards = Board.objects.all().filter(users=request.user)
 
-        if new_user is True:
-            return render(request, 'dashboard.html', {
-                'user': request.user,
-                'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
-            })
-        else:
-            return render(request, 'dashboard.html', {
-                'user': request.user,
-                'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
-            })
+        board_creation_form = BoardCreationForm()
+        board_creation_form
+        return render(request, 'dashboard.html', {
+            'user': request.user,
+            'message': 'Hey ' + request.user.username + ', all is working',
+            'board_creation_form': board_creation_form,
+        })
     else:
         print('Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")
 
 
 def add_board(request):
-    return render(request, 'add_board_form.html', {
+    return render(request, 'board_creation_form.html', {
         'name': request.name,
     })

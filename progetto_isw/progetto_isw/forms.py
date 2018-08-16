@@ -11,7 +11,8 @@ class LoginForm(forms.Form):
             attrs={'class': 'forms_field-input',
                    'placeholder': 'Username',
                    'required': 'true',
-                   'autofocus': 'true'}))
+                   'autofocus': 'true'})
+    )
 
     login_password = forms.CharField(
         label="Password",
@@ -20,7 +21,8 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={'class': 'forms_field-input',
                    'placeholder': 'Password',
-                   'required': 'true'}))
+                   'required': 'true'})
+    )
 
 
 class SignupForm(forms.Form):
@@ -32,7 +34,8 @@ class SignupForm(forms.Form):
             attrs={'class': 'forms_field-input',
                    'placeholder': 'Username',
                    'required': 'true',
-                   'autofocus': 'true'}))
+                   'autofocus': 'true'})
+    )
 
     signup_password = forms.CharField(
         label="Password",
@@ -41,7 +44,8 @@ class SignupForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={'class': 'forms_field-input',
                    'placeholder': 'Password',
-                   'required': 'true'}))
+                   'required': 'true'})
+    )
 
     signup_password_confirm = forms.CharField(
         label="Repeat Password",
@@ -49,19 +53,27 @@ class SignupForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={'class': 'forms_field-input',
                    'placeholder': 'Repeat Password',
-                   'required': 'true'}))
+                   'required': 'true'})
+    )
 
 
 class BoardCreationForm(forms.Form):
     board_name = forms.CharField(
         label="Board Name",
         max_length=512,
-        required=True)
+        required=True,
+        widget=forms.TextInput(
+            attrs={'class': 'form_popup_field-input',
+                   'placeholder': 'New board name',
+                   'required': 'true',
+                   'autofocus': 'true'})
+    )
 
 
 class ColumnCreationForm(forms.Form):
     column_name = forms.CharField(
         label="Column Name",
         max_length=512,
-        required=True)
+        required=True
+    )
 

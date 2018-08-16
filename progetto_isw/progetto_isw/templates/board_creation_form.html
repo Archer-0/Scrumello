@@ -1,0 +1,17 @@
+{% block board_creation_form_block %}
+    <div class="form_popup">
+        <h2 class="form_popup_title">Add Board</h2>
+        <form class="form_popup_form" action="" method="get">
+            {% csrf_token %}
+            <fieldset class="form_popup_fieldset">
+                <div class="form_popup_field">
+                    {{board_creation_form.board_name}}
+                </div>
+            </fieldset>
+                <button type="submit"
+                        value="create_board"
+                        name="submit"
+                        class="form_popup_buttons-action">Create</button>
+        </form>
+    </div>
+{% endblock %}
