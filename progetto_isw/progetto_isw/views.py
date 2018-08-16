@@ -44,6 +44,8 @@ def login_signup(request):
                     # se l'utente e' attivo si effettua il login e lo si ridireziona alla dashboard
                     if user.is_active:
                         login(request, user)
+                        global new_user
+                        new_user = False
                         return HttpResponseRedirect("/dashboard/", {
                             "user": user,
                         })
@@ -78,7 +80,8 @@ def login_signup(request):
                 user.save()
                 login(request, user)
                 print('new user registered')
-                new_user = True;
+                global new_user
+                new_user = False
                 return HttpResponseRedirect("/dashboard/")
             else:
                 error_message = "Passwords do not match"
@@ -112,7 +115,9 @@ def log_out(request):
 
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':
+        global new_user
         if new_user is True:
+            new_user = False    # reset the new user variable
             return render(request, 'dashboard.html', {
                 'user': request.user,
                 'message': 'Hey ' + request.user.username + ', all is working like a fuckin\' charm. Yeah! \\m/',
