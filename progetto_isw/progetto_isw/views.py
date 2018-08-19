@@ -121,7 +121,7 @@ def dashboard(request):
             boards = Board.objects.all().filter(users=request.user)
 
         board_creation_form = BoardCreationForm()
-        board_creation_form
+
         return render(request, 'dashboard.html', {
             'user': request.user,
             'message': 'Hey ' + request.user.username + ', all is working',
@@ -133,6 +133,46 @@ def dashboard(request):
 
 
 def add_board(request):
-    return render(request, 'board_creation_form.html', {
-        'name': request.name,
+    if str(request.user) != 'AnonymousUser':
+        if request.method == 'POST':
+            if request.POST.get('submit') == 'create_board':
+                board_form = BoardCreationForm(request.POST)
+                # convalida del form e salvataggio
+                if board_form.is_valid():
+                    board_name = board_form.cleaned_data['board_name']
+                    new_board = Board()
+                    new_board.name = board_name
+                    new_board.save()
+                    new_board.users.add(request.user.id)
+                    print(__name__ + 'New board created. Name: ' + new_board.name)
+
+                    # redirezione alla pagina della board appena creata
+                    return HttpResponseRedirect("/board/" + str(new_board.id) + "/")
+        else:
+            board_form = BoardCreationForm();
+
+        return render(request, 'dashboard.html', {
+            'user': request.user,
+            'message': 'Hey ' + request.user.username + ', all is working',
+            'board_creation_form': board_form,
+        })
+
+    else:
+        print('Unauthorized access. Redirecting user to login page')
+        return HttpResponseRedirect("/login_signup/")
+
+def board_view(request, board_id):
+    global new_user
+
+    show_tutorial = False
+
+    if new_user:
+        show_tutorial = True
+        new_user = False
+
+    board = Board.objects.get(pk=board_id)
+
+    return render(request, 'board.html', {
+        'board_name': board.name,
+        'show_tutorial': show_tutorial,
     })

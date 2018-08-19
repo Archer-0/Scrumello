@@ -68,6 +68,7 @@ header {
 .navbar .nav .item .profile img {
     transition: 400ms;
     border-radius: 50%;
+    vertical-align: middle;
 }
 
 .navbar .nav .item a {

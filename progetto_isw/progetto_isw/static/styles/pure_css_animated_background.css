@@ -2,6 +2,11 @@
     --animation_time: 120000ms;
 }
 
+*{
+    box-sizing: border-box;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
 html {
     -webkit-font-smoothing: antialiased;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.01);
@@ -17,7 +22,7 @@ html {
     font-weight: 500;
 
     /* l'ultimo colore e' il primo in alto a sinistra e il primo e' l'ultimo in basso a destra*/
-    background: linear-gradient(-45deg, #a7423fc4, rgba(255, 83, 80, 0.77), #368fd3, #2b3f77) fixed;
+    background: linear-gradient(-45deg, /*#a7423fc4,*/ rgba(205, 70, 67, 0.77), #368fd3, #3a5ca3) fixed;
     background-size: 400% 400%;
 	-webkit-animation: Gradient var(--animation_time) linear infinite;
 	-moz-animation: Gradient var(--animation_time) linear infinite;

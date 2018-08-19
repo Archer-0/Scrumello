@@ -1,0 +1,115 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Board "{{ board_name }}"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mattia Frongia">
+    <meta name="keywords" content="Scrumello board {{ board_name }}">
+    <!-- bootstrap library -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/board_toolbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    {% if show_tutorial is True%}
+        <link rel="stylesheet" href="{% static 'styles/tutorial_box_style.css' %}">
+    {% endif %}
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% block navbar %}
+    {% endblock %}
+
+    {% if show_tutorial is True %}
+        {% include 'toolbar_guide.html' %}
+        {% block tutorial_box %}
+        {% endblock %}
+    {% endif %}
+
+    <div class="toolbar-div">
+        {% include 'board_toolbar.html' %}
+        {% block toolbar_block %}
+        {% endblock %}
+    </div>
+
+    <main class="page_content">
+        <div class="columns">
+
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+            <h1>{{ board_name }}</h1>
+        </div>
+    </main>
+</body>
+</html>
