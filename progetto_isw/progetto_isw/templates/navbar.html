@@ -34,11 +34,13 @@
             window.scrollTo(0, 0);
 
             $(window).on('scroll', function() {
+                {# quando si raggiunge il valore indicato di scroll la nav bar si contrae #}
                 if (Math.round($(window).scrollTop()) > 50) {
                     $('.navbar').addClass('scrolled');
                     wasScrolled = true;
                 }
-                if (Math.round($(window).scrollTop()) < 5) {
+                {# la nav bar torna grande solo quando si torna in testa alla pagina#}
+                if (Math.round($(window).scrollTop()) <= 1) {
                     $('.navbar').removeClass('scrolled');
                     if (wasScrolled === true) {
                             window.scrollTo(0, 0);

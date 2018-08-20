@@ -27,7 +27,7 @@ input {
 }
 
 .big_button {
-    width: 95%;
+    width: 100%;
     font-size: 12px;
     padding: 10px 30px;
 }
@@ -62,14 +62,21 @@ input {
     display: block;
     margin: auto;
     width: 100%;
-    /*border: 1px solid #ccc;*/
+    height: 110px;
+    border: 1px solid rgba(193, 193, 193, 0.49);
     border-radius: 3px;
     color: #fff;
     background-color: rgba(34, 34, 34, .2);
+    transition: 200ms ease;
 }
 
 .form_popup_title {
-
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    text-align: start;
+    /*border: 1px solid #FFF;*/
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 300;
 }
 
 .form_popup_form {
@@ -119,18 +126,52 @@ input {
 }
 
 .form_popup_buttons-action {
+    height: auto;
+    vertical-align: middle;
+    align-items: center;
     font-size: 10px;
-    padding: 2px 5px;
-    border-radius: 20px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border-color: #47ae4e;
+    color: #47ae4e;
+    background-color: rgba(34, 34, 34, .3);
+    font-weight: 500;
+}
+
+.form_popup_buttons-action:hover {
+    background-color: #47ae4e;
+    color: #fff;
 }
 
 .cancel_button,
 .cancel_button:hover,
-.cancel_button:focus{
-    color: #ff706b;
-    font-size: 9px;
+.cancel_button:focus {
+    font-size: 10px;
     text-transform: uppercase;
     margin-right: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.cancel_button {
+    height: auto;
+    color: #ff706b;
+    border: 1px solid #ff706b;
+    border-radius: 3px;
+    display: inline-block;
+    align-items: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    line-height: normal;
+    letter-spacing: 0.2rem;
+    background-color: rgba(34, 34, 34, .3);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.cancel_button:hover {
+    background-color: #ff706b;
+    color: white;
+
 }
 
 .hidden-popup {

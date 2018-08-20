@@ -18,11 +18,14 @@
     <link rel="stylesheet" href="{% static 'styles/board_toolbar_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/board_style.css' %}">
+
     {% if show_tutorial is True%}
         <link rel="stylesheet" href="{% static 'styles/tutorial_box_style.css' %}">
     {% endif %}
 
 </head>
+
 <body>
     {% include 'navbar.html' %}
     {% block navbar %}

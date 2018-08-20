@@ -3,7 +3,7 @@
         <span class="button_text">Create Board</span>
     </button>
     <div class="form_popup hidden-popup">
-        <h2 class="form_popup_title">Add Board</h2>
+        <h2 class="form_popup_title">Create Board</h2>
         <form class="form_popup_form" action="{% url 'add_board' %}" method="POST">
             {% csrf_token %}
             <fieldset class="form_popup_fieldset">

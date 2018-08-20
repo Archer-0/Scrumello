@@ -166,7 +166,7 @@ def board_view(request, board_id):
 
     show_tutorial = False
 
-    if new_user:
+    if new_user is True:
         show_tutorial = True
         new_user = False
 
