@@ -51,9 +51,13 @@
             <h1 class="board_list_title">
                 Your Boards
             </h1>
-            {% for board in boards %}
-                <p>{{ board.name }}</p>
-            {% endfor %}
+            <ul>
+                {% for board in boards %}
+                    <li class="board">
+                        <h3 class="board_title">{{ board.name }}</h3>
+                    </li>
+                {% endfor %}
+            </ul>
 
             {% comment %}<p>{{ message }}</p>
             <p>{{ message }}</p>
