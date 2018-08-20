@@ -11,6 +11,7 @@ from forms import *
 welcomeTexts = ['pandas 🐼!', 'cookies!', 'RGB!', 'the force!', 'ice cream!', 'cmd.exe', 'sudo makeprrr 🐱']
 new_user = False
 
+
 # about page
 def about(request):
     return render(request, 'about.html')
@@ -31,7 +32,7 @@ def login_signup(request):
         login_form = LoginForm(request.POST)
 
         if request.POST.get('submit') == 'log_in':
-            print ('submit value = ' + str(request.POST.get('submit')))     # log
+            print ('submit value = ' + str(request.POST.get('submit')))  # log
             if login_form.is_valid():
                 print ('login form is valid')
                 username = login_form.cleaned_data['login_username']
@@ -51,7 +52,8 @@ def login_signup(request):
                         })
                     # se l'utente non e' attivo vuol dire che e' stato bloccato e si stampa un messaggio di errore
                     else:
-                        error_message = 'The user \"' + login_form.cleaned_data['login_username'] + '\" has been banned.'
+                        error_message = 'The user \"' + login_form.cleaned_data[
+                            'login_username'] + '\" has been banned.'
                         return render(request, "login_signup.html", {
                             "login_form": login_form, "signup_form": signup_form, 'login_error_message': error_message
                         })
@@ -70,10 +72,12 @@ def login_signup(request):
             user_tmp = User.objects.all().filter(username=signup_form.cleaned_data['signup_username'])
 
             if user_tmp.__len__() > 0:
-                error_message = 'The user \"' + signup_form.cleaned_data['signup_username'] + '\" already exists. Did you want to login instead?'
+                error_message = 'The user \"' + signup_form.cleaned_data[
+                    'signup_username'] + '\" already exists. Did you want to login instead?'
                 signup_form.fields['signup_username'].widget.attrs['class'] = 'forms_field-input form-error-outline'
                 return render(request, "login_signup.html", {
-                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click', "signup_error_message": error_message
+                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click',
+                    "signup_error_message": error_message
                 })
 
             if signup_form.cleaned_data['signup_password'] == signup_form.cleaned_data['signup_password_confirm']:
@@ -87,9 +91,11 @@ def login_signup(request):
                 return HttpResponseRedirect("/dashboard/")
             else:
                 error_message = "Passwords do not match"
-                signup_form.fields['signup_password_confirm'].widget.attrs['class'] = 'forms_field-input form-error-outline'
+                signup_form.fields['signup_password_confirm'].widget.attrs[
+                    'class'] = 'forms_field-input form-error-outline'
                 return render(request, "login_signup.html", {
-                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click', "signup_error_message": error_message
+                    'login_form': login_form, 'signup_form': signup_form, 'form_class': 'signup-click',
+                    "signup_error_message": error_message
                 })
 
     # se non e' stata effettuata nessuna richiesta POST
@@ -122,9 +128,14 @@ def dashboard(request):
 
         board_creation_form = BoardCreationForm()
 
-        return render(request, 'dashboard.html', {
+        # return render(request, 'dashboard.html', {
+        #     'user': request.user,
+        #     'message': 'Hey ' + request.user.username + ', all is working',
+        #     'board_creation_form': board_creation_form,
+        # })
+        return render(request, 'dashboard.html',  {
             'user': request.user,
-            'message': 'Hey ' + request.user.username + ', all is working',
+            'boards': boards,
             'board_creation_form': board_creation_form,
         })
     else:
@@ -160,6 +171,7 @@ def add_board(request):
     else:
         print('Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")
+
 
 def board_view(request, board_id):
     global new_user

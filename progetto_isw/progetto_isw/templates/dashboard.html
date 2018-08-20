@@ -51,6 +51,11 @@
             <h1 class="board_list_title">
                 Your Boards
             </h1>
+            {% for board in boards %}
+                <p>{{ board.name }}</p>
+            {% endfor %}
+
+            {% comment %}<p>{{ message }}</p>
             <p>{{ message }}</p>
             <p>{{ message }}</p>
             <p>{{ message }}</p>
@@ -137,8 +142,7 @@
             <p>{{ message }}</p>
             <p>{{ message }}</p>
             <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
+            <p>{{ message }}</p>{% endcomment %}
         </div>
     </main>
 
