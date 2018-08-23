@@ -10,7 +10,7 @@
 }
 
 .unauthorized_window {
-    background: rgba(255, 0, 4, 0.5);
+    background: rgba(255, 0, 4, 0.7);
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     padding: 20px;
     height: fit-content;

@@ -218,8 +218,19 @@ def add_board(request):
 # visualizzazione di una board
 # l'id della board che si vuole visualizzare viene scritto nell'url
 def board_view(request, board_id):
-    if str(request.user) != 'AnonymousUser':
-        board = Board.objects.get(pk=board_id)       # ricerca della board nel database
+    if str(request.user) != 'AnonymousUser':        # solito controllo sull'utente
+
+        # per intercettare l'eccezione della board non trovata si racchiude l'operazione di ricerca in un blocco try/catch
+        try:
+            board = Board.objects.get(pk=board_id)       # ricerca della board nel database
+        except Board.DoesNotExist:
+            error_message = 'The board you are trying to access does not exist.'
+            error_suggestions = ['If you got here following a link present in your Dashboard, then delete cookies and clean the cache of the browser, reload the page and try again. If problem persists contact us. We apologize for the inconvenience.',
+                                 'If you created the board recently, try to create another one. If problem persists contact us. We apologize for the inconvenience.',
+                                 'If a psychopathic artificial intelligence is trying to kill you, well, stand still, stay calm and scream: \"THIS STATEMENT IS FALSE!\" or \"DOES A SET OF ALL SETS CONTAIN ITSELF?\".',
+                                 'If you got here accidentally just go back to your Dashboard.']
+
+            return raise_error_page(request, error_message, error_suggestions)      # si ridireziona all apagina di errore nel caso venga lanciata una eccezione
 
         # si esegue una verifica che l'utente sia autorizzato ad accedere alla board richiesta
         is_user_authorized = False
@@ -228,17 +239,13 @@ def board_view(request, board_id):
                 is_user_authorized = True
 
         if is_user_authorized == False:
-            print('Unauthorized access. Redirecting user to unauthorized_access page')      # log
+            print('Unauthorized access. Redirecting user to unauthorized_access page.')      # log
             error_message = 'You do not have sufficient permission to access the requested board.'
-            error_suggestions = ['If you created the board, try to create another one. If problem persists contact us.',
-                                 'If you know other users that can access the board, ask them to add you to authorized users',
-                                 'If you arrived here accidentally just go back to your Dashboard']
+            error_suggestions = ['If you created the board, try to create another one. If problem persists contact us. We apologize for the inconvenience.',
+                                 'If you know other users that can access the board, ask them to add you to authorized users.',
+                                 'If you got here accidentally just go back to your Dashboard.']
 
-            return render(request, 'unauthorized_access.html', {
-                'user': request.user,
-                'error_message': error_message,
-                'error_suggestions': error_suggestions,
-            })
+            return raise_error_page(request, error_message, error_suggestions)      # solito messaggio di errore
 
         # per i nuovi utenti viene visualizzato un mini tutorial per la toolbar
         global new_user
@@ -247,6 +254,11 @@ def board_view(request, board_id):
             show_tutorial = True
             new_user = False
 
+        # creazione variabili da caricare nella pagina
+        columns = Column.objects.filter(mother_board=board_id)
+        cards = []
+        for column in columns:
+            cards += Card.objects.all().filter(mother_column=column.id)
 
         new_column_form = ColumnCreationForm()
 
@@ -254,6 +266,8 @@ def board_view(request, board_id):
         return render(request, 'board.html', {
             'user': request.user,
             'board': board,
+            'columns': columns,
+            'cards': cards,
             'show_tutorial': show_tutorial,
             'new_column_form': new_column_form,
         })
@@ -261,6 +275,7 @@ def board_view(request, board_id):
     else:
         print('Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")
+
 
 # aggiunge una colonna ad una board
 def add_column(request, board_id):
@@ -304,15 +319,13 @@ def add_card(request, board_id):
     return None
 
 
+def raise_error_page(request, error_message, error_suggestions):
 
-
-
-
-
-
-
-
-
+    return render(request, 'unauthorized_access.html', {
+        'user': request.user,
+        'error_message': error_message,
+        'error_suggestions': error_suggestions,
+    })
 
 
     # if str(request.user) != 'AnonymousUser':

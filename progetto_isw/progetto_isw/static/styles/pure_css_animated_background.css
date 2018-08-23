@@ -23,7 +23,8 @@ html {
 
     /* l'ultimo colore e' il primo in alto a sinistra e il primo e' l'ultimo in basso a destra*/
     /*background: linear-gradient(-45deg, !*#a7423fc4,*! rgba(205, 70, 67, 0.77), #368fd3, #3a5ca3) fixed;*/
-    background: linear-gradient(-45deg, /*#a7423fc4,*/ rgb(205, 0, 181), #7a00d3, #1500a3) fixed;
+    /*background: linear-gradient(-45deg, !*#a7423fc4,*! rgb(205, 0, 181), #7a00d3, #1500a3) fixed;*/
+	background: #1e8080;
     background-size: 400% 400%;
 	-webkit-animation: Gradient var(--animation_time) linear infinite;
 	-moz-animation: Gradient var(--animation_time) linear infinite;

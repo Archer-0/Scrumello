@@ -4,8 +4,7 @@
     border-radius: 3px;
     width: -webkit-fill-available;
     height: auto;
-    margin: 5px;
-    margin-left: 50px;
+    margin: 5px 5px 5px 50px;
 }
 
 .board_list {
@@ -23,9 +22,10 @@
 .board_item {
     color: #FFF;
     box-shadow: 0 0 5px rgba(33, 33, 33, 0.1);
-    background: linear-gradient(-45deg, #00ff68, #008bff 90%);
+    background: linear-gradient(-45deg, #0000003d, #1b2d6191 90%);
+    /*background: #5d3c6d;*/
     transition: 300ms ease;
-    border-radius: 5px;
+    border-radius: 2px;
     display: flex;
     margin: 10px;
     width: fit-content;
@@ -39,7 +39,9 @@
 .board_thumb {
     padding: 10px;
     border-radius: 3px;
-    width: 200px;
+    width: auto;
+    max-width: 350px;
+    min-width: 200px;
     height: 120px;
     overflow: hidden;
     text-overflow: ellipsis;

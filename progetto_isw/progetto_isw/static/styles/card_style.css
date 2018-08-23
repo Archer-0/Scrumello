@@ -82,8 +82,8 @@
 .story-points {
     margin-bottom: 0;
     justify-content: end;
-    width: available;
-    width: -webkit-fill-available;
+    /*noinspection CssInvalidPropertyValue*/
+    width: 100%;
     text-transform: capitalize;
     font-weight: 500;
 }
@@ -91,11 +91,12 @@
 .expire-date span,
 .story-points span {
     font-weight: 300;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
 }
 
 .story-points {
     justify-self: end;
+    width: 100%;
 }
 
 .card_name_form {
@@ -220,13 +221,6 @@
     height: 100px;
 }
 
-.card-info.new_card {
-    margin-top: 6px;
-}
-
-.card-info.new_card {
-    display: flex;
-}
 
 .card-content.new_card {
     display: grid;
@@ -238,10 +232,31 @@
     background: transparent;
     border: 0;
     border-bottom: 1px solid rgba(85, 85, 85, 0.31);
-    width: auto;
+    width: 100%;
     transition: border-color 300ms ease;
     padding-top: 0;
 
+}
+
+.card-info.new_card {
+    margin-top: 6px;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.story-points.new_card,
+.expire-date.new_card {
+    display: inline-block;
+    width: 48%;
+}
+
+.story-points.new_card {
+    float: right;
+}
+
+.expire-date.new_card {
+    float: left;
 }
 
 .new_card_expire_date_input:hover,
@@ -262,15 +277,16 @@
     padding-top: 2px;
 }
 
-.story-points {
-    margin-left: 10px;
-    width: auto;
-}
+/*.story-points {*/
+    /*margin-left: 10px;*/
+    /*width: auto;*/
+/*}*/
 
 .new_card_submit_button {
     justify-self: end;
     margin: 10px auto 0 auto;
     width: available;
+    /*noinspection CssInvalidPropertyValue*/
     width: -webkit-fill-available;
     padding: 10px 50px;
     border: 1px solid rgba(36, 119, 65, 0.7);

@@ -1,12 +1,50 @@
 {% block card %}
-    <div class="card-container">
-        <h4 class="card-title">{{ card.title }}</h4>
-        <div class="card-content">
-            <p class="card-description">{{ card.description }}</p>
-            <div class="card-info">
-                <p class="expire-date">Expire Date: {{ card.expire_date }}</p>
-                <p class="story-points">Story Points: {{ card.story_points }}</p>
-            </div>
+    <div class="card-title-container">
+        <form class="prevent_submit_on_enter_press card_name_form hide_submit-card-button hide_delete-card-button hide_modify-card-button" action="">
+            {% csrf_token %}
+            <input hidden type="text" name="card_id" value="{{ card.id }}" title="card ID"/>
+            <input type="text" class="card-title"
+                   onkeyup="show_button(this)" onclick="show_button(this)"
+                   value="{{ card.title }}title" title="Card Title"/>
+            <button class="submit_changes" type="submit" value="update_card_name" name="submit">Submit Changes</button>
+            <button class="delete_card" type="submit" value="delete_card" name="submit">Delete Card</button>
+            <button class="modify_card" type="submit" value="modify_card" name="submit">Advanced Modif.</button>
+        </form>
+    </div>
+    <div class="card-content">
+        <h5 class="card-description">{{ card.description }}description</h5>
+        <div class="card-info">
+            <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+            <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
         </div>
     </div>
+{% endblock %}
+
+{% block new_card_form %}
+    <form class="prevent_submit_on_enter_press new_card_form hide_submit-card-button hide_delete-card-button" action="">
+        <div class="card-title-container">
+            {% csrf_token %}
+            <input hidden type="text" name="column_id" value="{{ column.id }}" title="card ID"/>
+            <input type="text" name="card_name" class="card-title"
+                   onkeyup="show_button(this)" onclick="show_button(this)"
+                   placeholder="New Card Title" title="Card Title" required/>
+        </div>
+        <div class="card-content new_card">
+            <textarea class="new_card_description_input" autocapitalize="sentences" name="card_description" placeholder="Card Description"></textarea>
+            <div class="card-info new_card">
+                <label class="expire-date new_card" for="card_expire_date">Expire Date:
+                    <span>
+                        <input class="new_card_expire_date_input" type="date" name="card_expire_date" value="1996-06-03" required/>
+                    </span>
+                </label>
+                <label class="story-points new_card" for="card_story_points">Story Points:
+                    <span>
+                        <input class="new_card_story_points_input" type="number" name="card_story_points" placeholder="Chose a number" required/>
+                    </span>
+                </label>
+            </div>
+            <button class="new_card_submit_button" type="submit"
+                    value="new_card_create" name="submit">Create Card</button>
+        </div>
+    </form>
 {% endblock %}
