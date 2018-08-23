@@ -1,0 +1,106 @@
+:root {
+    --background-alpha: .5;
+    --color_test: repeating-linear-gradient(
+        45deg,
+        rgba(41, 41, 41, 0.51),
+        rgba(41, 41, 41, 0.53) 20px,
+        rgba(225, 198, 0, 0.57) 20px,
+        rgba(225, 198, 0, 0.53) 40px
+    );
+}
+
+.unauthorized_window {
+    background: rgba(255, 0, 4, 0.5);
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    padding: 20px;
+    height: fit-content;
+    width: 80%;
+    border-radius: 0px;
+    display: block;
+    vertical-align: middle;
+    margin: auto auto auto auto;
+    border: 1px solid #FFF;
+}
+
+.main_error_message {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    padding: 0px;
+}
+
+.error_icon {
+    font-size: 15rem;
+    color: #FFF;
+    letter-spacing: 2px;
+}
+
+.error_message_section {
+    display: grid;
+    margin-left: 10px;
+    outline: 1px solid #FFF;
+    padding: 10px;
+}
+
+.error_word {
+    width: 100%;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.auth_error_message {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.suggestions {
+    padding: 10px;
+    margin-left: 17rem;
+    letter-spacing: 1px;
+}
+
+.suggestions_title {
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+.auth_suggestions {
+    list-style: square outside;
+}
+
+.suggestion_text {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.link_section {
+    display: inline-flex;
+    width: 100%;
+    text-align: end;
+}
+
+.return_to_dashboard {
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid #ffffff;
+    border-radius: 0px;
+    padding: 10px 40px;
+    color: #FFF;
+    background: transparent;
+    font-size: 15px;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    transition: 300ms ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.return_to_dashboard:hover,
+.return_to_dashboard:focus {
+    color: #555555;
+    background: rgba(255, 255, 255, 0.8);
+}

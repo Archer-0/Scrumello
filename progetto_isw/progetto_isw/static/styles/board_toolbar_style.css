@@ -16,6 +16,7 @@
     list-style: none;
     display: inline-flex;
     transition: all 500ms ease;
+    overflow: hidden;
 }
 
 .toolbar-container.expanded {

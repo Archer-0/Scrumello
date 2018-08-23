@@ -22,7 +22,7 @@ input {
     text-transform: uppercase;
     line-height: normal;
     letter-spacing: 0.2rem;
-    background-color: rgba(34, 34, 34, .3);
+    background-color: rgba(34, 34, 34, .1);
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
@@ -30,6 +30,7 @@ input {
     width: 100%;
     font-size: 12px;
     padding: 10px 30px;
+    height: fit-content;
 }
 
 .big_button:hover,
@@ -58,11 +59,11 @@ input {
 }
 
 .form_popup {
-    padding: 5px;
+    padding: 10px 5px;
     display: block;
     margin: auto;
     width: 100%;
-    height: 110px;
+    height: fit-content;
     border: 1px solid rgba(193, 193, 193, 0.49);
     border-radius: 3px;
     color: #fff;

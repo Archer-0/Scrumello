@@ -3,5 +3,178 @@
 }
 
 .columns {
+    display: inline-flex;
+    width: auto;
+    list-style: none;
+}
+
+.column {
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    min-width: 250px;
+    max-width: 400px;
+    color: #555555;
+    overflow: hidden;
+    margin: 20px;
+    transition: 300ms ease;
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.1);
+    height: fit-content;
+    width: 350px;
+}
+
+.column:hover {
+    box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
+}
+
+.column:focus-within {
+    box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
 
 }
+
+.column-title-container {
+    text-align: left;
+    /*background: linear-gradient(155deg, #5a61ced6 40%, rgb(152, 126, 164) 100%);*/
+    background-color: #2b3f77;
+    padding: 10px;
+    border-bottom: 3px solid #FFF;
+    color: white;
+    width: auto;
+    -webkit-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
+    -moz-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
+    box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
+}
+
+.column-title,
+.new_column-title {
+    color: #FFF;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    outline: 0;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-size: 35px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    width: 100%;
+    transition: 200ms ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.column-title:focus {
+    border-bottom: 1px solid white;
+}
+
+.column-content {
+    padding: 5px;
+    list-style: none;
+}
+
+.column_name_form {
+    display: inline-flex;
+}
+
+.column_name_form.hide_submit-button button.submit_changes {
+    width: 0;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 300ms ease, opacity 300ms ease, width 300ms ease,
+                padding 300ms ease, border 300ms ease, margin 300ms ease;
+}
+
+.column_name_form button.submit_changes,
+.column_name_form button.delete_column {
+    visibility: visible;
+    opacity: 1;
+    padding: 2px 5px;
+    background-color: rgba(114, 114, 114, 0.1);
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+    transition: visibility 0ms ease, opacity 300ms ease, width 300ms ease,
+                padding 300ms ease, border 300ms ease, margin 300ms ease,
+                background-color 200ms ease, color 200ms ease;
+    width: 30%;
+    overflow: hidden;
+}
+
+.column_name_form button.submit_changes {
+    color: #47ae4e;
+    border: 1px solid #47ae4e;
+}
+
+.column_name_form button.submit_changes:hover {
+    background-color: rgba(71, 174, 78, 0.7);
+    color: #FFF;
+}
+
+.column_name_form button.delete_column {
+    border: 1px solid #ff706b;
+    color: #ff706b;
+}
+
+.column_name_form button.delete_column:hover {
+    background-color: rgba(255, 112, 107, 0.7);
+    color: #FFF;
+}
+
+.column_name_form.hide_delete-button button.delete_column {
+    width: 0;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 300ms ease, opacity 300ms ease, width 300ms ease,
+                padding 300ms ease, border 100ms ease, margin 100ms ease;
+}
+
+.column_name_form:focus button {
+    display: inline-flex;
+}
+
+
+/* column creation form */
+.column_creation {
+    display: flex;
+    background: transparent;
+}
+
+.column_creation:hover {
+    background-color: rgba(43, 63, 119, 0.5);
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.1);
+}
+
+.column_creation:focus-within {
+    background-color: rgba(43, 63, 119, 1);
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.1);
+}
+
+.column_creation .column-title-container {
+    border: none;
+    background-color: rgba(43, 63, 119, 0.4);
+}
+
+.new_column-title:focus {
+    border-bottom: 1px solid #FFF;
+}
+
+.new_column-title::placeholder {
+    opacity: 1;
+    transition: opacity 200ms ease;
+}
+
+.new_column-title:focus::placeholder {
+    opacity: 0;
+}
+
+.new_column-title::placeholder {
+    color: #FFF;
+    font-weight: 200;
+}
+

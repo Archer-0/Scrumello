@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^board/(?P<board_id>\d+)/', views.board_view, name='board'),
+    url(r'^add_card/(?P<board_id>\d+)', views.add_card, name='add_card'),
+    url(r'^add_column/(?P<board_id>\d+)', views.add_column, name='add_column'),
     url(r'^add_board/', views.add_board, name='add_board'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^logout/', views.log_out, name='logout'),

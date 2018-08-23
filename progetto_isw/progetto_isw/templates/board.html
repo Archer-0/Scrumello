@@ -3,22 +3,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Board "{{ board_name }}"</title>
+    <title>Board "{{ board.name }}"</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Mattia Frongia">
-    <meta name="keywords" content="Scrumello board {{ board_name }}">
+    <meta name="keywords" content="Scrumello board {{ board.name }}">
     <!-- bootstrap library -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <script src="{% static 'scripts/board_scripts.js' %}"></script>
+    <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
 
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
     <link rel="stylesheet" href="{% static 'styles/board_toolbar_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/board_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/card_style.css' %}">
+
 
     {% if show_tutorial is True%}
         <link rel="stylesheet" href="{% static 'styles/tutorial_box_style.css' %}">
@@ -43,76 +45,273 @@
         {% endblock %}
     </div>
 
-    <main class="page_content">
-        <div class="columns">
+    <main class="page_content horizontal-scroll">
+        <ul class="columns">
+{#            {% for column in columns %}#}
+                <li class="column">
+                    <div class="column-title-container">
+                        <form class="prevent_submit_on_enter_press column_name_form hide_submit-button hide_delete-button" action="">
+                            {% csrf_token %}
+                            <input hidden type="text" name="column_id" value="{{ column.id }}" title="Column ID"/>
+                            <input type="text" class="column-title" onkeyup="show_button(this)" value="{{ column.name }}" title="Column name"/>
+                            <button class="submit_changes" type="submit" value="update_column_name" name="submit">Submit Changes</button>
+                            <button class="delete_column" type="submit" value="delete_column" name="submit">Delete Column</button>
+                        </form>
+                    </div>
+                    <ul class="column-content">
+{#                        {% for card in cards %}#}
+{#                            {% if card.mother_column == column %}#}
+                                <li class="card-container">
+                                    <div class="card-title-container">
+                                        <form class="prevent_submit_on_enter_press card_name_form hide_submit-card-button hide_delete-card-button hide_modify-card-button" action="">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="card_id" value="{{ card.id }}" title="card ID"/>
+                                            <input type="text" class="card-title"
+                                                   onkeyup="show_button(this)" onclick="show_button(this)"
+                                                   value="{{ card.title }}title" title="Card Title"/>
+                                            <button class="submit_changes" type="submit" value="update_card_name" name="submit">Submit Changes</button>
+                                            <button class="delete_card" type="submit" value="delete_card" name="submit">Delete Card</button>
+                                            <button class="modify_card" type="submit" value="modify_card" name="submit">Advanced Modif.</button>
+                                        </form>
+                                    </div>
+                                    <div class="card-content">
+                                        <h5 class="card-description">{{ card.description }}description</h5>
+                                        <div class="card-info">
+                                            <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                            <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
+                                        </div>
+                                    </div>
+                                </li>
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
 
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-            <h1>{{ board_name }}</h1>
-        </div>
+                        <li class="card-container last_card">
+                            <form class="prevent_submit_on_enter_press new_card_form hide_submit-card-button hide_delete-card-button" action="">
+                                <div class="card-title-container">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="column_id" value="{{ column.id }}" title="card ID"/>
+                                    <input type="text" name="card_name" class="card-title"
+                                           onkeyup="show_button(this)" onclick="show_button(this)"
+                                           placeholder="New Card Title" title="Card Title" required/>
+                                </div>
+                                <div class="card-content new_card">
+                                    <textarea class="new_card_description_input" autocapitalize="sentences" name="card_description" placeholder="Card Description"></textarea>
+{#                                    <h5 class="card-description">{{ card.description }}</h5>#}
+                                    <div class="card-info new_card">
+                                        <label class="expire-date" for="card_expire_date">Expire Date:
+                                            <span>
+                                                <input class="new_card_expire_date_input" type="date" name="card_expire_date" value="1996-06-03" required/>
+                                            </span>
+                                        </label>
+                                        <label class="story-points" for="card_story_points">Story Points:
+                                            <span>
+                                                <input class="new_card_story_points_input" type="number" name="card_story_points" placeholder="Chose a number" required/>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <button class="new_card_submit_button" type="submit"
+                                            value="new_card_create" name="submit">Create Card</button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <li class="column">
+                        <div class="column-title-container">
+                            <form class="prevent_submit_on_enter_press column_name_form hide_submit-button hide_delete-button" action="">
+                                {% csrf_token %}
+                                <input hidden type="text" name="column_id" value="{{ column.id }}" title="Column ID"/>
+                                <input type="text" class="column-title" onkeyup="show_button(this)" value="{{ column.name }}" title="Column name"/>
+                                <button class="submit_changes" type="submit" value="update_column_name" name="submit">Submit Changes</button>
+                                <button class="delete_column" type="submit" value="delete_column" name="submit">Delete Column</button>
+                            </form>
+                        </div>
+                        <ul class="column-content">
+    {#                        {% include 'card.html' %}#}
+    {#                        {% block card %}#}
+    {#                        {% endblock %}#}
+
+    {#                        {% for card in cards %}#}
+    {#                            {% if card.mother_column == column %}#}
+                                    <li class="card-container">
+                                        <div class="card-title-container">
+                                            <form class="prevent_submit_on_enter_press card_name_form hide_submit-card-button hide_delete-card-button hide_modify-card-button" action="">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name="card_id" value="{{ card.id }}" title="card ID"/>
+                                                <input type="text" class="card-title"
+                                                       onkeyup="show_button(this)" onclick="show_button(this)"
+                                                       value="{{ card.title }}title" title="Card Title"/>
+                                                <button class="submit_changes" type="submit" value="update_card_name" name="submit">Submit Changes</button>
+                                                <button class="delete_card" type="submit" value="delete_card" name="submit">Delete Card</button>
+                                                <button class="modify_card" type="submit" value="modify_card" name="submit">Advanced Modif.</button>
+                                            </form>
+                                        </div>
+                                        <div class="card-content">
+                                            <h5 class="card-description">{{ card.description }}description</h5>
+                                            <div class="card-info">
+                                                <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                                <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="card-container">
+                                        <div class="card-title-container">
+                                            <form class="prevent_submit_on_enter_press card_name_form hide_submit-card-button hide_delete-card-button hide_modify-card-button" action="">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name="card_id" value="{{ card.id }}" title="card ID"/>
+                                                <input type="text" class="card-title"
+                                                       onkeyup="show_button(this)" onclick="show_button(this)"
+                                                       value="{{ card.title }}title" title="Card Title"/>
+                                                <button class="submit_changes" type="submit" value="update_card_name" name="submit">Submit Changes</button>
+                                                <button class="delete_card" type="submit" value="delete_card" name="submit">Delete Card</button>
+                                                <button class="modify_card" type="submit" value="modify_card" name="submit">Advanced Modif.</button>
+                                            </form>
+                                        </div>
+                                        <div class="card-content">
+                                            <h5 class="card-description">{{ card.description }}description</h5>
+                                            <div class="card-info">
+                                                <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                                <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
+                                            </div>
+                                        </div>
+                                    </li>
+    {#                            {% endif %}#}
+    {#                        {% endfor %}#}
+
+                            <li class="card-container last_card">
+                                <form class="prevent_submit_on_enter_press new_card_form hide_submit-card-button hide_delete-card-button" action="">
+                                    <div class="card-title-container">
+                                        {% csrf_token %}
+                                        <input hidden type="text" name="column_id" value="{{ column.id }}" title="card ID"/>
+                                        <input type="text" name="card_name" class="card-title"
+                                               onkeyup="show_button(this)" onclick="show_button(this)"
+                                               placeholder="New Card Title" title="Card Title" required/>
+                                    </div>
+                                    <div class="card-content new_card">
+                                        <textarea class="new_card_description_input" autocapitalize="sentences" name="card_description" placeholder="Card Description"></textarea>
+    {#                                    <h5 class="card-description">{{ card.description }}</h5>#}
+                                        <div class="card-info new_card">
+                                            <label class="expire-date" for="card_expire_date">Expire Date:
+                                                <span>
+                                                    <input class="new_card_expire_date_input" type="date" name="card_expire_date" value="1996-06-03" required/>
+                                                </span>
+                                            </label>
+                                            <label class="story-points" for="card_story_points">Story Points:
+                                                <span>
+                                                    <input class="new_card_story_points_input" type="number" name="card_story_points" placeholder="Choose a number" required/>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <button class="new_card_submit_button" type="submit"
+                                                value="new_card_create" name="submit">Create Card</button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                <li class="column">
+                    <div class="column-title-container">
+                        <form class="prevent_submit_on_enter_press column_name_form hide_submit-button hide_delete-button" action="">
+                            {% csrf_token %}
+                            <input hidden type="text" name="column_id" value="{{ column.id }}" title="Column ID"/>
+                            <input type="text" class="column-title" onkeyup="show_button(this)" value="{{ column.name }}" title="Column name"/>
+                            <button class="submit_changes" type="submit" value="update_column_name" name="submit">Submit Changes</button>
+                            <button class="delete_column" type="submit" value="delete_column" name="submit">Delete Column</button>
+                        </form>
+                    </div>
+                    <ul class="column-content">
+{#                        {% include 'card.html' %}#}
+{#                        {% block card %}#}
+{#                        {% endblock %}#}
+
+{#                        {% for card in cards %}#}
+{#                            {% if card.mother_column == column %}#}
+                                <li class="card-container">
+                                    <div class="card-title-container">
+                                        <form class="prevent_submit_on_enter_press card_name_form hide_submit-card-button hide_delete-card-button hide_modify-card-button" action="">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="card_id" value="{{ card.id }}" title="card ID"/>
+                                            <input type="text" class="card-title"
+                                                   onkeyup="show_button(this)" onclick="show_button(this)"
+                                                   value="{{ card.title }}title" title="Card Title"/>
+                                            <button class="submit_changes" type="submit" value="update_card_name" name="submit">Submit Changes</button>
+                                            <button class="delete_card" type="submit" value="delete_card" name="submit">Delete Card</button>
+                                            <button class="modify_card" type="submit" value="modify_card" name="submit">Advanced Modif.</button>
+                                        </form>
+                                    </div>
+                                    <div class="card-content">
+                                        <h5 class="card-description">{{ card.description }}description</h5>
+                                        <div class="card-info">
+                                            <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                            <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
+                                        </div>
+                                    </div>
+                                </li>
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+
+                        <li class="card-container last_card">
+                            <form class="prevent_submit_on_enter_press new_card_form hide_submit-card-button hide_delete-card-button" action="">
+                                <div class="card-title-container">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name="column_id" value="{{ column.id }}" title="card ID"/>
+                                    <input type="text" name="card_name" class="card-title"
+                                           onkeyup="show_button(this)" onclick="show_button(this)"
+                                           placeholder="New Card Title" title="Card Title" required/>
+                                </div>
+                                <div class="card-content new_card">
+                                    <textarea class="new_card_description_input" autocapitalize="sentences" name="card_description" placeholder="Card Description"></textarea>
+{#                                    <h5 class="card-description">{{ card.description }}</h5>#}
+                                    <div class="card-info new_card">
+                                        <label class="expire-date" for="card_expire_date">Expire Date:
+                                            <span>
+                                                <input class="new_card_expire_date_input" type="date" name="card_expire_date" value="1996-06-03" required/>
+                                            </span>
+                                        </label>
+                                        <label class="story-points" for="card_story_points">Story Points:
+                                            <span>
+                                                <input class="new_card_story_points_input" type="number" name="card_story_points" placeholder="Chose a number" required/>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <button class="new_card_submit_button" type="submit"
+                                            value="new_card_create" name="submit">Create Card</button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+{#            {% endfor %}#}
+            {% comment %} fine foreach colonne{% endcomment %}
+            <li class="column column_creation">
+                <div class="column-title-container">
+                        <form class="prevent_submit_on_enter_press column_name_form hide_submit-button" action="{% url 'add_column' board.id %}" method="POST">
+                            {% csrf_token %}
+{#                            <input hidden type="text" name="board_id" value="{{ board.id }}" title="Board ID"/>#}
+{#                            <input type="text" class="new_column-title" onkeyup="show_button(this)" placeholder="+ New Column" title="Column name"/>#}
+                                {{ new_column_form.column_name }}
+                            <button class="submit_changes" type="submit" value="new_column_create_request" name="submit">Create Column</button>
+                        </form>
+                    </div>
+            </li>
+        </ul>
     </main>
+
+    <script>
+        {# disabilita il tasto invio per form cambio nome colonna #}
+        $('.prevent_submit_on_enter_press').on('keyup keypress', function(e) {
+            let keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        $('.card-title').on('focusout', function (e) {
+            $(this).closest("li").removeClass('shadowed');
+            $(this).closest("form").addClass('hide_modify-card-button');
+            {#$(this).closest("form").add('hide_modify-card-button')#}
+        });
+    </script>
+
 </body>
 </html>

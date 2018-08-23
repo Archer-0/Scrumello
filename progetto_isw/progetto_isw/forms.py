@@ -74,6 +74,10 @@ class ColumnCreationForm(forms.Form):
     column_name = forms.CharField(
         label="Column Name",
         max_length=512,
-        required=True
+        required=True,
+        widget=forms.TextInput(
+            attrs={'class': 'new_column-title',
+                   'placeholder': '+ New Column',
+                   'title': 'New Column Name',
+                   'onkeyup': 'show_button(this)'})
     )
-

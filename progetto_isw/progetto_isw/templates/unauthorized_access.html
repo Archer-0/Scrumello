@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s Scrumello Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mattia Frongia">
+    <meta name="keywords" content="Scrumello unauthorized_access access">
+    <!-- bootstrap library -->
+   <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.css' %}">
+
+    <!-- personal styles -->
+    <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/unauthorized_access_style.css' %}">
+
+</head>
+<body>
+        {% include 'navbar.html' %}
+        {% block navbar %}
+        {% endblock %}
+
+    <main class="page_content">
+        <div class="unauthorized_window">
+            <div class="main_error_message">
+                <i class="fas fa-exclamation-triangle error_icon"></i>
+                <div class="error_message_section">
+                    <h1 class="error_word">ERROR</h1>
+                    <h1 class="auth_error_message">{{ error_message }}</h1>
+                </div>
+            </div>
+            {% if error_suggestions and error_suggestions > 0 %}
+                <div class="suggestions">
+                    <h2 class="suggestions_title">What can you do?</h2>
+                    <ul class="auth_suggestions">
+                        {% for suggestion in error_suggestions %}
+                            <li class="auth_suggestion_item">
+                                <h3 class="suggestion_text">{{ suggestion }}</h3>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="link_section">
+                <a href="{% url 'dashboard' %}" class="return_to_dashboard">Return To Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

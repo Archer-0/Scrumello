@@ -18,6 +18,7 @@ h1 {
     padding-bottom: 16px;
     border-bottom: 1px solid #DDDDDD;
     color: #ffffff;
+    font-weight: 400;
 }
 
 p {
@@ -49,6 +50,7 @@ p {
     font-size: 17px;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     transition: color 300ms ease-in-out;
+    vertical-align: middle;
 }
 
 .navigation a:before,
@@ -62,7 +64,7 @@ p {
 }
 
 .navigation a:hover {
-    color: rgba(255, 255, 255, 1);
+    color: rgb(255, 248, 0);
 }
 
 .content {
