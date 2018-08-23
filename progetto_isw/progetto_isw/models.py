@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 class Board(models.Model):
     name = models.CharField(max_length=128, default='New Board')
     users = models.ManyToManyField(User)
+    n_users = models.IntegerField(default=0)
+    n_columns = models.IntegerField(default=0)
+    n_cards = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name
@@ -19,6 +22,7 @@ class Board(models.Model):
 class Column(models.Model):
     name = models.CharField(max_length=128, default='New Column')
     mother_board = models.ForeignKey(Board, null=True)
+    n_cards = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name

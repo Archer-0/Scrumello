@@ -9,8 +9,8 @@
     height: auto;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 10px;
-    margin-bottom: 85px;
+    margin-top: 90px;
+    margin-bottom: 25px;
     padding: 10px;
     color: #FFFFFF;
     display: inline-flex;
@@ -19,35 +19,24 @@
 .sticky-sidebar {
     display: flex;
     width: 300px;
+    min-width: 250px;
     height: fit-content;
     margin: 5px;
     /*padding: 5px;*/
     border-radius: 3px;
     position: sticky;
     position: -webkit-sticky;
-    top: 90px;
+    top: 120px;
     /*background-color: rgba(34, 34, 34, 0.1);*/
     background-color: transparent;
 }
 
-.board_list {
-    background: linear-gradient(-45deg, rgba(120, 120, 120, 0), rgba(100, 100, 100, 0.31));
-    padding: 10px;
-    border-radius: 3px;
-    width: 100%;
-    height: auto;
-    margin: 5px;
+.horizontal-scroll {
+    width: auto;
+    /*overflow-x: auto;*/
 }
 
-.board {
-    background-color: #47ae4e;
-    padding: 10px;
-    border-radius: 3px;
-    width: 150px;
-    height: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 5px;
-    display: inline-flex;
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
 }
+

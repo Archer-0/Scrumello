@@ -9,16 +9,14 @@
     <meta name="author" content="Mattia Frongia">
     <meta name="keywords" content="Scrumello dashboard homepage personal-dashboard">
     <!-- bootstrap library -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.css' %}">
     <!-- personal styles -->
     <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
     <link rel="stylesheet" href="{% static 'styles/board_creation_form_style.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/tutorial_box_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/dashboard_style.css' %}">
 
 </head>
 <body>
@@ -47,106 +45,26 @@
             {% endblock %}
         </div>
 
-        <div class="board_list">
-            <h1 class="board_list_title">
-                Your Boards
-            </h1>
-            <ul>
-                {% for board in boards %}
-                    <li class="board">
-                        <h3 class="board_title">{{ board.name }}</h3>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            {% comment %}<p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>
-            <p>{{ message }}</p>{% endcomment %}
+        <div class="board_list_container">
+            {% if boards.exists and boards.count > 0 %}
+                <h1 class="board_list_title">Your Boards</h1>
+                <ul class="board_list">
+                    {% for board in boards %}
+                        <li class="board_item">
+                            <a href="/board/{{ board.id }}/" class="board_thumb" title="Open board &quot;{{ board.name }}&quot; ">
+                                <h3 class="board_name">{{ board.name }}</h3>
+                                <div class="board_info">
+                                    <i class="fas fa-user-friends icon_white"><span class="board_details_text">{{ board.n_users }} users</span></i>
+                                    <i class="far fa-window-restore icon_white"><span class="board_details_text">{{ board.n_columns }} columns</span> </i>
+                                    <i class="fas fa-window-restore icon_white"><span class="board_details_text">{{ board.n_cards }} cards</span> </i>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h1 class="board_list_title">You have no boards yet!</h1>
+            {% endif %}
         </div>
     </main>
 

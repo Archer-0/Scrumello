@@ -1,0 +1,94 @@
+.board_list_container {
+    /*background: linear-gradient(-45deg, rgba(120, 120, 120, 0), rgba(100, 100, 100, 0.31));*/
+    padding: 0px 10px 10px 10px;
+    border-radius: 3px;
+    width: -webkit-fill-available;
+    height: auto;
+    margin: 5px;
+    margin-left: 50px;
+}
+
+.board_list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.board_list_title {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-weight: 200;
+    font-size: 6rem;
+}
+
+.board_item {
+    color: #FFF;
+    box-shadow: 0 0 5px rgba(33, 33, 33, 0.1);
+    background: linear-gradient(-45deg, #00ff68, #008bff 90%);
+    transition: 300ms ease;
+    border-radius: 5px;
+    display: flex;
+    margin: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.board_item:hover {
+    box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
+}
+
+.board_thumb {
+    padding: 10px;
+    border-radius: 3px;
+    width: 200px;
+    height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0px;
+    display: block;
+    text-decoration: none;
+}
+
+.board_name {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-weight: 300;
+    color: #FFF;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    margin-top: 0px;
+    font-size: 20px;
+    padding: 1px;
+    margin-bottom: 7px;
+}
+
+.board_info {
+    display: grid;
+}
+
+.board_info i {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.board_info i:first-of-type {
+    margin-top: 5px;
+}
+
+.board_details_text {
+    margin-left: 10px;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.board_details_text:first-of-type {
+    margin-left: 7px;
+}
+
+.icon_white {
+    color: #FFF;
+    font-size: 1rem;
+}
