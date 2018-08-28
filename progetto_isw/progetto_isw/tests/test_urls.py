@@ -30,4 +30,15 @@ class UrlTests(TestCase):
         url = reverse('logout')
         self.assertEqual(url, '/logout/')
 
+    def test_url_search_user(self):
+
+        url = reverse('search_user')
+        self.assertEqual(url, '/search_user/')
+
+    def test_url_add_board(self):
+
+        url = reverse('add_board')
+        self.assertEqual(url, '/add_board/')
+
+
 # comando python per far partire il test: python manage.py test
