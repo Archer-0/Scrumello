@@ -12,20 +12,20 @@
     <link rel="stylesheet" href="{% static 'styles/about_style.css' %}">
 </head>
 <body>
-    <div class="page">
-        <main class="content">
-            <div class="content_inner">
-                <div class="navigation">
-                    <a href="{% url 'login_signup' %}" title="Workers are working very hard">👷 Alpha version</a>
-                </div>
-                <div class="site_name">
-                    <h1>Welcome to Scrumello</h1>
-                    <p>🚧 This site is currently under construction. Don't aspect any big feature for the moment 🚧</p>
-                    <p>The team no. 13 is working on this project very hard.</p>
-                    <p>Team no. 13 is formed by:<br> - Archer-0<br/> - Assandrino<br/> - Chox92<br/> - Gnagnom94</p>
-                </div>
-            </div>
-        </main>
-    </div>
+    <div id="particles-js"></div>
+    <main class="page">
+        <div class="navigation">
+            <a href="{% url 'login_signup' %}" title="Workers are working very hard">👷 Alpha version</a>
+        </div>
+        <div class="site_name">
+            <h1>Welcome to Scrumello</h1>
+            <p>🚧 This site is currently under construction. Don't aspect any big feature for the moment 🚧</p>
+            <p>The team no. 13 is working on this project very hard.</p>
+            <p>Team no. 13 is formed by:<br> - Archer-0<br/> - Assandrino<br/> - Chox92<br/> - Gnagnom94</p>
+        </div>
+    </main>
+
+    <script src="{% static 'particles.js/particles.js' %}"></script>
+    <script src="{% static 'scripts/particle_background.js' %}"></script>
 </body>
 </html>

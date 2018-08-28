@@ -11,14 +11,17 @@ html, body {
 }
 
 body {
-    color: #ffffff;
+    color: #000000;
 }
 
 h1 {
-    padding-bottom: 16px;
-    border-bottom: 1px solid #DDDDDD;
+    /*border-bottom: 1px solid #DDDDDD;*/
     color: #ffffff;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 50px;
+    border: 1px solid white;
+    padding: 10px;
+    width: auto;
 }
 
 p {
@@ -27,14 +30,16 @@ p {
 
 .page {
     height: 100%;
-    /*background-color: #203d52;*/
-    background: repeating-linear-gradient(
-        45deg,
-        #292929,
-        #292929 20px,
-        #e1c600 20px,
-        #e1c600 40px
-    );
+    background-color: #0b2a2a;
+    /*background: repeating-linear-gradient(*/
+        /*45deg,*/
+        /*#292929,*/
+        /*#292929 20px,*/
+        /*#e1c600 20px,*/
+        /*#e1c600 40px*/
+    /*);*/
+
+    padding: 50px;
 }
 
 .navigation {
@@ -73,7 +78,6 @@ p {
     transition: transform 700ms cubic-bezier(1, .005, .24, 1),
         -webkit-transform 700ms cubic-bezier(1, .005, .24, 1);
     box-shadow: 0 0 5rem rgba(0, 0, 0, .5);
-    /*background: url('/static/assets/background-login.jpg') no-repeat center;*/
     background-size: cover;
 }
 
@@ -84,4 +88,23 @@ p {
     padding: 100px 20%;
     line-height: 30px;
     background-color: rgba(34, 34, 34, 0.9);
+}
+
+.site_name {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid white;
+    background: rgba(0, 29, 58, 1);
+}
+
+#particles-js {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 0;
+    color: rgba(3, 3, 3, 0.1);
+}
+
+main {
+        background: rgba(0, 29, 58, 1);
 }

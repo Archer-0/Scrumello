@@ -23,13 +23,21 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^board/(?P<board_id>\d+)/', views.board_view, name='board'),
-    url(r'^add_card/(?P<board_id>\d+)', views.add_card, name='add_card'),
-    url(r'^add_column/(?P<board_id>\d+)', views.add_column, name='add_column'),
+    url(r'^search_user/', views.search_user, name='search_user'),
+    url(r'^modify_or_delete_card/add_or_remove_user_to_card/(?P<user_id>\d+)/(?P<card_id>\d+)/', views.add_or_remove_user_to_card, name='add_or_remove_user_to_card'),
+    url(r'^modify_or_delete_card/(?P<card_id>\d+)/(?P<board_id>\d+)/', views.modify_or_delete_card, name='modify_or_delete_card'),
+    url(r'^add_card/(?P<board_id>\d+)/(?P<column_id>\d+)/', views.add_card, name='add_card'),
+    url(r'^modify_or_delete_column/(?P<column_id>\d+)/(?P<board_id>\d+)/', views.modify_or_delete_column, name='modify_or_delete_column'),
+    url(r'^add_column/(?P<board_id>\d+)/', views.add_column, name='add_column'),
+    url(r'^modify_or_delete_board/add_or_remove_user_to_board/(?P<user_id>\d+)/(?P<board_id>\d+)/', views.add_or_remove_user_to_board, name='add_or_remove_user_to_board'),
+    url(r'^modify_or_delete_board/(?P<board_id>\d+)/', views.modify_or_delete_board, name='modify_or_delete_board'),
     url(r'^add_board/', views.add_board, name='add_board'),
+    url(r'^board/(?P<board_id>\d+)/', views.board_view, name='board'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^logout/', views.log_out, name='logout'),
     url(r'^about/', views.about, name='about'),
     url(r'^', views.login_signup, name='login_signup'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

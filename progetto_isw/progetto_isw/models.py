@@ -5,10 +5,16 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    model_pic = models.ImageField(upload_to='progetto_isw/progetto_isw/static/assets/users_profile_pics',
+                                  default='progetto_isw/progetto_isw/static/assets/default_profile_pic')
+
+
 class Board(models.Model):
     name = models.CharField(max_length=128, default='New Board')
     users = models.ManyToManyField(User)
-    n_users = models.IntegerField(default=0)
+    n_users = models.IntegerField(default=1)
     n_columns = models.IntegerField(default=0)
     n_cards = models.IntegerField(default=0)
 
@@ -34,6 +40,7 @@ class Card(models.Model):
     expire_date = models.DateField(default=datetime.datetime.now)
     story_points = models.IntegerField()
     mother_column = models.ForeignKey(Column, null=True)
+    n_users = models.IntegerField(default=1)
     users = models.ManyToManyField(User)
 
     def __unicode__(self):

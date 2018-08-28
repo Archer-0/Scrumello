@@ -1,38 +1,22 @@
+{% load staticfiles %}
 {% block board_creation_form_block %}
     <button class="big_button" title="Create a new board">
         <span class="button_text">Create Board</span>
     </button>
     <div class="form_popup hidden-popup">
         <h2 class="form_popup_title">Create Board</h2>
-        <form class="form_popup_form" action="{% url 'add_board' %}" method="POST">
+        <form class="form_popup_form prevent_submit_on_enter_press" action="{% url 'add_board' %}" method="POST">
             {% csrf_token %}
             <fieldset class="form_popup_fieldset">
                 <div class="form_popup_field">
                     {{board_creation_form.board_name}}
                 </div>
             </fieldset>
-                <a href="#" class="cancel_button">Cancel</a>
+                <button class="cancel_button ">Cancel</button>
                 <button type="submit"
                         value="create_board"
                         name="submit"
                         class="form_popup_buttons-action">Create</button>
         </form>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('.big_button').on('click', function (e) {
-                e.preventDefault();
-                $('.form_popup').toggleClass('hidden-popup');
-                $('.big_button').toggleClass('hidden-popup');
-                $('.form_popup_field-input').value = '';
-            });
-            $('.cancel_button').on('click', function (e) {
-                e.preventDefault();
-                $('.form_popup').toggleClass('hidden-popup');
-                $('.big_button').toggleClass('hidden-popup');
-                $('.form_popup_field-input').value = '';
-            });
-        });
-    </script>
 {% endblock %}
