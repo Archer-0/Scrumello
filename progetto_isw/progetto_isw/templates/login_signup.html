@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.min.css' %}">
 
     <!-- personal styles -->
-    <link rel="stylesheet" href="{% static 'styles/login_signup_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login_signup_style.css' %}">
 
 </head>
 
@@ -56,6 +56,10 @@
             </div>
         </div>
     </section>
+    <div class="footer">
+        <p>For a better visual experience try installing font <span><a target="_blank" href="https://fonts.google.com/specimen/Roboto">Roboto</a></span> Google&copy;</p>
+        <h2>A website by <span><a href="{% url 'about' %}" title="About us">Gruppo 13&copy;</a></span></h2>
+    </div>
 
     <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'scripts/popper-1.14.4.js' %}"></script>

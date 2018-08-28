@@ -499,11 +499,11 @@ def modify_or_delete_card(request, card_id, board_id):
 
 
                     # si eseguono  controlli per risparmiare accessi al database nel caso non ci siano modifiche
-                    if (card_to_modify.title != new_card_title and card_to_modify.title != ''):
+                    if (card_to_modify.title != new_card_title and new_card_title != ''):
                         card_to_modify.title = new_card_title
                         card_to_modify.save()
 
-                    if (card_to_modify.description != new_card_description and card_to_modify.description != ''):
+                    if (card_to_modify.description != new_card_description and new_card_description != ''):
                         card_to_modify.description = new_card_description
                         card_to_modify.save()
 
@@ -542,12 +542,14 @@ def modify_or_delete_card(request, card_id, board_id):
         previous_board = Board.objects.get(pk=board_id)
 
         card_modification_form = CardModificationForm(board_id, card_id, card_to_modify.mother_column)
+        search_user_form = SearchUserForm()
 
         return render(request, 'modify_card.html', {
             'user': request.user,
             'card_to_modify': card_to_modify,
             'previous_board': previous_board,
             'card_modification_form': card_modification_form,
+            'search_user_form': search_user_form,
         })
 
     else:
@@ -595,7 +597,31 @@ def add_or_remove_user_to_card(request, user_id, card_id):
 # TODO: fare questa funzione e relativo template
 def add_or_remove_user_to_board(request, user_id, board_id):
     if str(request.user) != 'AnonymousUser':
-        pass
+
+        board_to_modify = Board.objects.get(pk=board_id)
+
+        if request.method == 'POST':
+            if request.POST.get('submit') == 'add_user_request':
+                user_to_add = User.objects.get(pk=user_id)
+                print ('Adding user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
+
+                if (board_to_modify.users.all().filter(pk=user_id).count() <= 0):
+                    board_to_modify.users.add(user_to_add)
+                    board_to_modify.n_users += 1
+                    board_to_modify.save()
+                    print ('Added user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
+
+            elif request.POST.get('submit') == 'delete_user_request':
+                user_to_delete = User.objects.get(pk=user_id)
+                print ('Deleting user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
+
+                if (board_to_modify.users.all().filter(pk=user_id).count() > 0):
+                    board_to_modify.users.remove(user_to_delete)
+                    board_to_modify.n_users -= 1
+                    board_to_modify.save()
+                    print ('Deleted user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
+
+        return HttpResponseRedirect("/modify_or_delete_board/" + str(board_id) + '/')
 
 
     else:
@@ -606,16 +632,22 @@ def add_or_remove_user_to_board(request, user_id, board_id):
 
 def search_user(request):
     if str(request.user) != 'AnonymousUser':
+
         if request.method == 'POST':
-            user_searched = request.POST['username_to_search']
+            if request.POST['username_to_search'] != '':
+                user_searched = request.POST['username_to_search']
+            else:
+                user_searched = ''
         else:
             user_searched = ''
 
         card_to_modify = None
         board_to_modify = None
 
-
-        search_match_users = User.objects.filter(username__contains=user_searched)
+        if user_searched != '':
+            search_match_users = User.objects.filter(username__contains=user_searched)
+        else:
+            search_match_users = []
 
         found_users_without_access = []
         found_users_with_access = []
@@ -625,22 +657,25 @@ def search_user(request):
 
             for user in search_match_users:
                 if (user != request.user and not user.is_superuser):
-                    if user in card_to_modify.users.all():
-                        found_users_with_access.append(user)
-                    else:
+                    if user not in card_to_modify.users.all():
                         found_users_without_access.append(user)
+
+            for user in card_to_modify.users.all():
+                if (user != request.user and not user.is_superuser):
+                    found_users_with_access.append(user)
+
 
         elif (request.POST['board_to_modify'] is not None):
             board_to_modify = Card.objects.get(pk=request.POST['board_to_modify'])
 
             for user in search_match_users:
                 if (user != request.user and not user.is_superuser):
-                    for card_user in board_to_modify.users.all():
-                        if user == card_user:
-                            found_users_with_access.append(user)
-                        else:
-                            found_users_without_access.append(user)
+                    if user not in board_to_modify.users.all():
+                        found_users_without_access.append(user)
 
+            for user in board_to_modify.users.all():
+                if (user != request.user and not user.is_superuser):
+                    found_users_with_access.append(user)
 
 
 

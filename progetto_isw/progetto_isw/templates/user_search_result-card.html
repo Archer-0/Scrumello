@@ -3,7 +3,7 @@
 {#          utenti senza permesso #}
             {% if found_users_without_access|length > 0 %}
                 {% for user in found_users_without_access %}
-                    <li class="user_list_item">
+                    <li class="user_list_item without-access">
                         <form class="user_management_form" method="POST" action="{% url 'add_or_remove_user_to_card' user.id object_to_modify.id %}">
                             {% csrf_token %}
                             <h4 class="user_item_username">{{ user.username }}</h4>
@@ -19,7 +19,7 @@
                 <h2>Already added users:</h2>
     {#            utenti con permesso #}
                 {% for user in found_users_with_access %}
-                    <li class="user_list_item">
+                    <li class="user_list_item with-access">
                         <form class="user_management_form" method="POST" action="{% url 'add_or_remove_user_to_card' user.id object_to_modify.id %}">
                             {% csrf_token %}
                             <h4 class="user_item_username">{{ user.username }}</h4>

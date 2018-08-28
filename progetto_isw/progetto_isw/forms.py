@@ -260,3 +260,17 @@ class CardModificationForm(forms.Form):
                        'title': 'Where do you want to put this card?'}
             )
         )
+
+
+class SearchUserForm(forms.Form):
+    user_name = forms.CharField(
+        label="User name",
+        max_length=512,
+        required=False,
+        widget=forms.TextInput(
+            attrs={'class': 'add_user_input',
+                   'onkeyup': 'search_user();',
+                   'placeholder': 'Search for users...',
+                   'title': 'Search users to add to this card'}
+        )
+    )

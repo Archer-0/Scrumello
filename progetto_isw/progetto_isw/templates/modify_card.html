@@ -54,10 +54,11 @@
 
             <div class="users_management">
 
-                <form class="search_user_form" onsubmit="return false;">
+                <form class="search_user_form" onsubmit="return false;" method="POST">
                     <h2>Add users</h2>
                     <div class="user_input_field">
-                        <input id="user_name" onkeyup="search_user()" placeholder="Search users..." class="add_user_input" title="Search users to add to this card">
+{#                        <input id="user_name" onkeyup="search_user()" placeholder="Search users..." class="add_user_input" title="Search users to add to this card">#}
+                        {{ search_user_form.user_name }}
                         <button onclick="reset_search(event)" class="search_user_reset" type="reset" value="search_user"><i class="fas fa-times"></i></button>
                         <button onclick="search_user()" class="search_user" type="submit" value="search_user"><i class="fas fa-search"></i></button>
                     </div>
@@ -83,12 +84,11 @@
 
     <script type="application/javascript">
 
-
         function reset_search(e) {
             e.preventDefault();
             $(".loading_dialog").addClass('hidden_loading');
-            $(".results").hide();
-            $('#user_name').val('');
+            $(".user_list_item.without-access").hide();
+            $("#id_user_name").val('');
         }
 
         jQuery(document).ready(function($) {
@@ -101,6 +101,9 @@
                     return false;
                 }
             });
+
+            search_user();
+
         });
 
         function filter_submit(value) {
@@ -108,7 +111,7 @@
         }
 
         function search_user() {
-            if ($('#user_name').val() !== '') {
+            if ($("#id_user_name").val() !== '') {
 
                 $(".loading_dialog").removeClass('hidden_loading');
 
@@ -119,15 +122,42 @@
                     async: true,
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
-                        username_to_search: $('#user_name').val(),
+                        username_to_search: $("#id_user_name").val(),
                         card_to_modify: '{{ card_to_modify.id }}',
                     },
                     success: search_success,
                 });
             } else {
-                $(".loading_dialog").addClass('hidden_loading');
-                $(".results").hide();
+                {#$(".loading_dialog").removeClass('hidden_loading');#}
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'search_user' %}",
+                    dataType: "html",
+                    async: true,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        username_to_search: '',
+                        card_to_modify: '{{ card_to_modify.id }}',
+                    },
+                    success: search_success_empty,
+                });
+
+                {#$(".loading_dialog").addClass('hidden_loading');#}
+                {#$(".user_list_item.without-access").hide();#}
+                {#$(".results").show();#}
             }
+
+        }
+
+        function search_success_empty(data) {
+            $(".results").show();
+            $(".user_list_item.without-access").hide();
+            $("#results").html(data);
+            setTimeout(
+                function () {
+                    $(".loading_dialog").addClass('hidden_loading');
+                    }, 2000);
         }
 
         function search_success(data) {
@@ -137,7 +167,6 @@
                 function () {
                     $(".loading_dialog").addClass('hidden_loading');
                     }, 2000);
-
         }
     </script>
 </body>
