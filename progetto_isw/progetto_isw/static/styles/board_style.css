@@ -2,33 +2,75 @@
 
 }
 
+/* override general style */
+body {
+    padding-top: 0;
+    max-height: 100%;
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.page_content {
+    height: auto;
+}
+
+.horizontal-scroll {
+    width: fit-content;
+    height: auto;
+    overflow: unset;
+}
+
 .columns {
     display: inline-flex;
     width: auto;
     list-style: none;
+    height: auto;
 }
 
 .column {
     background-color: #e7e7e7;
-    border-radius: 5px;
+    border-radius: 2px;
+    width: 350px;
     min-width: 250px;
     max-width: 400px;
+    height: fit-content;
+    max-height: -webkit-fill-available;
+    max-height: available;
+    display: flex;
+    flex-direction: column;
     color: #555555;
     overflow: hidden;
-    margin: 20px;
-    transition: 300ms ease;
+    margin: 20px 20px 18px 20px;
+    transition: 800ms ease-in-out;
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.1);
-    height: fit-content;
-    width: 350px;
 }
 
-.column:hover {
-    box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
+.column-content::-webkit-scrollbar {
+    width: 8px;
 }
 
+/* Track */
+.column-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Handle */
+.column-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    transition: background-color 300ms ease;
+}
+
+/* Handle on hover */
+.column-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 77, 77, 0.5);
+}
+
+.column:hover,
 .column:focus-within {
+    transition: 600ms ease;
     box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
-
 }
 
 .column-title-container {
@@ -39,9 +81,11 @@
     border-bottom: 3px solid #FFF;
     color: white;
     width: auto;
+    height: 60px;
     -webkit-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
     -moz-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
     box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
+    z-index: 10;
 }
 
 .column-title,
@@ -53,7 +97,7 @@
     border-bottom: 1px solid transparent;
     outline: 0;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    font-size: 35px;
+    font-size: 30px;
     letter-spacing: 1px;
     font-weight: 400;
     width: 100%;
@@ -63,20 +107,91 @@
     white-space: nowrap;
 }
 
+h1.column-title {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+}
+
+a.start_changes {
+    color: rgba(255, 255, 255, 0);
+    transition: color 400ms ease;
+    height: fit-content;
+    font-size: 20px;
+}
+
+.column-title-container:hover a.start_changes {
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 900ms ease;
+
+}
+
+.column-title-container:hover a.start_changes:hover,
+.column-title-container:hover a.start_changes:focus,
+a.discard_column_name_modifications:hover,
+a.discard_column_name_modifications:focus{
+    color: rgba(255, 255, 255, 1);
+    transition: color 300ms ease;
+}
+
+.column-title:hover,
 .column-title:focus {
-    border-bottom: 1px solid white;
+    color: #FFF;
 }
 
 .column-content {
     padding: 5px;
     list-style: none;
+    overflow: auto;
+    max-height: -webkit-fill-available;
+    max-height: available;
+    height: fit-content;
+    z-index: 5;
+}
+
+.column-content li.no_card_text {
+    height: fit-content;
+}
+
+.column-content li.no_card_text p {
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 30px;
+    /*line-height: normal;*/
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    text-align: center;
+}
+
+.column-content li.no_card_text p i {
+    margin-top: 10px;
+    color: #82008f;
 }
 
 .column_name_form {
     display: inline-flex;
+    width: 100%;
 }
 
-.column_name_form.hide_submit-button button.submit_changes {
+.column_name_form p.column_cards_count {
+    flex-direction: row-reverse;
+    width: auto;
+    height: fit-content;
+    margin: auto 0 0 0;
+}
+
+/*
+- hide_submit_button nasconde il bottone di submit quando non e' neccessario
+- hide_column_name_link nasconde tutti gli elementi non non modificabili
+- hide_column_name_input nasconde tutti gli elementi di modifica
+*/
+
+.column_name_form.hide_submit-button button.submit_changes,
+.column_name_form.hide_column_name_link a.start_changes,
+.column_name_form.hide_column_name_link h1.column-title,
+.column_name_form.hide_column_name_link p.column_cards_count,
+.column_name_form.hide_column_name_input input.column-title.input-field,
+.column_name_form.hide_column_name_input a.discard_column_name_modifications {
     width: 0;
     padding: 0;
     border: 0;
@@ -85,6 +200,39 @@
     opacity: 0;
     transition: visibility 300ms ease, opacity 300ms ease, width 300ms ease,
                 padding 300ms ease, border 300ms ease, margin 300ms ease;
+    overflow: hidden;
+}
+
+
+/*
+- questa regola fa il contrario di sopra
+*/
+.column_name_form a.discard_column_name_modifications {
+    width: 10%;
+}
+
+.column_name_form input.column-title.input-field {
+    width: 100%;
+    border-bottom: 1px solid transparent;
+    transition: 300ms ease;
+}
+
+.column_name_form input.column-title.input-field:hover {
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+
+.column_name_form input.column-title.input-field:focus {
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.column_name_form input.column-title.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    transition: 300ms ease-in-out;
+}
+
+.column_name_form input.column-title.input-field:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+
 }
 
 .column_name_form button.submit_changes,
@@ -94,13 +242,21 @@
     padding: 2px 5px;
     background-color: rgba(114, 114, 114, 0.1);
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    border-radius: 3px;
+    border-radius: 2px;
     margin: 0 0 0 10px;
     transition: visibility 0ms ease, opacity 300ms ease, width 300ms ease,
                 padding 300ms ease, border 300ms ease, margin 300ms ease,
                 background-color 200ms ease, color 200ms ease;
     width: 30%;
     overflow: hidden;
+}
+
+.column_name_form.verify-delete button.delete_column {
+    width: 100%;
+}
+
+.column_name_form.verify-delete input.column-title.input-field {
+    width: 0;
 }
 
 .column_name_form button.submit_changes {
@@ -136,6 +292,20 @@
 
 .column_name_form:focus button {
     display: inline-flex;
+}
+
+a.discard_column_name_modifications {
+    vertical-align: middle;
+    text-align: center;
+    display: grid;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 400ms ease;
+}
+
+a.discard_column_name_modifications i {
+    margin: auto;
+    height: auto;
 }
 
 
@@ -177,4 +347,3 @@
     color: #FFF;
     font-weight: 200;
 }
-

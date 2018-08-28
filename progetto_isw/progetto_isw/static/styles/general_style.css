@@ -17,7 +17,7 @@
 }
 
 .sticky-sidebar {
-    display: flex;
+    display: grid;
     width: 300px;
     min-width: 250px;
     height: fit-content;
@@ -33,6 +33,7 @@
 
 .horizontal-scroll {
     width: auto;
+    height: 100%;
     /*overflow-x: auto;*/
 }
 
@@ -40,3 +41,22 @@ a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.11);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+}

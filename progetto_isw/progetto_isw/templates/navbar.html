@@ -8,12 +8,26 @@
                 </a>
             </div>
 
+            <div class="nav_bar_board_name_container">
+                {% if board %}
+                    <form class="prevent_submit_on_enter_press board_name_form hide_submit-button hide_delete-button hide_board_name_input" action="{% url 'modify_or_delete_board' board.id %}" method="post">
+                        <h1 class="header_board_name" title="{{ board.name }}">{{ board.name }}</h1>
+                        <a href="#" class="start_change_board_name" onclick="manage_board_modifications(this);" title="Modify the name of this board"><i class="far fa-edit"></i></a>
+                        <a href="#" class="discard_board_name_modifications" onclick="manage_board_modifications(this);" title="Cancel and discard changes."><i class="fas fa-chevron-left"></i></a>
+                        {% csrf_token %}
+                        {{ board_name_modification_form.new_board_name }}
+                        <button class="submit_changes" onclick="verify_board_text_inserted(event, this);" type="submit" value="change_board_name_request" name="submit">Submit Changes</button>
+                        <button class="delete_board prevent_submit_on_enter_press" onclick="open_delete_board_prompt(event, this);" type="submit" value="delete_board_request" name="submit">Delete Board</button>
+                    </form>
+                {% endif %}
+            </div>
+
             <ul class="nav">
                 <li class="item"><a href="{% url 'about' %}">About</a></li>
                 <li class="item"><a href="{% url 'logout' %}">logout</a></li>
                 <li class="item">
                     <a href="#" class="profile">
-                        <img src="{% static 'assets/default_propic.jpg' %}"
+                        <img src="{% static 'assets/default_profile_pic.svg' %}"
                              height="30"
                              width="30">
                         {{ user.username }}
@@ -26,28 +40,6 @@
     <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'scripts/popper-1.14.4.js' %}"></script>
     <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'scripts/navbar.js' %}"></script>
 
-    <script type="text/javascript" >
-        $(document).ready(function() {
-            var wasScrolled = false;
-
-            window.scrollTo(0, 0);
-
-            $(window).on('scroll', function() {
-                {# quando si raggiunge il valore indicato di scroll la nav bar si contrae #}
-                if (Math.round($(window).scrollTop()) > 50) {
-                    $('.navbar').addClass('scrolled');
-                    wasScrolled = true;
-                }
-                {# la nav bar torna grande solo quando si torna in testa alla pagina#}
-                if (Math.round($(window).scrollTop()) <= 1) {
-                    $('.navbar').removeClass('scrolled');
-                    if (wasScrolled === true) {
-                            window.scrollTo(0, 0);
-                            wasScrolled = false;
-                    }
-                }
-            });
-        });
-    </script>
 {% endblock %}

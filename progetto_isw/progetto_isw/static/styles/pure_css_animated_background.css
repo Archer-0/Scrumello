@@ -1,5 +1,5 @@
 :root {
-    --animation_time: 12000ms;
+    --animation_time: 120000ms;
 }
 
 *{
@@ -9,7 +9,7 @@
 
 html {
     -webkit-font-smoothing: antialiased;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.01);
+    /*text-shadow: 1px 1px 1px rgba(0,0,0,0.01);*/
     /*
     font-family: "Montserrat", sans-serif;
     */
@@ -42,9 +42,6 @@ html {
 body {
     -webkit-font-smoothing: antialiased;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.01);
-    /*
-    font-family: "Montserrat", sans-serif;
-    */
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     font-size: 12px;
     line-height: 1em;

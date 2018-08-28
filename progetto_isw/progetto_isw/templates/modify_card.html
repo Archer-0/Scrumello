@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify "{{ card_to_modify.title }}"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mattia Frongia">
+    <meta name="keywords" content="Scrumello board {{ board.name }}">
+
+    <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
+
+
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/modify_card_style.css' %}">
+
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    {% block navbar %}
+    {% endblock %}
+
+    <main class="page_content">
+
+        {% block card_modification_form_block %}
+
+            <form method="POST" class="card_modification_form" action="{% url 'modify_or_delete_card' card_to_modify.id previous_board.id %}">
+                {% csrf_token %}
+                <a href="/board/{{ previous_board.id }}/" class="discard_card_modifications">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+
+                <div class="card_elements">
+                    <h2>Card Modification</h2>
+                    <label for="{{ card_modification_form.new_card_title.id_for_label }}">Title</label>
+                    {{ card_modification_form.new_card_title }}
+                    <label for="{{ card_modification_form.new_card_description.id_for_label }}">Description</label>
+                    {{ card_modification_form.new_card_description }}
+                    <label for="{{ card_modification_form.new_card_expire_date.id_for_label }}">Expire Date</label>
+                    {{ card_modification_form.new_card_expire_date }}
+                    <label for="{{ card_modification_form.new_card_story_points.id_for_label }}">Story Points</label>
+                    {{ card_modification_form.new_card_story_points }}
+                    <label for="{{ card_modification_form.new_card_mother_column.id_for_label }}">Mother Column</label>
+                    {{ card_modification_form.new_card_mother_column }}
+                    <button class="save_card_changes_button" type="submit" value="save_card_changes_request" name="submit">Save changes</button>
+                </div>
+            </form>
+
+            <div class="users_management">
+
+                <form class="search_user_form" onsubmit="return false;">
+                    <h2>Add users</h2>
+                    <div class="user_input_field">
+                        <input id="user_name" onkeyup="search_user()" placeholder="Search users..." class="add_user_input" title="Search users to add to this card">
+                        <button onclick="reset_search(event)" class="search_user_reset" type="reset" value="search_user"><i class="fas fa-times"></i></button>
+                        <button onclick="search_user()" class="search_user" type="submit" value="search_user"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+
+                <div class="results_field">
+                    <div class="loading_dialog hidden_loading">
+                        <span>
+                            <img src="{% static 'assets/loading-Infinity-1s-200px-white.svg' %}">
+                        </span>
+                            <h3>Searching...</h3>
+                    </div>
+
+                    <ul id="results" class="results">
+                        {% include 'user_search_result-card.html' %}
+
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+
+    </main>
+
+    <script type="application/javascript">
+
+
+        function reset_search(e) {
+            e.preventDefault();
+            $(".loading_dialog").addClass('hidden_loading');
+            $(".results").hide();
+            $('#user_name').val('');
+        }
+
+        jQuery(document).ready(function($) {
+
+            // {# disabilita il tasto invio per form cambio nome colonna #}
+            $('.prevent_submit_on_enter_press').on('keyup keypress', function (e) {
+                let keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        function filter_submit(value) {
+            {#if (value === )#}
+        }
+
+        function search_user() {
+            if ($('#user_name').val() !== '') {
+
+                $(".loading_dialog").removeClass('hidden_loading');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'search_user' %}",
+                    dataType: "html",
+                    async: true,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        username_to_search: $('#user_name').val(),
+                        card_to_modify: '{{ card_to_modify.id }}',
+                    },
+                    success: search_success,
+                });
+            } else {
+                $(".loading_dialog").addClass('hidden_loading');
+                $(".results").hide();
+            }
+        }
+
+        function search_success(data) {
+            $(".results").show();
+            $("#results").html(data);
+            setTimeout(
+                function () {
+                    $(".loading_dialog").addClass('hidden_loading');
+                    }, 2000);
+
+        }
+    </script>
+</body>
+</html>

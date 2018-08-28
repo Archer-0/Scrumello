@@ -1,0 +1,318 @@
+:root {
+
+}
+
+body {
+    overflow: overlay;
+}
+
+.page_content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.card_modification_form {
+    /*min-height: 100%;*/
+    /*display: inline-flex;*/
+    /*flex-wrap: nowrap;*/
+    /*justify-content: space-between;*/
+    /*margin: auto;*/
+
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    transition: var(--header_animation_time_to-big) ease, background-color 200ms ease;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+form.card_modification_form div.card_elements {
+    /*height: 80%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10% 0 10%;
+
+    margin-right: auto;
+    margin-left: 20px;
+    background: none;
+    flex-grow: 2;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: auto;
+    text-align: start;
+}
+
+.discard_card_modifications {
+    float: left;
+    display: flex;
+    margin-top: 0;
+    margin-left: 5%;
+    margin-right: 10%;
+    flex-grow: 1;
+    max-width: fit-content;
+    height: fit-content;
+    padding: 10px 15px;
+    background-color: rgba(34, 34, 34, 0.05);
+    transition: var(--header_animation_time_to-big) ease;
+    border-radius: 2px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 40px;
+    color: #FFF;
+}
+
+.discard_card_modifications:hover,
+.discard_card_modifications:focus {
+    color: #FFF;
+    background-color: rgba(34, 34, 34, 0.4);
+}
+
+.card-title,
+.card_description_input,
+.card_expire_date_input,
+.card_story_points_input,
+.select-column,
+.add_user_input,
+.search_user,
+.search_user_reset,
+.delete_user_button,
+.add_user_button {
+    color: #FFF;
+    background: rgba(255, 250, 240, 0.4);
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #FFF;
+    padding: 5px 10px;
+    margin-bottom: 0;
+}
+
+.card-title,
+.card_description_input,
+.card_expire_date_input,
+.card_story_points_input,
+.select-column {
+    margin-bottom: 10px;
+}
+
+select.select-column option {
+    color: #000;
+}
+
+select.select-column option:hover {
+    background: #445d5a;
+}
+
+.users_management {
+    min-width: 300px;
+    max-width: 300px;
+    height: fit-content;
+    max-height: -webkit-fill-available;
+    overflow-y: auto;
+    margin-right: 4%;
+    margin-left: 4%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    float: right;
+    transition: var(--header_animation_time_to-big) ease;
+    flex-wrap: nowrap;
+}
+
+.add_user_input {
+
+}
+
+.add_user_input::placeholder {
+    color: #FFF;
+    font-weight: 400;
+    opacity: .8;
+    transition: 300ms ease;
+}
+
+.search_user_form {
+    width: 100%;
+}
+
+.search_user_form h2 {
+    width: fit-content;
+}
+
+.add_user_input:focus::placeholder {
+    opacity: .15;
+}
+
+.user_input_field {
+    display: inline-flex;
+    width: 100%;
+}
+
+.search_user, .search_user_reset {
+    transition: 300ms ease;
+    flex-grow: 0;
+}
+
+.search_user:hover,
+.search_user_reset:hover {
+    background: rgba(255, 250, 240, 0.8);
+    color: #0b2a2a;
+    font-weight: 300;
+    outline: none;
+}
+
+.search_user_reset {
+    font-size: 15px;
+}
+
+.search_user_reset:hover {
+    background: rgba(255, 179, 179, 0.8);
+}
+
+.search_user:focus,
+.search_user_reset:focus{
+    outline: none;
+}
+
+.user_input_field .add_user_input {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-grow: 10;
+}
+
+.loading_dialog {
+    display: inline-flex;
+    width: fit-content;
+    opacity: 1;
+    transition: 300ms ease;
+}
+
+.loading_dialog h3 {
+    font-weight: 200;
+    animation: blinker 700ms ease infinite;
+    vertical-align: middle;
+    margin: auto 0 auto 5px;
+    width: fit-content;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: .5;
+  }
+}
+
+@-webkit-keyframes blinker {
+  50% {
+    opacity: .5;
+  }
+}
+
+@-moz-keyframes blinker {
+  50% {
+    opacity: .5;
+  }
+}
+
+.loading_dialog span img {
+    height: 3.5rem;
+    vertical-align: middle;
+}
+
+.loading_dialog.hidden_loading {
+    transition: 500ms ease;
+}
+
+.hidden_loading {
+    opacity: 0;
+}
+
+.results_field {
+    width: 100%;
+    overflow: hidden;
+}
+
+.results {
+    display: none;
+    list-style: none;
+    max-height: -webkit-fill-available;
+    padding: 0;
+    transition: 300ms ease;
+    opacity: 1;
+    overflow-x: hidden;
+}
+
+.no_results_text {
+    margin-top: 10px;
+    font-weight: 200;
+    max-width: 95%;
+    text-align: start;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.user_list_item {
+    background: rgba(255, 250, 240, 0.20);
+    transition: 300ms ease;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 1px;
+}
+
+.user_list_item:last-of-type {
+    margin-bottom: 0;
+}
+
+.user_list_item:hover {
+    background: rgba(255, 250, 240, 0.3);
+}
+
+.user_management_form {
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.add_user_button,
+.delete_user_button {
+    flex-grow: 0;
+    border: 0;
+    border-radius: 1px;
+}
+
+.add_user_button {
+    background: rgba(108, 255, 104, 0.3);
+}
+
+.add_user_button:hover {
+    background: rgba(108, 255, 104, 0.6);
+}
+
+.delete_user_button {
+    background: rgba(255, 106, 95, 0.3);
+}
+
+.delete_user_button:hover {
+    background: rgba(255, 106, 95, 0.6);
+}
+
+.user_item_username {
+    flex-grow: 10;
+    width: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.delete_user_button,
+.add_user_button {
+    width: auto;
+}

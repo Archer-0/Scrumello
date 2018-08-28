@@ -1,38 +1,82 @@
 .card-container {
     /*border: 1px solid #000;*/
     margin: 10px;
-    border-radius: 3px;
+    border-radius: 1px;
     background-color: #FFF;
-    transition: 500ms ease;
+    transition: 300ms ease;
     box-shadow: 0px 0px 10px rgba(33, 33, 33, 0.05);
 
 }
 
-.card-container:hover {
+.card-container:hover,
+.card-container:focus-within {
     box-shadow: 5px 5px 11px rgba(33, 33, 33, 0.2);
-}
-
-.shadowed {
-    box-shadow: 5px 5px 20px rgba(33, 33, 33, 0.2);
 }
 
 .card-title-container {
     text-align: left;
     /*background: linear-gradient(155deg, #5a61ced6 40%, rgb(152, 126, 164) 100%);*/
-    background-color: #2b3f77;
+    background-color: #225828;
     padding: 10px;
     border-bottom: 3px solid #FFF;
     color: #FFF;
-    width: auto;
+    width: 100%;
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
     -webkit-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
     -moz-box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
     box-shadow:0px 2px 15px rgba(158, 158, 158, 0.51);
+    display: inline-flex;
+}
+.card_modification_form {
+    width: 100%;
+    display: inline-flex;
 }
 
-.card-title::placeholder {
-    color: #bbbbbb;
+.card_buttons {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.card-title-container .card_modification_form button.start_card_changes,
+.card-title-container .card_modification_form .card_buttons button.delete_card {
+    color: rgba(255, 255, 255, 0);
+    height: fit-content;
+    vertical-align: middle;
+    transition: 500ms ease 100ms;
+    border: none;
+    background: none;
+    font-size: 15px;
+}
+
+.card-title-container .card_modification_form button.start_card_changes {
+    vertical-align: top;
+    transition: 500ms ease 0ms;
+}
+
+.card-title-container:hover .card_modification_form button.start_card_changes,
+.card-title-container:hover .card_modification_form .card_buttons button.delete_card {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.card-title-container:hover .card_modification_form .card_buttons button.delete_card {
+    transition: 500ms ease 400ms;
+}
+
+.card-title-container:hover .card_modification_form button.start_card_changes:hover,
+.card-title-container:hover .card_modification_form .card_buttons button.start_card_changes:focus {
+    color: rgba(255, 255, 255, 0.8);
+    transition: 300ms;
+    outline: 0;
+}
+
+.card-title-container:hover .card_modification_form button.delete_card:hover,
+.card-title-container:hover .card_modification_form .card_buttons button.delete_card:focus {
+    color: rgb(255, 124, 124);
+    transition: 300ms;
+    outline: 0;
 }
 
 .card-title {
@@ -42,7 +86,7 @@
     border-bottom: 1px solid transparent;
     outline: 0;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     letter-spacing: 1px;
     font-weight: 300;
     width: 100%;
@@ -54,13 +98,25 @@
     margin: 0;
 }
 
-.card-title:focus {
-    border-bottom: 1px solid white;
+
+
+/*.card-title:focus {*/
+    /*border-bottom: 1px solid white;*/
+/*}*/
+
+.card-content,
+.card-content.new_card {
+    padding: 5px 5px;
+    height: fit-content;
+    opacity: 1;
 }
 
-.card-content {
-    padding: 5px 5px;
+.new_card_form.compressed .card-content.new_card {
+    height: 0;
+    opacity: 0;
+    padding: 0;
 }
+
 
 .card-description {
     overflow-wrap: break-word;
@@ -130,6 +186,7 @@
                 background-color 200ms ease, color 200ms ease;
     width: 30%;
     overflow: hidden;
+    font-size: 10px;
 }
 
 .card_name_form.hide_modify-card-button button.modify_card {
@@ -184,7 +241,6 @@
                 padding 300ms ease, border 100ms ease, margin 100ms ease;
 }
 
-
 .card_name_form:focus button {
     display: inline-flex;
 }
@@ -201,29 +257,37 @@
     background: #76028f;
 }
 
+.card-title.new_card::placeholder {
+    color: rgba(255, 250, 241, 0.61);
+    font-weight: 400;
+}
+
 .new_card_description_input {
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     width: 100%;
     height: 40px;
     min-height: 40px;
     max-height: 200px;
-    border: 1px solid rgba(131, 131, 131, 0.45);
-    font-size: 1.2rem;
-    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    border-radius: 2px;
     font-weight: 300;
     color: #252525;
     transition: height 300ms ease;
     padding: 5px;
     letter-spacing: .04rem;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .new_card_description_input:focus {
     height: 100px;
+    outline: none;
 }
 
 
 .card-content.new_card {
     display: grid;
+    transition: 300ms ease;
 }
 
 .new_card_expire_date_input,
@@ -266,6 +330,15 @@
     outline: none;
 }
 
+.new_card_story_points_input::placeholder {
+    font-size: 9px;
+    transition: opacity 300ms ease;
+}
+
+.new_card_story_points_input:focus::placeholder {
+    opacity: 0;
+}
+
 .new_card_expire_date_input:focus,
 .new_card_story_points_input:focus {
     outline: none;
@@ -282,9 +355,16 @@
     /*width: auto;*/
 /*}*/
 
-.new_card_submit_button {
-    justify-self: end;
+.new_card_button-set {
+    display: inline-flex;
     margin: 10px auto 0 auto;
+    height: fit-content;
+    width: 100%;
+}
+
+.new_card_submit_button,
+.close_new_card_form {
+    justify-self: end;
     width: available;
     /*noinspection CssInvalidPropertyValue*/
     width: -webkit-fill-available;
@@ -296,13 +376,57 @@
     letter-spacing: 1px;
     font-weight: 400;
     font-size: 15px;
+    outline: 0;
+    border-radius: 1px;
 }
 
-.new_card_submit_button:hover {
+.new_card_submit_button:hover,
+.new_card_submit_button:focus {
     color: rgb(255, 255, 255);
     background-color: rgba(36, 119, 65, 0.7);
+    outline: none;
 }
 
 .last_card {
-    margin-top: 40px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    border-top: 2px solid #FFF;
+    border-bottom: none;
+    border-radius: 0;
+    margin: 0 0 0 0;
+    /*overflow: hidden;*/
+    height: fit-content;
+    align-self: end;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.54);
+}
+
+.last_card form.new_card_form div.new_card {
+    border-bottom: 0;
+}
+
+.last_card:hover,
+.last_card:focus-within {
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+
+}
+
+.close_new_card_form {
+    justify-self: start;
+    width: auto;
+    padding: 0px 10px;
+    color: #ff3e5a;
+    border: 1px solid #ff5c4e;
+    margin-right: 0px;
+    transition: 300ms ease-in-out;
+}
+
+.close_new_card_form:hover,
+.close_new_card_form:focus {
+    color: #FFF;
+    background: #ff3e5a;
+    outline: none;
+}
+
+.close_new_card_form i {
+    font-size: 25px;
 }

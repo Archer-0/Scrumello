@@ -126,6 +126,8 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, "progetto_isw/static"),
 ]
 
+MEDIA_URL = os.path.join(BASE_DIR, 'progetto_isw/static/assets/')
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',

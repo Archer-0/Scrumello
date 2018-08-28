@@ -16,8 +16,9 @@ input {
     display: inline-block;
     align-items: center;
     vertical-align: middle;
-    border: 1px solid rgba(204, 204, 204, 0.7);
-    border-radius: 5px;
+    /*border: 1px solid rgba(204, 204, 204, 0.7);*/
+    border: none;
+    border-radius: 1px;
     color: #fff;
     text-transform: uppercase;
     line-height: normal;
@@ -31,6 +32,8 @@ input {
     font-size: 12px;
     padding: 10px 30px;
     height: fit-content;
+    transition: 200ms ease;
+    overflow: hidden;
 }
 
 .big_button:hover,
@@ -64,11 +67,12 @@ input {
     margin: auto;
     width: 100%;
     height: fit-content;
-    border: 1px solid rgba(193, 193, 193, 0.49);
-    border-radius: 3px;
+    /*border: 1px solid rgba(193, 193, 193, 0.49);*/
+    border-radius: 1px;
     color: #fff;
     background-color: rgba(34, 34, 34, .2);
     transition: 200ms ease;
+    overflow: hidden;
 }
 
 .form_popup_title {
@@ -132,10 +136,10 @@ input {
     align-items: center;
     font-size: 10px;
     padding: 5px 10px;
-    border-radius: 3px;
+    border-radius: 1px;
     border-color: #47ae4e;
     color: #47ae4e;
-    background-color: rgba(34, 34, 34, .3);
+    background-color: rgba(34, 34, 34, 0);
     font-weight: 500;
 }
 
@@ -152,29 +156,38 @@ input {
     margin-right: 10px;
     padding: 5px 10px;
     text-decoration: none;
+    outline: 0;
+
 }
 
 .cancel_button {
     height: auto;
-    color: #ff706b;
-    border: 1px solid #ff706b;
-    border-radius: 3px;
+    color: #ff8c85;
+    /*border: 1px solid #ff706b;*/
+    border: none;
+    border-radius: 1px;
     display: inline-block;
     align-items: center;
     vertical-align: middle;
     text-transform: uppercase;
     line-height: normal;
     letter-spacing: 0.2rem;
-    background-color: rgba(34, 34, 34, .3);
+    background-color: rgba(34, 34, 34, 0);
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-weight: 500;
 }
 
-.cancel_button:hover {
-    background-color: #ff706b;
+.cancel_button:hover,
+.cancel_button:focus {
+    background-color: #ff8c8a;
     color: white;
 
 }
 
 .hidden-popup {
-    display: none;
+    /*display: none;*/
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
 }
