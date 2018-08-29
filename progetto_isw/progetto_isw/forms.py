@@ -175,24 +175,14 @@ def get_available_columns_choices(board_id, current_mother_column=None):
     board = Board.objects.get(pk=board_id)
     available_columns = Column.objects.all().filter(mother_board=board)
 
-    choices = []
-
-    # for column in available_columns:
-    #     if current_mother_column_id is not None and column.id == current_mother_column_id:
-    #         choices += (column.id, 'Unchanged')
-    #     else:
-    #         choices += (column.id, column.name)
-
-
-
-    choices = [(column.id, "Unchanged" if current_mother_column is not None and column == current_mother_column else column.name) for column in available_columns]
+    choices = [(column.id, "Unchanged" if current_mother_column is not None and column.id == current_mother_column else column.name) for column in available_columns]
     # print('mother column ' + current_mother_column.__str__())
 
     return choices
 
 
 class CardModificationForm(forms.Form):
-    def __init__(self, board_id, card_id, current_mother_column_id, *args, **kwargs):
+    def __init__(self, board_id, card_id, *args, **kwargs):
         super(CardModificationForm, self).__init__(*args, **kwargs)
 
         # cerca la card in modo da popolare i form con i dati gia' registrati
@@ -243,11 +233,12 @@ class CardModificationForm(forms.Form):
         )
 
         # ottengo la lista di colonne disponibili nella board e cerco quella in cui e' la carta che si sta modificando
-        available_columns = get_available_columns_choices(board_id, current_mother_column_id)
+        available_columns = get_available_columns_choices(board_id, this_card.mother_column.id)
         this_column_position_in_columns_list = 0
 
         for i, (a, b) in enumerate(available_columns):
-            if b == current_mother_column_id:
+            print (str('a: ' + a.__str__() + ', b: ' + b))
+            if a == this_card.mother_column.id:
                 this_column_position_in_columns_list = i
 
         self.fields['new_card_mother_column'] = forms.ChoiceField(
@@ -271,6 +262,6 @@ class SearchUserForm(forms.Form):
             attrs={'class': 'add_user_input',
                    'onkeyup': 'search_user();',
                    'placeholder': 'Search for users...',
-                   'title': 'Search users to add to this card'}
+                   'title': 'Search users to add.'}
         )
     )

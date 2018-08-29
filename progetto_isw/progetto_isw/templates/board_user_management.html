@@ -29,29 +29,10 @@
 
     <main class="page_content">
 
-        {% block card_modification_form_block %}
-
-            <form method="POST" class="card_modification_form" action="{% url 'modify_or_delete_card' card_to_modify.id previous_board.id %}">
-                {% csrf_token %}
-                <a href="/board/{{ previous_board.id }}/" class="discard_card_modifications">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-
-                <div class="card_elements">
-                    <h2>Card Modification</h2>
-                    <label for="{{ card_modification_form.new_card_title.id_for_label }}">Title</label>
-                    {{ card_modification_form.new_card_title }}
-                    <label for="{{ card_modification_form.new_card_description.id_for_label }}">Description</label>
-                    {{ card_modification_form.new_card_description }}
-                    <label for="{{ card_modification_form.new_card_expire_date.id_for_label }}">Expire Date</label>
-                    {{ card_modification_form.new_card_expire_date }}
-                    <label for="{{ card_modification_form.new_card_story_points.id_for_label }}">Story Points</label>
-                    {{ card_modification_form.new_card_story_points }}
-                    <label for="{{ card_modification_form.new_card_mother_column.id_for_label }}">Mother Column</label>
-                    {{ card_modification_form.new_card_mother_column }}
-                    <button class="save_card_changes_button" type="submit" value="save_card_changes_request" name="submit">Save changes</button>
-                </div>
-            </form>
+        {% block board_modification_form_block %}
+            <a href="/board/{{ board_to_modify.id }}/" title="Go back to Board" class="discard_card_modifications">
+                <i class="fas fa-chevron-left"></i>
+            </a>
 
             <div class="users_management">
 
@@ -114,13 +95,13 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'search_user_card' %}",
+                    url: "{% url 'search_user_board' %}",
                     dataType: "html",
                     async: true,
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
                         username_to_search: $("#id_user_name").val(),
-                        card_to_modify: '{{ card_to_modify.id }}',
+                        board_to_modify: '{{ board_to_modify.id }}',
                     },
                     success: search_success,
                 });
@@ -129,13 +110,13 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'search_user_card' %}",
+                    url: "{% url 'search_user_board' %}",
                     dataType: "html",
                     async: true,
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
                         username_to_search: '',
-                        card_to_modify: '{{ card_to_modify.id }}',
+                        board_to_modify: '{{ board_to_modify.id }}',
                     },
                     success: search_success_empty,
                 });

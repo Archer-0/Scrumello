@@ -19,6 +19,10 @@
                         <button class="submit_changes" onclick="verify_board_text_inserted(event, this);" type="submit" value="change_board_name_request" name="submit">Submit Changes</button>
                         <button class="delete_board prevent_submit_on_enter_press" onclick="open_delete_board_prompt(event, this);" type="submit" value="delete_board_request" name="submit">Delete Board</button>
                     </form>
+                {% elif board_to_modify %}
+                    <div class="board_name_form">
+                        <h1 class="header_board_name" title="{{ board_to_modify.name }}">{{ board_to_modify.name }}</h1>
+                    </div>
                 {% endif %}
             </div>
 

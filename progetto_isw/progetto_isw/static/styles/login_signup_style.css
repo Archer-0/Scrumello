@@ -278,7 +278,7 @@ input::placeholder {
     font-weight: 500;
     line-height: 1em;
     text-transform: uppercase;
-    color: #e8716d;
+    color: #1e8080;
     letter-spacing: 0.1rem;
 }
 
@@ -333,7 +333,7 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action {
-    background-color: #e8716d;
+    background-color: rgba(30, 128, 128, 0.7);
     border-radius: 3px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -349,7 +349,7 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action:hover {
-    background-color: #e14641;
+    background-color: rgba(30, 128, 128, 1);
 }
 
 .user_options-forms .user_forms-signup,
