@@ -5,6 +5,13 @@
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
 h1 {
     font-size: 4rem;
 }
@@ -140,7 +147,8 @@ input::placeholder {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: auto;
+    margin-top: 4%;
         /*    background: url("https://goo.gl/YRxqs1") no-repeat center;
         background-size: cover;*/
 }
@@ -166,8 +174,8 @@ input::placeholder {
     background-color: rgba(34, 34, 34, 0.85);
     */
     position: relative;
-    margin-top: 4%;
-    margin-bottom: 4%;
+    margin-top: 0;
+    margin-bottom: 8%;
     z-index: 9999;
     height: fit-content;
     flex-grow: .2;
@@ -270,7 +278,7 @@ input::placeholder {
     font-weight: 500;
     line-height: 1em;
     text-transform: uppercase;
-    color: #e8716d;
+    color: #1e8080;
     letter-spacing: 0.1rem;
 }
 
@@ -325,7 +333,7 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action {
-    background-color: #e8716d;
+    background-color: rgba(30, 128, 128, 0.7);
     border-radius: 3px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -341,7 +349,7 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action:hover {
-    background-color: #e14641;
+    background-color: rgba(30, 128, 128, 1);
 }
 
 .user_options-forms .user_forms-signup,
@@ -416,6 +424,35 @@ input::placeholder {
 
 .user_options-forms .form-error-outline:focus {
     border-bottom: 1px solid rgba(204, 0, 0, 0.95);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    height: fit-content;
+    padding: 2px 7px;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 8px;
+    margin: 0;
+}
+
+.footer p span a {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.footer h2 {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 8px;
+    margin: 0;
+}
+
+.footer h2 span a {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 9px;
 }
 
 /* Responsive */

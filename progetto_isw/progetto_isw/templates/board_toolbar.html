@@ -10,11 +10,11 @@
 
         <ul class="toolbar hidden">
             <li class="toolbar-item">
-                <a href="#" title="Add a user to this board">Add user</a>
+                <a href="{% url 'add_or_remove_user_to_board' board.id %}" title="Add or remove user from this Board.">Manage Users</a>
                 <span class="add-user-baloon hidden"></span>
             </li>
             <li class="toolbar-item">
-                <a href="#" title="See statistics about your this Board">Burndown</a>
+                <a href="#" title="See statistics about your this Board.">Burndown</a>
             </li>
         </ul>
     </div>
@@ -32,8 +32,6 @@
 
     {# quando si clicca un elemento della toolbox essa si chiude #}
     $('.toolbar-item').on('click', function (e) {
-        e.preventDefault();
-        e.preventDefault();
         $(this).toggleClass('animate');
         $('span').toggleClass('back');
         $('.toolbar').toggleClass('hidden');

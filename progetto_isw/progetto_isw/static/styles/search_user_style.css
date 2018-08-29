@@ -1,108 +1,3 @@
-:root {
-
-}
-
-body {
-    overflow: overlay;
-}
-
-.page_content {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-form.card_modification_form {
-    /*min-height: 100%;*/
-    /*display: inline-flex;*/
-    /*flex-wrap: nowrap;*/
-    /*justify-content: space-between;*/
-    /*margin: auto;*/
-
-    position: relative;
-    height: fit-content;
-    width: 100%;
-    transition: var(--header_animation_time_to-big) ease, background-color 200ms ease;
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-form.card_modification_form div.card_elements {
-    /*height: 80%;*/
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0 10% 0 10%;
-
-    margin-right: auto;
-    margin-left: 20px;
-    background: none;
-    flex-grow: 2;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: auto;
-    text-align: start;
-}
-
-.discard_card_modifications {
-    float: left;
-    display: flex;
-    margin-top: 0;
-    margin-left: 5%;
-    margin-right: 10%;
-    flex-grow: 1;
-    max-width: fit-content;
-    height: fit-content;
-    padding: 10px 15px;
-    background-color: rgba(34, 34, 34, 0.05);
-    transition: var(--header_animation_time_to-big) ease;
-    border-radius: 2px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-size: 40px;
-    color: #FFF;
-}
-
-.discard_card_modifications:hover,
-.discard_card_modifications:focus {
-    color: #FFF;
-    background-color: rgba(34, 34, 34, 0.4);
-}
-
-.card-title,
-.card_description_input,
-.card_expire_date_input,
-.card_story_points_input,
-.select-column,
-.add_user_input,
-.save_card_changes_button {
-    color: #FFF;
-    background: rgba(255, 250, 240, 0.4);
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #FFF;
-    padding: 5px 10px;
-    margin-bottom: 0;
-}
-
-.card-title,
-.card_description_input,
-.card_expire_date_input,
-.card_story_points_input,
-.select-column {
-    margin-bottom: 10px;
-}
-
-select.select-column option {
-    color: #000;
-}
-
-select.select-column option:hover {
-    background: #445d5a;
-}
-
 .users_management {
     min-width: 300px;
     max-width: 300px;
@@ -120,9 +15,20 @@ select.select-column option:hover {
     flex-wrap: nowrap;
 }
 
-.add_user_input {
-
+.add_user_input,
+.search_user,
+.search_user_reset,
+.delete_user_button,
+.add_user_button {
+    color: #FFF;
+    background: rgba(255, 250, 240, 0.4);
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #FFF;
+    padding: 5px 10px;
+    margin-bottom: 0;
 }
+
 
 .add_user_input::placeholder {
     color: #FFF;
@@ -230,7 +136,8 @@ select.select-column option:hover {
 
 .results_field {
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .results {
@@ -240,7 +147,7 @@ select.select-column option:hover {
     padding: 0;
     transition: 300ms ease;
     opacity: 1;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .no_results_text {
@@ -315,3 +222,6 @@ select.select-column option:hover {
     width: auto;
 }
 
+.user_pro_pic {
+    height: 100%;
+}
