@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from django.urls import reverse
+from django.urls import reverse, resolve
 
 
 class UrlTests(TestCase):
@@ -20,25 +20,25 @@ class UrlTests(TestCase):
         url = reverse('about')
         self.assertEqual(url, '/about/')
 
-    def test_url_dashboard(self):
-
-        url = reverse('dashboard')
-        self.assertEqual(url, '/dashboard/')
-
     def test_url_logout(self):
 
         url = reverse('logout')
         self.assertEqual(url, '/logout/')
 
-    def test_url_add_board(self):
+    def test_url_dashboard(self):
 
-        url = reverse('add_board')
-        self.assertEqual(url, '/add_board/')
+        url = reverse('dashboard')
+        self.assertEqual(url, '/dashboard/')
 
     def test_url_board(self):
 
         url = reverse('board', kwargs={'board_id': 1})
         self.assertEqual(url, '/board/1/')
+
+    def test_url_add_board(self):
+
+        url = reverse('add_board')
+        self.assertEqual(url, '/add_board/')
 
     def test_url_modify_or_delete_board(self):
 
@@ -86,6 +86,49 @@ class UrlTests(TestCase):
 
         url = reverse('search_user_card')
         self.assertEqual(url, '/search_user_card/')
+
+
+class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la loro relazione nel file views.py
+
+    def test_url_view_login_signup(self):
+        """
+            test per validare la view che combacia con la URL
+
+            il test deve passare
+        """
+
+        resolver = resolve('/')  # la resolve() restituisce una ResolverMatch a cui e possibile passare metodi
+        self.assertEqual(resolver.view_name, 'login_signup')  # .view_name restituisce la view che combacia con la URL
+
+    def test_url_view_about(self):
+
+        resolver = resolve('/about/')
+        self.assertEqual(resolver.view_name, 'about')
+
+    def test_url_view_logout(self):
+
+        resolver = resolve('/logout/')
+        self.assertEqual(resolver.view_name, 'logout')
+
+    def test_url_view_dashboard(self):
+
+        resolver = resolve('/dashboard/')
+        self.assertEqual(resolver.view_name, 'dashboard')
+
+    def test_url_view_board(self):
+
+        resolver = resolve('/board/1/')
+        self.assertEqual(resolver.view_name, 'board')
+
+    def test_url_view_add_board(self):
+
+        resolver = resolve('/add_board/1/')
+        self.assertEqual(resolver.view_name, 'add_board')
+
+    def test_url_view_modify_or_delete_board(self):
+
+        resolver = resolve('/modify_or_delete_board/1/')
+        self.assertEqual(resolver.view_name, 'modify_or_delete_board')
 
 
 # comando python per far partire il test: python manage.py test
