@@ -46,5 +46,11 @@ class CardTests(TestCase):
     def test_(self):
         pass
 
-# comando python per far partire i test solo in questo file: python manage.py test --pattern="test_models.py
-# comando python per far partire tutti i test: python manage.py test
+
+# comando python per far partire i test di una singola classe: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse
+
+# comando python per far partire i test di una singola funzione specifica: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse.nome_del_test
+
+# comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_models.py
+
+# comando python per far partire tutti i test della cartella tests: python manage.py test
