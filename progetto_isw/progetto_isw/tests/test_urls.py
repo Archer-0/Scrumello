@@ -175,4 +175,5 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         self.assertEqual(resolver.view_name, 'search_user_card')
 
 
-# comando python per far partire il test: python manage.py test
+# comando python per far partire i test solo in questo file: python manage.py test --pattern="test_urls.py
+# comando python per far partire tutti i test: python manage.py test
