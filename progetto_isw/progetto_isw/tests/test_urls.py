@@ -130,5 +130,49 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         resolver = resolve('/modify_or_delete_board/1/')
         self.assertEqual(resolver.view_name, 'modify_or_delete_board')
 
+    # DA RIVEDERE
+    def test_url_view_add_or_remove_user_to_board(self):
+
+        resolver = resolve('/add_or_remove_user_to_board/1/')
+        self.assertEqual(resolver.view_name, 'add_or_remove_user_to_board')
+
+        resolver2 = resolve('/add_or_remove_user_to_board/1/1')
+        self.assertEqual(resolver2.view_name, 'add_or_remove_user_to_board')
+
+    def test_url_view_add_column(self):
+
+        resolver = resolve('/add_column/1/')
+        self.assertEqual(resolver.view_name, 'add_column')
+
+    def test_url_view_modify_or_delete_column(self):
+
+        resolver = resolve('/modify_or_delete_column/1/1/')
+        self.assertEqual(resolver.view_name, 'modify_or_delete_column')
+
+    def test_url_view_add_card(self):
+
+        resolver = resolve('/add_card/1/1/')
+        self.assertEqual(resolver.view_name, 'add_card')
+
+    def test_url_view_modify_or_delete_card(self):
+
+        resolver = resolve('/modify_or_delete_card/1/1/')
+        self.assertEqual(resolver.view_name, 'modify_or_delete_card')
+
+    def test_url_view_add_or_remove_user_to_card(self):
+
+        resolver = resolve('/modify_or_delete_card/add_or_remove_user_to_card/1/1/')
+        self.assertEqual(resolver.view_name, 'add_or_remove_user_to_card')
+
+    def test_url_view_search_user_board(self):
+
+        resolver = resolve('/search_user_board/')
+        self.assertEqual(resolver.view_name, 'search_user_board')
+
+    def test_url_view_search_user_card(self):
+
+        resolver = resolve('/search_user_card/')
+        self.assertEqual(resolver.view_name, 'search_user_card')
+
 
 # comando python per far partire il test: python manage.py test
