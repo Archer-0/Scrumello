@@ -131,8 +131,17 @@ header {
     text-align: start;
 }
 
+.nav_bar_board_name_container a.header_board_name {
+    transition: 400ms
+}
+
+.nav_bar_board_name_container a.header_board_name:hover {
+    background: rgba(205, 205, 205, 0.5);
+}
+
 .navbar .logo h1,
-.nav_bar_board_name_container h1 {
+.nav_bar_board_name_container h1,
+.nav_bar_board_name_container a.header_board_name {
     text-align: center;
     margin-bottom: 0;
     font-weight: 500;
@@ -141,6 +150,7 @@ header {
 }
 
 .nav_bar_board_name_container h1,
+.nav_bar_board_name_container a.header_board_name,
 .board_name_form input.board-title.input-field {
     color: #FFF;
     margin: auto 0 auto;
@@ -150,6 +160,8 @@ header {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 30px;
+    line-height: normal;
 }
 
 .header_board_name {

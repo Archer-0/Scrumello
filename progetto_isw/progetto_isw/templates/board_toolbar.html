@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {% block toolbar_block %}
 
     <div class="toolbar-container">
@@ -14,28 +15,11 @@
                 <span class="add-user-baloon hidden"></span>
             </li>
             <li class="toolbar-item">
-                <a href="#" title="See statistics about your this Board.">Burndown</a>
+                <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
             </li>
         </ul>
     </div>
 
-    <script type="text/javascript">
-    hamb = $('.hambbutton a');
-
-    hamb.on('click', function(e) {
-        e.preventDefault();
-        $(this).toggleClass('animate');
-        $('span').toggleClass('back');
-        $('.toolbar').toggleClass('hidden');
-        $('.toolbar-container').toggleClass('expanded');
-    });
-
-    {# quando si clicca un elemento della toolbox essa si chiude #}
-    $('.toolbar-item').on('click', function (e) {
-        $(this).toggleClass('animate');
-        $('span').toggleClass('back');
-        $('.toolbar').toggleClass('hidden');
-        $('.toolbar-container').toggleClass('expanded');
-    })
-    </script>
+    <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'scripts/toolbar_script.js' %}"></script>
 {% endblock %}

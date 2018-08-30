@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
     <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/modify_card_style.css' %}">
+{#    <link rel="stylesheet" href="{% static 'styles/modify_card_style.css' %}">#}
     <link rel="stylesheet" href="{% static 'styles/search_user_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/board_user_management_style.css' %}">
 
 </head>
 
@@ -30,9 +31,9 @@
     <main class="page_content">
 
         {% block board_modification_form_block %}
-            <a href="/board/{{ board_to_modify.id }}/" title="Go back to Board" class="discard_card_modifications">
-                <i class="fas fa-chevron-left"></i>
-            </a>
+{#            <a href="/board/{{ board_to_modify.id }}/" title="Go back to Board" class="discard_card_modifications">#}
+{#                <i class="fas fa-chevron-left"></i>#}
+{#            </a>#}
 
             <div class="users_management">
 

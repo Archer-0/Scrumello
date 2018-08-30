@@ -21,7 +21,7 @@
                     </form>
                 {% elif board_to_modify %}
                     <div class="board_name_form">
-                        <h1 class="header_board_name" title="{{ board_to_modify.name }}">{{ board_to_modify.name }}</h1>
+                        <a href="{% url 'board' board_to_modify.id %}" class="header_board_name" title="Go back to {{ board_to_modify.name }}">{{ board_to_modify.name }}</a>
                     </div>
                 {% endif %}
             </div>

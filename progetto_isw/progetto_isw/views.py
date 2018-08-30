@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+import datetime
 
 from forms import *
 
@@ -757,6 +758,61 @@ def raise_error_page(request, error_message, error_suggestions):
         print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
         return HttpResponseRedirect("/login_signup/")
 
+
+def burndown(request, board_id):
+    if str(request.user) != 'AnonymousUser':
+
+        try:
+            this_board = Board.objects.get(pk=board_id)
+        except Board.DoesNotExist:
+            error_message = 'The board you are trying to access does not exist. The burndown can not be retrieved.'
+            error_suggestions = ['If you just clicked in burndown button, then try deleting cookies and cleaning the cache of the browser, reload the page and try again. If problem persists contact us. We apologize for the inconvenience.',
+                                 'If you just created the board, try waiting a few minutes and try again. If problem persists contact us. We apologize for the inconvenience.',
+                                 'If a psychopathic artificial intelligence is trying to kill you, well, stand still, stay calm and scream: \"THIS STATEMENT IS FALSE!\" or \"DOES A SET OF ALL SETS CONTAIN ITSELF?\".']
+
+            return raise_error_page(request, error_message, error_suggestions)
+
+        user_can_access = False
+        for user in this_board.users.all():
+            if request.user == user:
+                user_can_access = True
+
+        if (user_can_access == False):
+            error_message = 'You do not have sufficient permission to access the requested board.'
+            error_suggestions = [
+                'If you just clicked in burndown button, then try deleting cookies and cleaning the cache of the browser, reload the page and try again. We apologize for the inconvenience.',
+                'If you know other users that can access the board, ask them to add you to authorized users then try again.',
+                'If you got here \"accidentally\" just go back to your Dashboard.']
+
+            return raise_error_page(request, error_message, error_suggestions)
+
+        columns_in_this_board = Column.objects.all().filter(mother_board=board_id)
+        cards_in_this_board = []
+        for column in columns_in_this_board:
+            cards_in_this_board += Card.objects.all().filter(mother_column=column.id)
+
+        # calcolo delle statistiche
+        tot_story_points = 0
+        tot_expired_cards = 0
+
+        for card in cards_in_this_board:
+            tot_story_points += card.story_points
+            if card.expire_date < datetime.date.today():
+                tot_expired_cards += 1
+
+        return render(request, 'burndown.html', {
+            'user': request.user,
+            'board_to_modify': this_board,
+            'columns': columns_in_this_board,
+            'tot_story_points': tot_story_points,
+            'tot_expired_cards': tot_expired_cards,
+        })
+
+
+    else:
+        this_function_name = sys._getframe().f_code.co_name
+        print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
+        return HttpResponseRedirect("/login_signup/")
 
     # if str(request.user) != 'AnonymousUser':
     # #     blabla

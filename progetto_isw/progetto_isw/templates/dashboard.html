@@ -22,23 +22,9 @@
     <script src="{% static 'scripts/dashboard_scripts.js' %}"></script>
 </head>
 <body>
-{#    <header>#}
         {% include 'navbar.html' %}
         {% block navbar %}
         {% endblock %}
-{#    </header>#}
-
-{#    {% if new_user is True %}#}
-{#        {% include 'toolbar_guide.html' %}#}
-{#        {% block tutorial_box %}#}
-{#        {% endblock %}#}
-{#    {% endif %}#}
-
-{#    <div class="toolbar-div">#}
-{#        {% include 'board_toolbar.html' %}#}
-{#        {% block toolbar_block %}#}
-{#        {% endblock %}#}
-{#    </div>#}
 
     <main class="page_content">
         <div class="sticky-sidebar">

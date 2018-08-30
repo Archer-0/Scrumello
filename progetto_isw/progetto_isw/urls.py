@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^add_or_remove_user_to_board/(?P<board_id>[0-9]+)/', views.add_or_remove_user_to_board, name='add_or_remove_user_to_board'),
     url(r'^modify_or_delete_board/(?P<board_id>[0-9]+)/', views.modify_or_delete_board, name='modify_or_delete_board'),
     url(r'^add_board/', views.add_board, name='add_board'),
+    url(r'^burndown/(?P<board_id>\d+)/', views.burndown, name='burndown'),
     url(r'^board/(?P<board_id>\d+)/', views.board_view, name='board'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^logout/', views.log_out, name='logout'),
