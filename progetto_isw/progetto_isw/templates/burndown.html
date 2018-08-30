@@ -33,26 +33,26 @@
 
         <ul class="burndown_elements">
 
-            <li class="burndown_element total_cards">
+            <li class="burndown_element total_cards" title="Total cards in {{ board_to_modify.name }}: {{ board_to_modify.n_cards }}">
                 <div class="burndown_element_content">
                     <h2 class="list_element_title">Total Cards</h2>
                     <p class="list_element_content total_board_cards"><span>{{ board_to_modify.n_cards }}</span></p>
                 </div>
             </li>
 
-            <li class="burndown_element columns_cards">
+            <li class="burndown_element columns_cards" title="Total columns in {{ board_to_modify.name }}: {{ board_to_modify.n_columns }}">
+                <h2 class="list_element_title">Cards in Columns</h2>
                 <div class="burndown_element_content">
-                    <h2 class="list_element_title">Cards in Columns</h2>
                     <ul class="columns_list">
                         {% for column in columns %}
-                            <li class="column_cards_element">
+                            <li class="column_cards_element" title="{{ column.n_cards }} card/s in {{ column.name }}">
                                 <h3 title="Column &quot;{{ column.name }}&quot;">{{ column.name }}</h3>
                                 {% if column.n_cards > 1 %}
-                                    <p title="{{ column.n_cards }} cards"><span>{{ column.n_cards }}</span> cards</p>
+                                    <p title="{{ column.n_cards }} cards in {{ column.name }}"><span>{{ column.n_cards }}</span> cards</p>
                                 {% elif column.n_cards == 1 %}
-                                    <p title="{{ column.n_cards }} card"><span>{{ column.n_cards }}</span> card</p>
+                                    <p title="{{ column.n_cards }} card in {{ column.name }}"><span>{{ column.n_cards }}</span> card</p>
                                 {% elif column.n_cards <= 0 %}
-                                    <p title="No cards">No cards</p>
+                                    <p title="No cards in {{ column.name }}">No cards</p>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -60,17 +60,17 @@
                 </div>
             </li>
 
-            <li class="burndown_element story_points">
+            <li class="burndown_element story_points" title="Total story points used in {{ board_to_modify.name }}: {{ tot_story_points }}">
                 <div class="burndown_element_content">
                     <h2 class="list_element_title"> Story Points</h2>
-                    <p class="list_element_content total_story_points" title="{{ tot_story_points }}"><span>{{ tot_story_points }}</span></p>
+                    <p class="list_element_content total_story_points"><span>{{ tot_story_points }}</span></p>
                 </div>
             </li>
 
-            <li class="burndown_element expired_cards">
+            <li class="burndown_element expired_cards" title="Total expired cards in {{ board_to_modify.name }}: {{ tot_expired_cards }}">
                 <div class="burndown_element_content">
                     <h2 class="list_element_title">Expired Cards</h2>
-                    <p class="list_element_content expired_cards" title="{{ tot_expired_cards }}"><span>{{ tot_expired_cards }}</span></p>
+                    <p class="list_element_content expired_cards"><span>{{ tot_expired_cards }}</span></p>
                 </div>
             </li>
 

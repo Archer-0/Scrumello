@@ -16,7 +16,7 @@
 .card-title-container {
     text-align: left;
     /*background: linear-gradient(155deg, #5a61ced6 40%, rgb(152, 126, 164) 100%);*/
-    background-color: #225828;
+    background-color: #004c08;
     padding: 10px;
     border-bottom: 3px solid #FFF;
     color: #FFF;
@@ -254,7 +254,7 @@
 }
 
 .new_card_form .card-title-container {
-    background: #76028f;
+    background: #31003c;
 }
 
 .card-title.new_card::placeholder {
