@@ -174,6 +174,11 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         resolver = resolve('/search_user_card/')
         self.assertEqual(resolver.view_name, 'search_user_card')
 
+    def test_url_view_burndown(self):
+
+        resolver = resolve('/burndown/')
+        self.assertEqual(resolver.view_name, 'burndown')
+
 
 # comando python per far partire i test di una singola classe: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse
 

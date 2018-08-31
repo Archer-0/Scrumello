@@ -10,18 +10,28 @@
 
             <div class="nav_bar_board_name_container">
                 {% if board %}
-                    <form class="prevent_submit_on_enter_press board_name_form hide_submit-button hide_delete-button hide_board_name_input" action="{% url 'modify_or_delete_board' board.id %}" method="post">
-                        <h1 class="header_board_name" title="{{ board.name }}">{{ board.name }}</h1>
-                        <a href="#" class="start_change_board_name" onclick="manage_board_modifications(this);" title="Modify the name of this board"><i class="far fa-edit"></i></a>
-                        <a href="#" class="discard_board_name_modifications" onclick="manage_board_modifications(this);" title="Cancel and discard changes."><i class="fas fa-chevron-left"></i></a>
-                        {% csrf_token %}
-                        {{ board_name_modification_form.new_board_name }}
-                        <button class="submit_changes" onclick="verify_board_text_inserted(event, this);" type="submit" value="change_board_name_request" name="submit">Submit Changes</button>
-                        <button class="delete_board prevent_submit_on_enter_press" onclick="open_delete_board_prompt(event, this);" type="submit" value="delete_board_request" name="submit">Delete Board</button>
-                    </form>
+                    {% if user in board_owners %}
+                        <form class="prevent_submit_on_enter_press board_name_form hide_submit-button hide_delete-button hide_board_name_input" action="{% url 'modify_or_delete_board' board.id %}" method="post">
+                            <h1 class="header_board_name" title="{{ board.name }}">{{ board.name }}</h1>
+                            <a href="#" class="start_change_board_name" onclick="manage_board_modifications(this);" title="Modify the name of this board"><i class="far fa-edit"></i></a>
+                            <a href="#" class="discard_board_name_modifications" onclick="manage_board_modifications(this);" title="Cancel and discard changes."><i class="fas fa-chevron-left"></i></a>
+                            {% csrf_token %}
+                            {{ board_name_modification_form.new_board_name }}
+                            <button class="submit_changes" onclick="verify_board_text_inserted(event, this);" type="submit" value="change_board_name_request" name="submit">Submit Changes</button>
+
+                            {%  if user == board.creator %}
+                                <button class="delete_board prevent_submit_on_enter_press" onclick="open_delete_board_prompt(event, this);" type="submit" value="delete_board_request" name="submit">Delete Board</button>
+                            {% endif %}
+
+                        </form>
+                    {% else %}
+                        <div class="board_name_form">
+                        <h1 class="header_board_name" title="You are not the owner of this board so you can not modify this.">{{ board.name }}</h1>
+                    </div>
+                    {% endif %}
                 {% elif board_to_modify %}
                     <div class="board_name_form">
-                        <h1 class="header_board_name" title="{{ board_to_modify.name }}">{{ board_to_modify.name }}</h1>
+                        <a href="{% url 'board' board_to_modify.id %}" class="header_board_name" title="Go back to {{ board_to_modify.name }}">{{ board_to_modify.name }}</a>
                     </div>
                 {% endif %}
             </div>

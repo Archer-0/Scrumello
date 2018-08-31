@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ board_to_modify.name}}'s Burndown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Mattia Frongia">
+    <meta name="keywords" content="Scrumello burndown">
+    <!-- bootstrap library -->
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.css' %}">
+    <!-- personal styles -->
+    <link rel="stylesheet" href="{% static 'styles/general_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/navbar_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/burndown_style.css' %}">
+
+    <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'scripts/dashboard_scripts.js' %}"></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% block navbar %}
+    {% endblock %}
+
+    <main class="page_content">
+        <div class="page_content_decription">
+            <h1 class="page_title">Burndown</h1>
+            <p class="page_description">Here you can see the statistics about the board <span>{{ board_to_modify.name }}</span></p>
+        </div>
+
+        <ul class="burndown_elements">
+
+            <li class="burndown_element total_cards" title="Total cards in {{ board_to_modify.name }}: {{ board_to_modify.n_cards }}">
+                <div class="burndown_element_content">
+                    <h2 class="list_element_title">Total Cards</h2>
+                    <p class="list_element_content total_board_cards"><span>{{ board_to_modify.n_cards }}</span></p>
+                </div>
+            </li>
+
+            <li class="burndown_element columns_cards" title="Total columns in {{ board_to_modify.name }}: {{ board_to_modify.n_columns }}">
+                <h2 class="list_element_title">Cards in Columns</h2>
+                <div class="burndown_element_content">
+                    <ul class="columns_list">
+                        {% for column in columns %}
+                            <li class="column_cards_element" title="{{ column.n_cards }} card/s in {{ column.name }}">
+                                <h3 title="Column &quot;{{ column.name }}&quot;">{{ column.name }}</h3>
+                                {% if column.n_cards > 1 %}
+                                    <p title="{{ column.n_cards }} cards in {{ column.name }}"><span>{{ column.n_cards }}</span> cards</p>
+                                {% elif column.n_cards == 1 %}
+                                    <p title="{{ column.n_cards }} card in {{ column.name }}"><span>{{ column.n_cards }}</span> card</p>
+                                {% elif column.n_cards <= 0 %}
+                                    <p title="No cards in {{ column.name }}">No cards</p>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+
+            <li class="burndown_element story_points" title="Total story points used in {{ board_to_modify.name }}: {{ tot_story_points }}">
+                <div class="burndown_element_content">
+                    <h2 class="list_element_title"> Story Points</h2>
+                    <p class="list_element_content total_story_points"><span>{{ tot_story_points }}</span></p>
+                </div>
+            </li>
+
+            <li class="burndown_element expired_cards" title="Total expired cards in {{ board_to_modify.name }}: {{ tot_expired_cards }}">
+                <div class="burndown_element_content">
+                    <h2 class="list_element_title">Expired Cards</h2>
+                    <p class="list_element_content expired_cards"><span>{{ tot_expired_cards }}</span></p>
+                </div>
+            </li>
+
+        </ul>
+    </main>
+</body>
+</html>

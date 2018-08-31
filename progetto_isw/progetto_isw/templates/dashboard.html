@@ -22,23 +22,9 @@
     <script src="{% static 'scripts/dashboard_scripts.js' %}"></script>
 </head>
 <body>
-{#    <header>#}
         {% include 'navbar.html' %}
         {% block navbar %}
         {% endblock %}
-{#    </header>#}
-
-{#    {% if new_user is True %}#}
-{#        {% include 'toolbar_guide.html' %}#}
-{#        {% block tutorial_box %}#}
-{#        {% endblock %}#}
-{#    {% endif %}#}
-
-{#    <div class="toolbar-div">#}
-{#        {% include 'board_toolbar.html' %}#}
-{#        {% block toolbar_block %}#}
-{#        {% endblock %}#}
-{#    </div>#}
 
     <main class="page_content">
         <div class="sticky-sidebar">
@@ -48,25 +34,61 @@
         </div>
 
         <div class="board_list_container">
-            {% if boards.exists and boards.count > 0 %}
-                <h1 class="board_list_title">Your Boards</h1>
-                <ul class="board_list">
-                    {% for board in boards %}
-                        <li class="board_item">
-                            <a href="/board/{{ board.id }}/" class="board_thumb" title="Open board &quot;{{ board.name }}&quot; ">
-                                <h3 class="board_name">{{ board.name }}</h3>
-                                <div class="board_info">
-                                    <i class="fas fa-user-friends icon_white"><span class="board_details_text">{{ board.n_users }} users</span></i>
-                                    <i class="far fa-window-restore icon_white"><span class="board_details_text">{{ board.n_columns }} columns</span> </i>
-                                    <i class="fas fa-window-restore icon_white"><span class="board_details_text">{{ board.n_cards }} cards</span> </i>
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <h1 class="board_list_title">You have no boards yet!</h1>
-            {% endif %}
+            {% if boards.exists and boards|length > 0 or owned_boards.exists and owned_boards|length > 0 or boards_created_by_user.exists and boards_created_by_user|length > 0 %}
+                {% if boards_created_by_user|length > 0 %}
+                    <h1 class="board_list_title">Boards Created By You</h1>
+                    <ul class="board_list">
+                        {% for board in boards_created_by_user %}
+                            <li class="board_item">
+                                <a href="/board/{{ board.id }}/" class="board_thumb" title="Open board &quot;{{ board.name }}&quot;, shared by {{ board.owner.username }}">
+                                    <h3 class="board_name">{{ board.name }}</h3>
+                                    <div class="board_info">
+                                        <i class="fas fa-user-friends icon_white"><span class="board_details_text">{{ board.n_users }} users</span></i>
+                                        <i class="far fa-window-restore icon_white"><span class="board_details_text">{{ board.n_columns }} columns</span> </i>
+                                        <i class="fas fa-window-restore icon_white"><span class="board_details_text">{{ board.n_cards }} cards</span> </i>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if owned_boards|length > 0 %}
+                    <h1 class="board_list_title">Boards Where You Are Administrator</h1>
+                    <ul class="board_list">
+                        {% for board in owned_boards %}
+                            <li class="board_item">
+                                <a href="/board/{{ board.id }}/" class="board_thumb" title="Open board &quot;{{ board.name }}&quot; ">
+                                    <h3 class="board_name">{{ board.name }}</h3>
+                                    <div class="board_info">
+                                        <i class="fas fa-user-friends icon_white"><span class="board_details_text">{{ board.n_users }} users</span></i>
+                                        <i class="far fa-window-restore icon_white"><span class="board_details_text">{{ board.n_columns }} columns</span> </i>
+                                        <i class="fas fa-window-restore icon_white"><span class="board_details_text">{{ board.n_cards }} cards</span> </i>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if boards|length > 0 %}
+                    <h1 class="board_list_title">Boards Where You Are Collaborator</h1>
+                    <ul class="board_list">
+                        {% for board in boards %}
+                            <li class="board_item">
+                                <a href="/board/{{ board.id }}/" class="board_thumb" title="Open board &quot;{{ board.name }}&quot;, shared by {{ board.owner.username }}">
+                                    <h3 class="board_name">{{ board.name }}</h3>
+                                    <div class="board_info">
+                                        <i class="fas fa-user-friends icon_white"><span class="board_details_text">{{ board.n_users }} users</span></i>
+                                        <i class="far fa-window-restore icon_white"><span class="board_details_text">{{ board.n_columns }} columns</span> </i>
+                                        <i class="fas fa-window-restore icon_white"><span class="board_details_text">{{ board.n_cards }} cards</span> </i>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+        {% else %}
+            <h1 class="board_list_title">You have no boards yet!</h1>
+        {% endif %}
         </div>
     </main>
 
