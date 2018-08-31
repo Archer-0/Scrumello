@@ -29,6 +29,10 @@
     width: 300px;
 }
 
+.toolbar-container.no-owner.expanded {
+    width: 200px;
+}
+
 .toolbar {
     padding: 0px;
     list-style: none;

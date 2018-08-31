@@ -183,19 +183,19 @@ header {
 
 @keyframes blinker {
   50% {
-    opacity: .1;
+    opacity: .4;
   }
 }
 
 @-webkit-keyframes blinker {
   50% {
-    opacity: .1;
+    opacity: .4;
   }
 }
 
 @-moz-keyframes blinker {
   50% {
-    opacity: .1;
+    opacity: .4;
   }
 }
 

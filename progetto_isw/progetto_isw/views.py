@@ -155,16 +155,14 @@ def log_out(request):
 # e' anche presente un form per creare nuove board
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':        # solito controllo sull'utente autenticato o meno
+
         if request.user:
-            boards = Board.objects.all().filter(users=request.user)     # filtraggio delle board in base all'utente loggato
+
+            personal_boards = Board.objects.all().filter(creator=request.user)    # filtraggio delle board in base all'utente loggato
+            owned_boards = Board.objects.all().filter(owners=request.user).exclude(creator=request.user)    # filtraggio delle board in base all'utente loggato
+            boards = Board.objects.all().filter(users=request.user).exclude(owners=request.user)     # filtraggio delle board in base all'utente loggato
 
         board_creation_form = BoardCreationForm()       # form creazione nuove board
-
-        # return render(request, 'dashboard.html', {
-        #     'user': request.user,
-        #     'message': 'Hey ' + request.user.username + ', all is working',
-        #     'board_creation_form': board_creation_form,
-        # })
 
         # viene visualizzata la dashboard, viene caricata la
         # lista di boards a cui partecipa l'utente e il form di creazione
@@ -172,6 +170,8 @@ def dashboard(request):
         return render(request, 'dashboard.html',  {
             'user': request.user,
             'boards': boards,
+            'owned_boards': owned_boards,
+            'boards_created_by_user': personal_boards,
             'board_creation_form': board_creation_form,
         })
     # se l'utente che cerca di accedere alla pagina non e' autenticato viene
@@ -199,9 +199,12 @@ def add_board(request):
                     # alla lista di utenti della board, perche' facendo al contrario viene
                     # lanciata un'eccezione dal database. A quanto pare deve essere salvata sul database
                     # prima di farla interagire con altri oggetti gia' presenti (nel database)
+                    new_board.creator = request.user
                     new_board.save()
+                    new_board.owners.add(request.user.id)
                     new_board.users.add(request.user.id)
-                    print('New board created. Name: ' + new_board.name)     # log
+                    # new_board.save()
+                    print('New board created. Name: ' + new_board.name + '. creator: ' + new_board.creator.username)     # log
 
                     # redirezione alla pagina della board appena creata
                     return HttpResponseRedirect("/board/" + str(new_board.id) + "/")
@@ -210,8 +213,83 @@ def add_board(request):
 
         return render(request, 'dashboard.html', {
             'user': request.user,
-            'message': 'Hey ' + request.user.username + ', all is working',
             'board_creation_form': board_form,
+        })
+
+    else:
+        this_function_name = sys._getframe().f_code.co_name
+        print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
+        return HttpResponseRedirect("/login_signup/")
+
+
+def add_or_remove_user_to_board(request, board_id, user_id=''):
+    if str(request.user) != 'AnonymousUser':
+        board_to_modify = Board.objects.get(pk=board_id)
+
+        if request.user in board_to_modify.owners.all():                        # controllo per owner
+
+            if request.method == 'POST':
+                if request.POST.get('submit') == 'add_user_request':
+                    if user_id is not None:
+                        user_to_add = User.objects.get(pk=user_id)
+                        print ('Adding user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
+
+                        if (board_to_modify.users.all().filter(pk=user_id).count() <= 0):
+                            board_to_modify.users.add(user_to_add)
+                            board_to_modify.n_users += 1
+                            board_to_modify.save()
+                            print ('Added user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
+
+                elif request.POST.get('submit') == 'delete_user_request':
+                    if user_id is not None:
+                        user_to_delete = User.objects.get(pk=user_id)
+                        print ('Deleting user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
+
+                        if (board_to_modify.users.all().filter(pk=user_id).count() > 0):
+                            board_to_modify.users.remove(user_to_delete)
+                            board_to_modify.n_users -= 1
+                            board_to_modify.save()
+                            print ('Deleted user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
+
+                elif request.POST.get('submit') == 'add_user_to_admins_request':
+                    if user_id is not None:
+                        user_to_make_admin = User.objects.get(pk=user_id)
+                        print ('Adding user ' + user_to_make_admin.username + ' as admin to board ' + str(board_to_modify.id))
+
+                        if (board_to_modify.owners.all().filter(pk=user_id).count() <= 0):
+                            board_to_modify.owners.add(user_to_make_admin)
+                            board_to_modify.save()
+                            print ('Added user ' + user_to_make_admin.username + 'as admin to board ' + str(board_to_modify.id))
+
+                elif request.POST.get('submit') == 'remove_user_from_admins_request':
+                    if user_id is not None:
+                        user_to_remove_from_admins = User.objects.get(pk=user_id)
+                        print ('Removing user ' + user_to_remove_from_admins.username + ' from admins of board ' + str(board_to_modify.id))
+
+                        if (board_to_modify.owners.all().filter(pk=user_id).count() > 0):
+                            board_to_modify.owners.remove(user_to_remove_from_admins)
+                            board_to_modify.save()
+                            print ('Added user ' + user_to_remove_from_admins.username + 'as admin to board ' + str(board_to_modify.id))
+
+        else:   # se l'utente non e' admin
+            error_message = 'You do not have enough permissions to add/remove users to/from this board.'
+            error_suggestions = [
+                'If you just created the board, try to create another one. If problem persists contact us. We apologize for the inconvenience.',
+                'If you know other users that can access the board, ask them to add you to admin users.',
+                'If you got here \"accidentally\" just go back to your Dashboard.']
+
+            return raise_error_page(request, error_message, error_suggestions)
+
+        search_user_form = SearchUserForm()
+        board_name_modification_form = BoardNameModificationForm()
+        board_owners = board_to_modify.owners.all()
+
+        return render(request, 'board_user_management.html', {
+            'user': request.user,
+            'board_to_modify': board_to_modify,
+            'board_owners': board_owners,
+            'board_name_modification_form': board_name_modification_form,
+            'search_user_form': search_user_form,
         })
 
     else:
@@ -222,25 +300,103 @@ def add_board(request):
 
 def modify_or_delete_board(request, board_id):
     if str(request.user) != 'AnonymousUser':        # solito controllo
-        if request.method == 'POST':
-            if request.POST.get('submit') == 'change_board_name_request':
-                new_board_name_form = BoardNameModificationForm(request.POST)
-                if (new_board_name_form.is_valid()):
-                    new_board_name = new_board_name_form.cleaned_data['new_board_name']
-                    board_to_modify = Board.objects.get(pk=board_id)
 
-                    if (board_to_modify.name != new_board_name):
-                        board_to_modify.name = new_board_name
-                        board_to_modify.save()
+        if request.user in Board.objects.get(pk=board_id).owners.all():                        # controllo per owner
+
+            if request.method == 'POST':
+                if request.POST.get('submit') == 'change_board_name_request':
+                    new_board_name_form = BoardNameModificationForm(request.POST)
+                    if (new_board_name_form.is_valid()):
+                        new_board_name = new_board_name_form.cleaned_data['new_board_name']
+                        board_to_modify = Board.objects.get(pk=board_id)
+
+                        if (board_to_modify.name != new_board_name):
+                            board_to_modify.name = new_board_name
+                            board_to_modify.save()
 
 
-            elif request.POST.get('submit') == 'delete_board_request':
-                board_to_delete = Board.objects.get(pk=board_id)
-                board_to_delete.delete()
+                elif request.POST.get('submit') == 'delete_board_request':
+                    board_to_delete = Board.objects.get(pk=board_id)
+                    if user == board_to_delete.creator:
+                        board_to_delete.delete()
+                    else:
+                        error_message = 'You do not have enough permissions to delete this board.'
+                        error_suggestions = [
+                            'Only the Creator of the board can delete it. If you have created this board, try deleting the cache of the browser and reloading the page, then try again. If problem persists contact us. We apologize for the inconvenience.',
+                            '',
+                            'If you got here \"accidentally\" just go back to your Dashboard.']
 
-                return HttpResponseRedirect("/dashboard/")
+                        return raise_error_page(request, error_message, error_suggestions)
+
+                    return HttpResponseRedirect("/dashboard/")
+        else:
+            error_message = 'You do not have enough permissions to modify this board.'
+            error_suggestions = [
+                'If you created the board, try to create another one. If problem persists contact us. We apologize for the inconvenience.',
+                'If you know other users that can access the board, ask them to add you as admin user.',
+                'If a psychopathic artificial intelligence is trying to kill you, well, stand still, stay calm and scream: \"THIS STATEMENT IS FALSE!\" or \"DOES A SET OF ALL SETS CONTAIN ITSELF?\".',
+                'If you got here \"accidentally\" just go back to your Dashboard.']
+
+            return raise_error_page(request, error_message, error_suggestions)
 
         return HttpResponseRedirect("/board/" + str(board_id) + "/")
+
+    else:
+        this_function_name = sys._getframe().f_code.co_name
+        print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
+        return HttpResponseRedirect("/login_signup/")
+
+
+def search_user_board(request):
+    if str(request.user) != 'AnonymousUser':
+
+        if request.method == 'POST':
+            if request.POST['username_to_search'] != '':
+                user_searched = request.POST['username_to_search']
+            else:
+                user_searched = ''
+        else:
+            user_searched = ''
+
+        board_to_modify = None
+
+        if user_searched != '':
+            search_match_users = User.objects.filter(username__contains=user_searched)
+        else:
+            search_match_users = []
+
+        found_users_without_access = []
+        found_users_with_access = []
+        found_owners = []
+
+        if (request.POST['board_to_modify'] is not None):
+            board_to_modify = Board.objects.get(pk=request.POST['board_to_modify'])
+
+            for user in search_match_users:
+                if (user != request.user and not user.is_superuser):
+                    if user not in board_to_modify.users.all():
+                        found_users_without_access.append(user)
+
+            for user in board_to_modify.users.all():
+                if (user != request.user and not user.is_superuser):
+                    if user not in board_to_modify.owners.all():
+                        found_users_with_access.append(user)
+
+            for user in board_to_modify.owners.all():
+                if (user != request.user and not user.is_superuser and user != board_to_modify.creator):
+                        found_owners.append(user)
+
+        board_creator = board_to_modify.creator
+
+        return render(request, 'user_search_result-board.html', {
+            'user': request.user,
+            'board_creator': board_creator,
+            'board_owners': found_owners,
+            'found_users_without_access': found_users_without_access,
+            'found_users_with_access': found_users_with_access,
+            'query_text': user_searched,
+            'object_to_modify': board_to_modify,
+        })
 
     else:
         this_function_name = sys._getframe().f_code.co_name
@@ -273,7 +429,7 @@ def board_view(request, board_id):
 
         if is_user_authorized == False:
             print('Unauthorized access. Redirecting user to unauthorized_access page.')      # log
-            error_message = 'You do not have sufficient permission to access the requested board.'
+            error_message = 'You do not have enough permissions to access the requested board.'
             error_suggestions = ['If you created the board, try to create another one. If problem persists contact us. We apologize for the inconvenience.',
                                  'If you know other users that can access the board, ask them to add you to authorized users.',
                                  'If you got here accidentally just go back to your Dashboard.']
@@ -301,9 +457,12 @@ def board_view(request, board_id):
 
         board_name_modification_form = BoardNameModificationForm()
 
+        board_owners = Board.objects.get(pk=board_id).owners.all()
+
         # carica la pagina con la lista di colonne e cards presenti nella board
         return render(request, 'board.html', {
             'user': request.user,
+            'board_owners': board_owners,
             'board': this_board,
             'columns': columns,
             'cards': cards,
@@ -467,7 +626,6 @@ def add_card(request, board_id, column_id):
         return HttpResponseRedirect("/login_signup/")
 
 
-# TODO: aggiustare il template per la pagina di modifica della card
 def modify_or_delete_card(request, card_id, board_id):
     if str(request.user) != 'AnonymousUser':
         # html = "<html><body>Ssshhhhhh. Trust me, it\'s gone. The ugly card is gone.</body></html>"
@@ -603,53 +761,6 @@ def add_or_remove_user_to_card(request, user_id, card_id):
         return HttpResponseRedirect("/login_signup/")
 
 
-# TODO: fare questa funzione e relativo template
-def add_or_remove_user_to_board(request, board_id, user_id=''):
-    if str(request.user) != 'AnonymousUser':
-
-        print ('ci arrivoooooooooooo')
-
-        board_to_modify = Board.objects.get(pk=board_id)
-
-        if request.method == 'POST':
-            if request.POST.get('submit') == 'add_user_request':
-                if user_id is not None:
-                    user_to_add = User.objects.get(pk=user_id)
-                    print ('Adding user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
-
-                    if (board_to_modify.users.all().filter(pk=user_id).count() <= 0):
-                        board_to_modify.users.add(user_to_add)
-                        board_to_modify.n_users += 1
-                        board_to_modify.save()
-                        print ('Added user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
-
-            elif request.POST.get('submit') == 'delete_user_request':
-                if user_id is not None:
-                    user_to_delete = User.objects.get(pk=user_id)
-                    print ('Deleting user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
-
-                    if (board_to_modify.users.all().filter(pk=user_id).count() > 0):
-                        board_to_modify.users.remove(user_to_delete)
-                        board_to_modify.n_users -= 1
-                        board_to_modify.save()
-                        print ('Deleted user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
-
-        search_user_form = SearchUserForm()
-        board_name_modification_form = BoardNameModificationForm()
-
-        return render(request, 'board_user_management.html', {
-            'user': request.user,
-            'board_to_modify': board_to_modify,
-            'board_name_modification_form': board_name_modification_form,
-            'search_user_form': search_user_form,
-        })
-
-    else:
-        this_function_name = sys._getframe().f_code.co_name
-        print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
-        return HttpResponseRedirect("/login_signup/")
-
-
 def search_user_card(request):
     if str(request.user) != 'AnonymousUser':
 
@@ -696,51 +807,6 @@ def search_user_card(request):
         return HttpResponseRedirect("/login_signup/")
 
 
-def search_user_board(request):
-    if str(request.user) != 'AnonymousUser':
-
-        if request.method == 'POST':
-            if request.POST['username_to_search'] != '':
-                user_searched = request.POST['username_to_search']
-            else:
-                user_searched = ''
-        else:
-            user_searched = ''
-
-        board_to_modify = None
-
-        if user_searched != '':
-            search_match_users = User.objects.filter(username__contains=user_searched)
-        else:
-            search_match_users = []
-
-        found_users_without_access = []
-        found_users_with_access = []
-
-        if (request.POST['board_to_modify'] is not None):
-            board_to_modify = Board.objects.get(pk=request.POST['board_to_modify'])
-
-            for user in search_match_users:
-                if (user != request.user and not user.is_superuser):
-                    if user not in board_to_modify.users.all():
-                        found_users_without_access.append(user)
-
-            for user in board_to_modify.users.all():
-                if (user != request.user and not user.is_superuser):
-                    found_users_with_access.append(user)
-
-
-        return render(request, 'user_search_result-board.html', {
-            'found_users_without_access': found_users_without_access,
-            'found_users_with_access': found_users_with_access,
-            'query_text': user_searched,
-            'object_to_modify': board_to_modify,
-        })
-
-    else:
-        this_function_name = sys._getframe().f_code.co_name
-        print('(' + this_function_name + ') ' + 'Unauthorized access. Redirecting user to login page')
-        return HttpResponseRedirect("/login_signup/")
 
 
 def raise_error_page(request, error_message, error_suggestions):
@@ -778,7 +844,7 @@ def burndown(request, board_id):
                 user_can_access = True
 
         if (user_can_access == False):
-            error_message = 'You do not have sufficient permission to access the requested board.'
+            error_message = 'You do not have enough permission to access the requested board.'
             error_suggestions = [
                 'If you just clicked in burndown button, then try deleting cookies and cleaning the cache of the browser, reload the page and try again. We apologize for the inconvenience.',
                 'If you know other users that can access the board, ask them to add you to authorized users then try again.',

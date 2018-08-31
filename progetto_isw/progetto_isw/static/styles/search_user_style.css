@@ -19,6 +19,8 @@
 .search_user,
 .search_user_reset,
 .delete_user_button,
+.remove_user_from_admins_button,
+.make_user_admin_button,
 .add_user_button {
     color: #FFF;
     background: rgba(255, 250, 240, 0.4);
@@ -186,26 +188,46 @@
 }
 
 .add_user_button,
-.delete_user_button {
+.delete_user_button,
+.make_user_admin_button,
+.remove_user_from_admins_button {
     flex-grow: 0;
     border: 0;
-    border-radius: 1px;
+    border-radius: 0px;
+    transition: background-color 500ms ease;
 }
 
 .add_user_button {
-    background: rgba(108, 255, 104, 0.3);
+    background: rgba(108, 255, 104, 0.5);
 }
 
 .add_user_button:hover {
-    background: rgba(108, 255, 104, 0.6);
+    background: rgba(108, 255, 104, 0.8);
 }
 
 .delete_user_button {
-    background: rgba(255, 106, 95, 0.3);
+    background: rgba(255, 106, 95, 0.5);
 }
 
 .delete_user_button:hover {
-    background: rgba(255, 106, 95, 0.6);
+    background: rgba(255, 106, 95, 0.8);
+}
+
+.make_user_admin_button {
+    margin-left: 5px;
+    background: rgba(67, 230, 255, 0.5);
+}
+
+.make_user_admin_button:hover {
+    background: rgba(67, 230, 255, 0.8);
+}
+
+.remove_user_from_admins_button {
+    background: rgba(197, 103, 191, 0.5);
+}
+
+.remove_user_from_admins_button:hover {
+    background: rgba(197, 103, 191, 0.7);
 }
 
 .user_item_username {
@@ -224,4 +246,19 @@
 
 .user_pro_pic {
     height: 100%;
+}
+
+.section_title {
+    font-weight: 300;
+    font-size: 24px;
+    /*text-transform: capitalize;*/
+    margin-top: 10px;
+}
+
+.no_already_users_text {
+    /*text-transform: capitalize;*/
+    margin-top: 10px;
+    opacity: 0.3;
+    font-size: 17px;
+    font-weight: 300;
 }

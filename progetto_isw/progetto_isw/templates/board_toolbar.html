@@ -1,24 +1,43 @@
 {% load staticfiles %}
 {% block toolbar_block %}
 
-    <div class="toolbar-container">
+    {% if user in board_owners %}
+        <div class="toolbar-container">
 
-        <div class="hambbutton">
-            <a href="#">
-                <span></span>
-            </a>
+            <div class="hambbutton">
+                <a href="#">
+                    <span></span>
+                </a>
+            </div>
+
+            <ul class="toolbar hidden">
+                <li class="toolbar-item">
+                    <a href="{% url 'add_or_remove_user_to_board' board.id %}" title="Add or remove user from this Board.">Manage Users</a>
+                    <span class="add-user-baloon hidden"></span>
+                </li>
+                <li class="toolbar-item">
+                    <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
+                </li>
+            </ul>
+
         </div>
+    {% else %}
+        <div class="toolbar-container no-owner">
 
-        <ul class="toolbar hidden">
-            <li class="toolbar-item">
-                <a href="{% url 'add_or_remove_user_to_board' board.id %}" title="Add or remove user from this Board.">Manage Users</a>
-                <span class="add-user-baloon hidden"></span>
-            </li>
-            <li class="toolbar-item">
-                <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
-            </li>
-        </ul>
-    </div>
+            <div class="hambbutton">
+                <a href="#">
+                    <span></span>
+                </a>
+            </div>
+
+            <ul class="toolbar hidden">
+                <li class="toolbar-item">
+                    <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
+                </li>
+            </ul>
+
+        </div>
+    {% endif %}
 
     <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'scripts/toolbar_script.js' %}"></script>
