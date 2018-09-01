@@ -44,18 +44,24 @@
                 <h2 class="list_element_title">Cards in Columns</h2>
                 <div class="burndown_element_content">
                     <ul class="columns_list">
-                        {% for column in columns %}
-                            <li class="column_cards_element" title="{{ column.n_cards }} card/s in {{ column.name }}">
-                                <h3 title="Column &quot;{{ column.name }}&quot;">{{ column.name }}</h3>
-                                {% if column.n_cards > 1 %}
-                                    <p title="{{ column.n_cards }} cards in {{ column.name }}"><span>{{ column.n_cards }}</span> cards</p>
-                                {% elif column.n_cards == 1 %}
-                                    <p title="{{ column.n_cards }} card in {{ column.name }}"><span>{{ column.n_cards }}</span> card</p>
-                                {% elif column.n_cards <= 0 %}
-                                    <p title="No cards in {{ column.name }}">No cards</p>
-                                {% endif %}
+                        {% if column|length > 0 %}
+                            {% for column in columns %}
+                                <li class="column_cards_element" title="{{ column.n_cards }} card/s in {{ column.name }}">
+                                    <h3 title="Column &quot;{{ column.name }}&quot;">{{ column.name }}</h3>
+                                    {% if column.n_cards > 1 %}
+                                        <p title="{{ column.n_cards }} cards in {{ column.name }}"><span>{{ column.n_cards }}</span> cards</p>
+                                    {% elif column.n_cards == 1 %}
+                                        <p title="{{ column.n_cards }} card in {{ column.name }}"><span>{{ column.n_cards }}</span> card</p>
+                                    {% elif column.n_cards <= 0 %}
+                                        <p title="No cards in {{ column.name }}">No cards</p>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="column_cards_element">
+                                <h3>No columns yet!</h3>
                             </li>
-                        {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </li>
