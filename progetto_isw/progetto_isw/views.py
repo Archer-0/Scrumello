@@ -206,7 +206,7 @@ def add_board(request):
                     # redirezione alla pagina della board appena creata
                     return HttpResponseRedirect("/board/" + str(new_board.id) + "/")
 
-        board_form = BoardCreationForm()
+        board_form = BoardCreationForm()            # non ci vanno i punti e virgola su pyrhon!
 
         return render(request, 'dashboard.html', {
             'user': request.user,
