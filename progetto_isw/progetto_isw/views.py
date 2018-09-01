@@ -317,7 +317,7 @@ def modify_or_delete_board(request, board_id):
 
                 elif request.POST.get('submit') == 'delete_board_request':
                     board_to_delete = Board.objects.get(pk=board_id)
-                    if user == board_to_delete.creator:
+                    if request.user == board_to_delete.creator:
                         board_to_delete.delete()
                     else:
                         error_message = 'You do not have enough permissions to delete this board.'
