@@ -1,10 +1,9 @@
 # coding=utf-8
 import random
 import sys
-from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import datetime
 
@@ -156,11 +155,9 @@ def log_out(request):
 def dashboard(request):
     if str(request.user) != 'AnonymousUser':        # solito controllo sull'utente autenticato o meno
 
-        if request.user:
-
-            personal_boards = Board.objects.all().filter(creator=request.user)    # filtraggio delle board in base all'utente loggato
-            owned_boards = Board.objects.all().filter(owners=request.user).exclude(creator=request.user)    # filtraggio delle board in base all'utente loggato
-            boards = Board.objects.all().filter(users=request.user).exclude(owners=request.user)     # filtraggio delle board in base all'utente loggato
+        personal_boards = Board.objects.all().filter(creator=request.user)    # filtraggio delle board in base all'utente loggato
+        owned_boards = Board.objects.all().filter(owners=request.user).exclude(creator=request.user)    # filtraggio delle board in base all'utente loggato
+        boards = Board.objects.all().filter(users=request.user).exclude(owners=request.user)     # filtraggio delle board in base all'utente loggato
 
         board_creation_form = BoardCreationForm()       # form creazione nuove board
 
@@ -208,8 +205,8 @@ def add_board(request):
 
                     # redirezione alla pagina della board appena creata
                     return HttpResponseRedirect("/board/" + str(new_board.id) + "/")
-        else:
-            board_form = BoardCreationForm();
+
+        board_form = BoardCreationForm()
 
         return render(request, 'dashboard.html', {
             'user': request.user,
@@ -234,7 +231,7 @@ def add_or_remove_user_to_board(request, board_id, user_id=''):
                         user_to_add = User.objects.get(pk=user_id)
                         print ('Adding user ' + user_to_add.username + ' to board ' + str(board_to_modify.id))
 
-                        if (board_to_modify.users.all().filter(pk=user_id).count() <= 0):
+                        if board_to_modify.users.all().filter(pk=user_id).count() <= 0:
                             board_to_modify.users.add(user_to_add)
                             board_to_modify.n_users += 1
                             board_to_modify.save()
@@ -245,7 +242,7 @@ def add_or_remove_user_to_board(request, board_id, user_id=''):
                         user_to_delete = User.objects.get(pk=user_id)
                         print ('Deleting user ' + user_to_delete.username + ' from board ' + str(board_to_modify.id))
 
-                        if (board_to_modify.users.all().filter(pk=user_id).count() > 0):
+                        if board_to_modify.users.all().filter(pk=user_id).count() > 0:
                             board_to_modify.users.remove(user_to_delete)
                             board_to_modify.n_users -= 1
                             board_to_modify.save()
@@ -256,7 +253,7 @@ def add_or_remove_user_to_board(request, board_id, user_id=''):
                         user_to_make_admin = User.objects.get(pk=user_id)
                         print ('Adding user ' + user_to_make_admin.username + ' as admin to board ' + str(board_to_modify.id))
 
-                        if (board_to_modify.owners.all().filter(pk=user_id).count() <= 0):
+                        if board_to_modify.owners.all().filter(pk=user_id).count() <= 0:
                             board_to_modify.owners.add(user_to_make_admin)
                             board_to_modify.save()
                             print ('Added user ' + user_to_make_admin.username + 'as admin to board ' + str(board_to_modify.id))
@@ -266,7 +263,7 @@ def add_or_remove_user_to_board(request, board_id, user_id=''):
                         user_to_remove_from_admins = User.objects.get(pk=user_id)
                         print ('Removing user ' + user_to_remove_from_admins.username + ' from admins of board ' + str(board_to_modify.id))
 
-                        if (board_to_modify.owners.all().filter(pk=user_id).count() > 0):
+                        if board_to_modify.owners.all().filter(pk=user_id).count() > 0:
                             board_to_modify.owners.remove(user_to_remove_from_admins)
                             board_to_modify.save()
                             print ('Added user ' + user_to_remove_from_admins.username + 'as admin to board ' + str(board_to_modify.id))
@@ -306,11 +303,11 @@ def modify_or_delete_board(request, board_id):
             if request.method == 'POST':
                 if request.POST.get('submit') == 'change_board_name_request':
                     new_board_name_form = BoardNameModificationForm(request.POST)
-                    if (new_board_name_form.is_valid()):
+                    if new_board_name_form.is_valid():
                         new_board_name = new_board_name_form.cleaned_data['new_board_name']
                         board_to_modify = Board.objects.get(pk=board_id)
 
-                        if (board_to_modify.name != new_board_name):
+                        if board_to_modify.name != new_board_name:
                             board_to_modify.name = new_board_name
                             board_to_modify.save()
 
@@ -369,21 +366,21 @@ def search_user_board(request):
         found_users_with_access = []
         found_owners = []
 
-        if (request.POST['board_to_modify'] is not None):
+        if request.POST['board_to_modify'] is not None:
             board_to_modify = Board.objects.get(pk=request.POST['board_to_modify'])
 
             for user in search_match_users:
-                if (user != request.user and not user.is_superuser):
+                if user != request.user and not user.is_superuser:
                     if user not in board_to_modify.users.all():
                         found_users_without_access.append(user)
 
             for user in board_to_modify.users.all():
-                if (user != request.user and not user.is_superuser):
+                if user != request.user and not user.is_superuser:
                     if user not in board_to_modify.owners.all():
                         found_users_with_access.append(user)
 
             for user in board_to_modify.owners.all():
-                if (user != request.user and not user.is_superuser and user != board_to_modify.creator):
+                if user != request.user and not user.is_superuser and user != board_to_modify.creator:
                         found_owners.append(user)
 
         board_creator = board_to_modify.creator
@@ -484,13 +481,13 @@ def add_column(request, board_id):
     if str(request.user) != 'AnonymousUser':
         if request.method == 'POST':
             print('New add column POST request')        # log
-            if (request.POST.get('submit') == 'new_column_create_request'):
+            if request.POST.get('submit') == 'new_column_create_request':
                 new_column_form = ColumnCreationForm(request.POST)
 
                 # se il form e' valido creo la nova colonna associata alla
                 # board in cui e' stato compilato il form
                 if new_column_form.is_valid():
-                    new_column_name = new_column_form.cleaned_data['column_name'];
+                    new_column_name = new_column_form.cleaned_data['column_name']
 
                     # ritorna un oggetto di tipo QuerySet ma occorrsolo un elemento quindi aggiungo [0]
                     new_column_mother_board = Board.objects.all().filter(pk=board_id)[0]
@@ -523,7 +520,7 @@ def modify_or_delete_column(request, column_id, board_id):
 
         if request.method == 'POST':
 
-            if (request.POST.get('submit') == 'change_column_name_request'):
+            if request.POST.get('submit') == 'change_column_name_request':
                 new_column_name_form = ColumnNameModificationForm(request.POST)
 
                 if new_column_name_form.is_valid():
@@ -531,7 +528,7 @@ def modify_or_delete_column(request, column_id, board_id):
                     column_to_modify = Column.objects.get(pk=column_id)
 
                     # controllo se il nuovo nome e' diverso dal precedente per risparmiare nu accesso al database
-                    if (column_to_modify.name != new_column_name):
+                    if column_to_modify.name != new_column_name:
                         column_to_modify.name = new_column_name
                         column_to_modify.save()
 
@@ -541,7 +538,7 @@ def modify_or_delete_column(request, column_id, board_id):
                 else:
                     print('new column form invalid. Reloading page...')
 
-            elif (request.POST.get('submit') == 'delete_column_request'):
+            elif request.POST.get('submit') == 'delete_column_request':
                 column_to_delete = Column.objects.get(pk=column_id)
                 mother_board = Board.objects.get(pk=column_to_delete.mother_board.id)
                 card_in_column = column_to_delete.n_cards
@@ -566,7 +563,7 @@ def add_card(request, board_id, column_id):
             new_card_form = CardCreationForm(request.POST)
 
             # se il orm e' valido creo la nuova card associata alla colonna in cui e' stata compilata
-            if (new_card_form.is_valid()):
+            if new_card_form.is_valid():
                 new_card_title = new_card_form.cleaned_data['new_card_title']
                 new_card_description = new_card_form.cleaned_data['new_card_description']
                 new_card_expire_date = new_card_form.cleaned_data['new_card_expire_date']
@@ -586,7 +583,7 @@ def add_card(request, board_id, column_id):
                 card.users.add(request.user)
 
                 # aggiorna il numero di card della colonna
-                if (new_card_moteher_column.n_cards == 0):
+                if new_card_moteher_column.n_cards == 0:
                     n_cards = 0
                     for card in Card.objects.all().filter(mother_column=new_card_moteher_column):
                         n_cards += 1
@@ -602,7 +599,7 @@ def add_card(request, board_id, column_id):
                 # aggiorna il numero di card della board
                 board = Board.objects.get(pk=board_id)
 
-                if (board.n_cards == 0):
+                if board.n_cards == 0:
                     n_cards = 0
                     for column in Column.objects.all().filter(mother_board=board):
                         n_cards += column.n_cards
@@ -632,7 +629,7 @@ def modify_or_delete_card(request, card_id, board_id):
         # return HttpResponse(html)
         if request.method == 'POST':
 
-            if (request.POST.get('submit') == 'modify_card_request'):
+            if request.POST.get('submit') == 'modify_card_request':
                 card_to_modify = Card.objects.get(pk=card_id)
                 previous_board = Board.objects.get(pk=board_id)
 
@@ -647,11 +644,11 @@ def modify_or_delete_card(request, card_id, board_id):
                     'card_modification_form': card_modification_form,
                 })
 
-            elif (request.POST.get('submit') == 'save_card_changes_request'):
+            elif request.POST.get('submit') == 'save_card_changes_request':
                 card_to_modify = Card.objects.get(pk=card_id)
                 modified_card_form = CardModificationForm(board_id, card_id, request.POST)
 
-                if (modified_card_form.is_valid()):
+                if modified_card_form.is_valid():
 
                     new_card_title = modified_card_form.cleaned_data['new_card_title']
                     new_card_description = modified_card_form.cleaned_data['new_card_description']
@@ -661,23 +658,23 @@ def modify_or_delete_card(request, card_id, board_id):
 
 
                     # si eseguono  controlli per risparmiare accessi al database nel caso non ci siano modifiche
-                    if (card_to_modify.title != new_card_title and new_card_title != ''):
+                    if card_to_modify.title != new_card_title and new_card_title != '':
                         card_to_modify.title = new_card_title
                         card_to_modify.save()
 
-                    if (card_to_modify.description != new_card_description and new_card_description != ''):
+                    if card_to_modify.description != new_card_description and new_card_description != '':
                         card_to_modify.description = new_card_description
                         card_to_modify.save()
 
-                    if (card_to_modify.expire_date != new_card_expire_date):
+                    if card_to_modify.expire_date != new_card_expire_date:
                         card_to_modify.expire_date = new_card_expire_date
                         card_to_modify.save()
 
-                    if (card_to_modify.story_points != new_card_story_points):
+                    if card_to_modify.story_points != new_card_story_points:
                         card_to_modify.story_points = new_card_story_points
                         card_to_modify.save()
 
-                    if (str(card_to_modify.mother_column.id) != new_card_mother_column):
+                    if str(card_to_modify.mother_column.id) != new_card_mother_column:
                         old_column_mother = Column.objects.get(pk=card_to_modify.mother_column.id)
                         new_column_mother = Column.objects.get(pk=new_card_mother_column)
                         new_column_mother.n_cards += 1
@@ -692,7 +689,7 @@ def modify_or_delete_card(request, card_id, board_id):
                 else:
                     print ('not valid aiai')
 
-            elif (request.POST.get('submit') == 'delete_card_request'):
+            elif request.POST.get('submit') == 'delete_card_request':
                 card_to_delete = Card.objects.get(pk=card_id)
                 mother_column = Column.objects.get(pk=card_to_delete.mother_column.id)
                 mother_board = Board.objects.get(pk=mother_column.mother_board.id)
@@ -735,7 +732,7 @@ def add_or_remove_user_to_card(request, user_id, card_id):
                 user_to_add = User.objects.get(pk=user_id)
                 print ('Adding user ' + user_to_add.username + ' to card ' + str(card_to_modify.id))
 
-                if (card_to_modify.users.all().filter(pk=user_id).count() <= 0):
+                if card_to_modify.users.all().filter(pk=user_id).count() <= 0:
                     card_to_modify.users.add(user_to_add)
                     card_to_modify.n_users += 1
                     card_to_modify.save()
@@ -745,7 +742,7 @@ def add_or_remove_user_to_card(request, user_id, card_id):
                 user_to_delete = User.objects.get(pk=user_id)
                 print ('Deleting user ' + user_to_delete.username + ' from card ' + str(card_to_modify.id))
 
-                if (card_to_modify.users.all().filter(pk=user_id).count() > 0):
+                if card_to_modify.users.all().filter(pk=user_id).count() > 0:
                     card_to_modify.users.remove(user_to_delete)
                     card_to_modify.n_users -= 1
                     card_to_modify.save()
@@ -782,16 +779,16 @@ def search_user_card(request):
         found_users_without_access = []
         found_users_with_access = []
 
-        if (request.POST['card_to_modify'] is not None):
+        if request.POST['card_to_modify'] is not None:
             card_to_modify = Card.objects.get(pk=request.POST['card_to_modify'])
 
             for user in search_match_users:
-                if (user != request.user and not user.is_superuser):
+                if user != request.user and not user.is_superuser:
                     if user not in card_to_modify.users.all():
                         found_users_without_access.append(user)
 
             for user in card_to_modify.users.all():
-                if (user != request.user and not user.is_superuser):
+                if user != request.user and not user.is_superuser:
                     found_users_with_access.append(user)
 
         return render(request, 'user_search_result-card.html', {
@@ -843,7 +840,7 @@ def burndown(request, board_id):
             if request.user == user:
                 user_can_access = True
 
-        if (user_can_access == False):
+        if user_can_access == False:
             error_message = 'You do not have enough permission to access the requested board.'
             error_suggestions = [
                 'If you just clicked in burndown button, then try deleting cookies and cleaning the cache of the browser, reload the page and try again. We apologize for the inconvenience.',
