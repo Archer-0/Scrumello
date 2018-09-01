@@ -4,13 +4,11 @@ from django.urls import reverse, resolve
 
 
 class UrlTests(TestCase):
+    """
+        test per validare il nome delle URL
+    """
 
     def test_url_login_signup(self):
-        """
-            test per validare il nome della URL
-
-            il test deve passare
-        """
 
         url = reverse('login_signup')  # reverse('test') restituisce '/test/'
         self.assertEqual(url, '/')  # assertEqual verifica se i due parametri sono uguali
@@ -34,6 +32,11 @@ class UrlTests(TestCase):
 
         url = reverse('board', kwargs={'board_id': 1})
         self.assertEqual(url, '/board/1/')
+
+    def test_url_burndown(self):
+
+        url = reverse('burndown', kwargs={'board_id': 1})
+        self.assertEqual(url, '/burndown/1/')
 
     def test_url_add_board(self):
 
@@ -89,13 +92,11 @@ class UrlTests(TestCase):
 
 
 class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la loro relazione nel file views.py
+    """
+        test per validare se le view combaciano con le rispettive URL
+    """
 
     def test_url_view_login_signup(self):
-        """
-            test per validare la view che combacia con la URL
-
-            il test deve passare
-        """
 
         resolver = resolve('/')  # la resolve() restituisce una ResolverMatch a cui e possibile passare metodi
         self.assertEqual(resolver.view_name, 'login_signup')  # .view_name restituisce la view che combacia con la URL
@@ -120,9 +121,14 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         resolver = resolve('/board/1/')
         self.assertEqual(resolver.view_name, 'board')
 
+    def test_url_view_burndown(self):
+
+        resolver = resolve('/burndown/1/')
+        self.assertEqual(resolver.view_name, 'burndown')
+
     def test_url_view_add_board(self):
 
-        resolver = resolve('/add_board/1/')
+        resolver = resolve('/add_board/')
         self.assertEqual(resolver.view_name, 'add_board')
 
     def test_url_view_modify_or_delete_board(self):
@@ -174,11 +180,11 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         resolver = resolve('/search_user_card/')
         self.assertEqual(resolver.view_name, 'search_user_card')
 
-    def test_url_view_burndown(self):
 
-        resolver = resolve('/burndown/')
-        self.assertEqual(resolver.view_name, 'burndown')
+# comando python per far partire i test di una singola classe: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse
 
+# comando python per far partire i test di una singola funzione specifica: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse.nome_del_test
 
-# comando python per far partire i test solo in questo file: python manage.py test --pattern="test_urls.py
-# comando python per far partire tutti i test: python manage.py test
+# comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_urls.py
+
+# comando python per far partire tutti i test della cartella tests: python manage.py test
