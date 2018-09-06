@@ -511,6 +511,7 @@ def modify_or_delete_column(request, column_id, board_id):
     return HttpResponseRedirect("/board/" + str(board_id) + "/")
 
 
+@login_required(login_url='/', redirect_field_name=None)
 def add_card(request, board_id, column_id):
     if request.method == 'POST' and request.POST.get('submit') == 'new_card_create_request':
         new_card_form = CardCreationForm(request.POST)
