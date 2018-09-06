@@ -48,13 +48,15 @@ class UrlTests(TestCase):
         url = reverse('modify_or_delete_board', kwargs={'board_id': 1})
         self.assertEqual(url, '/modify_or_delete_board/1/')
 
-    # DA RIVEDERE
-    def test_url_add_or_remove_user_to_board(self):
-        url1 = reverse('add_or_remove_user_to_board', kwargs={'board_id': 1})
-        self.assertEqual(url1, '/add_or_remove_user_to_board/1/')
+    def test_url_add_or_remove_user_to_board_1(self):
 
-        url2 = reverse('add_or_remove_user_to_board', kwargs={'board_id': 1, 'user_id': 1})
-        self.assertEqual(url2, '/add_or_remove_user_to_board/1/1/')
+        url = reverse('add_or_remove_user_to_board', kwargs={'board_id': 1})
+        self.assertEqual(url, '/add_or_remove_user_to_board/1/')
+
+    def test_url_add_or_remove_user_to_board_2(self):
+
+        url = reverse('add_or_remove_user_to_board', kwargs={'board_id': 1, 'user_id': 1})
+        self.assertEqual(url, '/add_or_remove_user_to_board/1/1/')
 
     def test_url_add_column(self):
 
@@ -93,7 +95,7 @@ class UrlTests(TestCase):
 
 class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la loro relazione nel file views.py
     """
-        test per validare se le view combaciano con le rispettive URL
+        test per validare se le view corrispondono alle rispettive URL
     """
 
     def test_url_view_login_signup(self):
@@ -136,14 +138,15 @@ class UrlTestsView(TestCase):   # test sugli URL presenti nel file urls.py e la 
         resolver = resolve('/modify_or_delete_board/1/')
         self.assertEqual(resolver.view_name, 'modify_or_delete_board')
 
-    # DA RIVEDERE
-    def test_url_view_add_or_remove_user_to_board(self):
+    def test_url_view_add_or_remove_user_to_board_1(self):
 
         resolver = resolve('/add_or_remove_user_to_board/1/')
         self.assertEqual(resolver.view_name, 'add_or_remove_user_to_board')
 
-        resolver2 = resolve('/add_or_remove_user_to_board/1/1')
-        self.assertEqual(resolver2.view_name, 'add_or_remove_user_to_board')
+    def test_url_view_add_or_remove_user_to_board_2(self):
+
+        resolver = resolve('/add_or_remove_user_to_board/1/1')
+        self.assertEqual(resolver.view_name, 'add_or_remove_user_to_board')
 
     def test_url_view_add_column(self):
 

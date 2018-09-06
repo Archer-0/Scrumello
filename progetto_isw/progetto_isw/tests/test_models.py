@@ -1,4 +1,3 @@
-import unittest
 from django.test import TestCase
 
 import datetime
@@ -8,8 +7,11 @@ from django.contrib.auth.models import User
 
 
 class UserTests(TestCase):
+    """
+        Test riguardanti la classe User
+    """
 
-    def setUp(self):
+    def setUp(self):  # inizializza il database temporaneo con alcuni elementi che verranno usati nei test
         User.objects.create(username='utente_di_prova',
                             password='password_di_prova')
 
@@ -61,8 +63,11 @@ class UserTests(TestCase):
 
 
 class BoardTests(TestCase):
+    """
+        Test riguardanti la classe Board
+    """
 
-    def setUp(self):
+    def setUp(self):  # inizializza il database temporaneo con alcuni elementi che verranno usati nei test
         board = Board.objects.create(name='board_di_prova',
                                      n_users=2,
                                      n_columns=1,
@@ -148,8 +153,11 @@ class BoardTests(TestCase):
 
 
 class ColumnTests(TestCase):
+    """
+        Test riguardanti la classe Column
+    """
 
-    def setUp(self):
+    def setUp(self):  # inizializza il database temporaneo con alcuni elementi che verranno usati nei test
         board = Board.objects.create(name='board_di_prova',
                                      n_users=2,
                                      n_columns=1,
@@ -208,8 +216,11 @@ class ColumnTests(TestCase):
 
 
 class CardTests(TestCase):
+    """
+        Test riguardanti la classe Card
+    """
 
-    def setUp(self):
+    def setUp(self):  # inizializza il database temporaneo con alcuni elementi che verranno usati nei test
         board = Board.objects.create(name='board_di_prova',
                                      n_users=2,
                                      n_columns=1,
