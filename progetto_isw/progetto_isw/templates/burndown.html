@@ -19,6 +19,7 @@
 
     <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'scripts/dashboard_scripts.js' %}"></script>
+    <script src="{% static 'scripts/Chart.bundle.js' %}"></script>
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -44,7 +45,7 @@
                 <h2 class="list_element_title">Cards in Columns</h2>
                 <div class="burndown_element_content">
                     <ul class="columns_list">
-                        {% if column|length > 0 %}
+                        {% if columns|length > 0 %}
                             {% for column in columns %}
                                 <li class="column_cards_element" title="{{ column.n_cards }} card/s in {{ column.name }}">
                                     <h3 title="Column &quot;{{ column.name }}&quot;">{{ column.name }}</h3>
@@ -81,6 +82,79 @@
             </li>
 
         </ul>
+
+        <div class="chart_holder">
+            <h3 class="chart_title">Non Expired Cards Vs. Expired Cards</h3>
+            <canvas id="chart-area" width="540" height="270" class="chartjs-render-monitor"></canvas>
+        </div>
     </main>
+
+    <script>
+
+        function getValuePercent(total, n) {
+
+            {# n:total=x:100 #}
+
+            numPercentage = (n*100)/total;
+            return parseFloat(Math.round(numPercentage * 100) / 100).toFixed(2);
+        }
+
+		var config = {
+			type: 'doughnut',
+			data: {
+				datasets: [{
+					data: [
+                        getValuePercent({{ board_to_modify.n_cards }}, {{ board_to_modify.n_cards }} - {{ tot_expired_cards }}),
+                        getValuePercent({{ board_to_modify.n_cards }}, {{ tot_expired_cards }}),
+					],
+                    backgroundColor: [
+                      'rgba(23, 230, 23, .5)',
+                      'rgba(240, 23, 23, .5)',
+                    ]
+				}],
+				labels: [
+					'Non expired Cards',
+					'Expired Cards',
+				]
+			},
+			options: {
+                responsive: true,
+                legend: {
+                    position: 'left',
+                    labels: {
+                        fontColor: 'rgba(255, 255, 255, 1)',
+                        fontFamily: '"Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif',
+                        fontSize: 10,
+                    }
+                },
+                title: {
+                    display: false,
+                    text: 'Expired Cards vs. Cards',
+                    fontColor: 'rgba(255, 255, 255, 1)',
+                    fontFamily: '"Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif',
+                    fontSize: 10,
+                    fontStyle: 'light',
+                    lineHeight: 2,
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItems, data) {
+                            return data.labels[tooltipItems.index] + ': ' + data.datasets[0].data[tooltipItems.index] + ' %';
+                            {#return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' %';#}
+                        },
+                    }
+                },
+				animation: {
+					animateScale: true,
+					animateRotate: true
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('chart-area').getContext('2d');
+			window.myDoughnut = new Chart(ctx, config);
+		};
+	</script>
 </body>
 </html>
