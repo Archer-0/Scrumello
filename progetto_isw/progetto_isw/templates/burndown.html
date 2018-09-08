@@ -108,8 +108,10 @@
                         getValuePercent({{ board_to_modify.n_cards }}, {{ tot_expired_cards }}),
 					],
                     backgroundColor: [
-                      'rgba(23, 230, 23, .5)',
-                      'rgba(255, 23, 23, .65)',
+                        {% comment %}'rgba(23, 230, 23, .5)',
+                        'rgba(255, 23, 23, .65)',{% endcomment %}
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 23, 23, .0)',
                     ]
 				}],
 				labels: [
@@ -137,7 +139,11 @@
                     lineHeight: 2,
                 },
                 tooltips: {
+                    displayColors: false,
                     callbacks: {
+                        {% comment %}title: function (tooltipItems, data) {
+                            return data.labels[tooltipItems.index] + ':';
+                        },{% endcomment %}
                         label: function (tooltipItems, data) {
                             return data.labels[tooltipItems.index] + ': ' + data.datasets[0].data[tooltipItems.index] + ' %';
                             {#return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' %';#}

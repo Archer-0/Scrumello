@@ -12,6 +12,7 @@
     <script src="{% static 'scripts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'scripts/board_scripts.js' %}"></script>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome-free-5.2.0-web/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'styles/pure_css_animated_background.css' %}">
@@ -96,7 +97,10 @@
                                         <div class="card-content">
                                             <h5 class="card-description">{{ card.description }}</h5>
                                             <div class="card-info">
-                                                <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                                <div class="date_info expire-date">
+                                                    <p class="expire-date">Creation Date: <span>{{ card.creation_date }}</span></p>
+                                                    <p class="expire-date">Expire Date: <span>{{ card.expire_date }}</span></p>
+                                                </div>
                                                 <p class="story-points">Story Points: <span>{{ card.story_points }}</span></p>
                                             </div>
                                         </div>

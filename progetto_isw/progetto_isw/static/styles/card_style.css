@@ -98,8 +98,6 @@
     margin: 0;
 }
 
-
-
 /*.card-title:focus {*/
     /*border-bottom: 1px solid white;*/
 /*}*/
@@ -137,11 +135,16 @@
 .expire-date,
 .story-points {
     margin-bottom: 0;
-    justify-content: end;
     /*noinspection CssInvalidPropertyValue*/
     width: 100%;
     text-transform: capitalize;
     font-weight: 500;
+}
+
+.date_info {
+    display: block;
+    justify-content: end;
+    text-align: end;
 }
 
 .expire-date span,
@@ -153,6 +156,9 @@
 .story-points {
     justify-self: end;
     width: 100%;
+    text-align: end;
+    height: fit-content;
+    margin: auto 0;
 }
 
 .card_name_form {
@@ -254,7 +260,7 @@
 }
 
 .new_card_form .card-title-container {
-    background: #31003c;
+    background: #4c005d;
 }
 
 .card-title.new_card::placeholder {

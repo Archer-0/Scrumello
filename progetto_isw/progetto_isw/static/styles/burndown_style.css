@@ -107,9 +107,10 @@ body {
     /*font-size: 700%;*/
     font-size: 9vw;
     white-space: normal;
-    text-overflow: ellipsis;
+    /*text-overflow: ellipsis;*/
     font-weight: 500;
     line-height: initial;
+    /*overflow-x: hidden;*/
     overflow-x: auto;
     width: auto;
 }
@@ -153,7 +154,7 @@ body {
 }
 
 .column_cards_element h3 {
-    max-width: 65%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -162,14 +163,15 @@ body {
 .column_cards_element p {
     height: auto;
     width: auto;
-    max-width: 30%;
+    max-width: 100%;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .column_cards_element p span {
-    outline: 1px solid #FFF;
+    /*outline: 1px solid #FFF;*/
+    text-decoration: underline;
     padding: 0 1px;
     margin: 0;
 }
