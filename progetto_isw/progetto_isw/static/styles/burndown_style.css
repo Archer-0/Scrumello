@@ -57,9 +57,8 @@ body {
 
 .burndown_element {
     /*height: fit-content;*/
-    max-height: fit-content;
-    height: auto;
-
+    height: fit-content;
+    max-height: 50vh;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -154,12 +153,19 @@ body {
 }
 
 .column_cards_element h3 {
-    max-width: 50%;
+    max-width: 65%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .column_cards_element p {
     height: auto;
-    max-width: 40%;
+    width: auto;
+    max-width: 30%;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .column_cards_element p span {
