@@ -31,9 +31,9 @@ class TestSelenio(LiveServerTestCase):
 
         self.browser.get(self.live_server_url)  # il driver apre la pagina del server di django contenente il progetto
 
-    def tearDown(self):
-
-        self.browser.quit()  # chiude tutte le schede, il browser e termina il test in sicurezza
+    # def tearDown(self):
+    #
+    #     self.browser.quit()  # chiude tutte le schede, il browser e termina il test in sicurezza
 
     def test_prova_selenio(self):
 
@@ -54,7 +54,7 @@ class TestSelenio(LiveServerTestCase):
         search.send_keys('provaprova')
 
         # time.sleep(5)  # attende
-        bot.find_element_by_xpath('//button[normalize-space()="Log in"]').click()  # cerca il bottone corretto
+        bot.find_element_by_id('login_button').click()  # cerca il bottone corretto
 
         """
             Test per la registrazione
@@ -70,6 +70,6 @@ class TestSelenio(LiveServerTestCase):
         search.send_keys('provaprova')
 
         # time.sleep(5)  # attende
-        bot.find_element_by_xpath('//button[normalize-space()="Sign up"]').click()
+        bot.find_element_by_id('signup_button').click()
 
         time.sleep(time_to_wait)  # attende
