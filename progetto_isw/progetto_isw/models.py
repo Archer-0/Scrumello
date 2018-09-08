@@ -39,6 +39,7 @@ class Column(models.Model):
 class Card(models.Model):
     title = models.CharField(max_length=128, default='New Card')
     description = models.CharField(max_length=1024)
+    creation_date = models.DateField(default=datetime.datetime.now)
     expire_date = models.DateField(default=datetime.datetime.now)
     story_points = models.IntegerField()
     mother_column = models.ForeignKey(Column, null=True)
