@@ -1055,73 +1055,69 @@ class ViewsTestBurndown(TestCase):
         self.assertEqual(response.url, '/')
 
 
-# comando python per far partire i test di una singola classe: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse
-
-# comando python per far partire i test di una singola funzione specifica: python manage.py test progetto_isw.tests.test_models.NomeDellaClasse.nome_del_test
-
 # comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_views.py
 
 # comando python per far partire tutti i test della cartella tests: python manage.py test
 
 
-class ProvaClient(TestCase):
-
-    def setUp(self):
-
-        board = Board.objects.create(name='board_di_prova',
-                                     n_users=2,
-                                     n_columns=1,
-                                     n_cards=1)
-
-        user1 = User.objects.create_user(username='utente_di_prova_1',
-                                         password='password_di_prova_1')
-
-        user2 = User.objects.create_user(username='utente_di_prova_2',
-                                         password='password_di_prova_2')
-
-        board.users.add(user1)
-        board.users.add(user2)
-
-        colonna = Column.objects.create(name='colonna_di_prova',
-                                        mother_board=board,
-                                        n_cards=1)
-
-        carta = Card.objects.create(title='carta_di_prova',
-                                    description='descrizione_di_prova',
-                                    expire_date=datetime.datetime(2018, 9, 1),
-                                    story_points=5,
-                                    mother_column=colonna,
-                                    n_users=2)
-
-        carta.users.add(user1)
-        carta.users.add(user2)
-
-    def test_prove_varie(self):
-
-        client = Client()
-
-        response = client.get('/dashboard/')
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, '/')
-
-        # client.login(username='utente_di_prova_1',
-        #              password='password_di_prova_1')
-
-        # response = client.get('/dashboard/')
-
-        # self.assertEqual(response.status_code, 200)
-
-        response = client.get('/')
-
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(response, 'username')
-
-        response = client.post('/', {'username': 'utente_di_prova_1', 'password': 'password_di_prova_1'}, follow=True)
-
-        response = client.get('/dashboard/')
-
-        self.assertEqual(response.status_code, 302)
-        # self.assertTrue(response)
-        # response = self.client.get('/search_user_board/', follow=True)
-        # self.assertContains(response, 'utente_di_prova_2')
+# class ProvaClient(TestCase):
+#
+#     def setUp(self):
+#
+#         board = Board.objects.create(name='board_di_prova',
+#                                      n_users=2,
+#                                      n_columns=1,
+#                                      n_cards=1)
+#
+#         user1 = User.objects.create_user(username='utente_di_prova_1',
+#                                          password='password_di_prova_1')
+#
+#         user2 = User.objects.create_user(username='utente_di_prova_2',
+#                                          password='password_di_prova_2')
+#
+#         board.users.add(user1)
+#         board.users.add(user2)
+#
+#         colonna = Column.objects.create(name='colonna_di_prova',
+#                                         mother_board=board,
+#                                         n_cards=1)
+#
+#         carta = Card.objects.create(title='carta_di_prova',
+#                                     description='descrizione_di_prova',
+#                                     expire_date=datetime.datetime(2018, 9, 1),
+#                                     story_points=5,
+#                                     mother_column=colonna,
+#                                     n_users=2)
+#
+#         carta.users.add(user1)
+#         carta.users.add(user2)
+#
+#     def test_prove_varie(self):
+#
+#         client = Client()
+#
+#         response = client.get('/dashboard/')
+#         self.assertEqual(response.status_code, 302)
+#         self.assertEqual(response.url, '/')
+#
+#         # client.login(username='utente_di_prova_1',
+#         #              password='password_di_prova_1')
+#
+#         # response = client.get('/dashboard/')
+#
+#         # self.assertEqual(response.status_code, 200)
+#
+#         response = client.get('/')
+#
+#         self.assertEqual(response.status_code, 200)
+#
+#         self.assertContains(response, 'username')
+#
+#         response = client.post('/', {'username': 'utente_di_prova_1', 'password': 'password_di_prova_1'}, follow=True)
+#
+#         response = client.get('/dashboard/')
+#
+#         self.assertEqual(response.status_code, 302)
+#         # self.assertTrue(response)
+#         # response = self.client.get('/search_user_board/', follow=True)
+#         # self.assertContains(response, 'utente_di_prova_2')
