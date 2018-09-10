@@ -5,18 +5,18 @@
         <div class="toolbar-container">
 
             <div class="hambbutton">
-                <a href="#">
+                <a id="open_toolbar" href="#">
                     <span></span>
                 </a>
             </div>
 
             <ul class="toolbar hidden">
                 <li class="toolbar-item">
-                    <a href="{% url 'add_or_remove_user_to_board' board.id %}" title="Add or remove user from this Board.">Manage Users</a>
+                    <a id="manage_users_button" href="{% url 'add_or_remove_user_to_board' board.id %}" title="Add or remove user from this Board.">Manage Users</a>
                     <span class="add-user-baloon hidden"></span>
                 </li>
                 <li class="toolbar-item">
-                    <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
+                    <a id="burndown_button" href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
                 </li>
             </ul>
 
@@ -32,7 +32,7 @@
 
             <ul class="toolbar hidden">
                 <li class="toolbar-item">
-                    <a href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
+                    <a id="burndown_button" href="{% url 'burndown' board.id %}" title="See statistics about your this Board.">Burndown</a>
                 </li>
             </ul>
 

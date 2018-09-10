@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 time_to_wait = 2
 
-is_css_javascript_working = False
+is_css_javascript_working = True
 
 # class TestSelenium(LiveServerTestCase):
 #
@@ -920,7 +920,7 @@ class TestSeleniumCard(LiveServerTestCase):
         self.browser.quit()
 
 
-class TestSeleniumUser(LiveServerTestCase):
+class TestSelenium(LiveServerTestCase):
 
     """
         Test riguardanti gli utenti
@@ -1002,42 +1002,41 @@ class TestSeleniumUser(LiveServerTestCase):
         search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(4)
 
         """
             test per aggiungere un utente alla board corrente
         """
 
-        if is_css_javascript_working == True:
-            search = bot.find_element_by_css_selector("body > div > div > div > a")  # cerca il pulsante per gestire gli utenti                ###################################################################################################################
-            search.click()
-        else:
-            search = bot.find_element_by_xpath("/html/body/div/div/ul/li[1]/a")  # cerca il pulsante per gestire gli utenti
-            search.click()
+        time.sleep(1)
 
-        time.sleep(time_to_wait)
+        search = bot.find_element_by_css_selector('#open_toolbar')
+        search.click()
+        time.sleep(1)
 
+        search = bot.find_element_by_id('manage_users_button')
+        search.click()
         time.sleep(5)
 
         search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
         search.click()
-
-        time.sleep(time_to_wait)
+        time.sleep(3)
 
         search.send_keys('utente_di_prova_2')
 
         time.sleep(time_to_wait)
 
-        if is_css_javascript_working == True:
-
+        if is_css_javascript_working:
+            print("Searching user to add...")
             search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente             #######################################################################
             search.click()
+            print("user found.")
 
         time.sleep(time_to_wait)
 
-    def test_remove_user_to_board(self):
+    def test_remove_user_from_board(self):
 
-        print('\nTEST REMOVE USER TO A BOARD\n')
+        print('\nTEST REMOVE USER FROM A BOARD\n')
 
         bot = self.browser
 
