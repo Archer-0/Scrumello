@@ -9,11 +9,9 @@ import datetime
 from ..models import Board, Column, Card
 from django.contrib.auth.models import User
 
-
 time_to_wait = 2
 
 is_css_javascript_working = False
-
 
 # class TestSelenium(LiveServerTestCase):
 #
