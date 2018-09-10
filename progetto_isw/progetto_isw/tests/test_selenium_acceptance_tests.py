@@ -9,9 +9,8 @@ import datetime
 from ..models import Board, Column, Card
 from django.contrib.auth.models import User
 
-time_to_wait = 2
+time_to_wait = 0
 
-is_css_javascript_working = True
 
 # class TestSelenium(LiveServerTestCase):
 #
@@ -486,9 +485,8 @@ class TestSeleniumBoard(LiveServerTestCase):
             Test per cancellare una board
         """
 
-        if is_css_javascript_working == True:
-            search = bot.find_element_by_xpath("/html/body/header/div/div[2]/form/a[1]/i")  # trova la posizione dell'elemento per far comparire il tasto di cancellazione board  # #############################################################################################################################################################
-            search.click()
+        search = bot.find_element_by_xpath("/html/body/header/div/div[2]/form/a[1]/i")  # trova la posizione dell'elemento per far comparire il tasto di cancellazione board  # #############################################################################################################################################################
+        search.click()
 
         time.sleep(time_to_wait)
 
@@ -656,9 +654,8 @@ class TestSeleniumColumn(LiveServerTestCase):
             Test per cancellare una colonna
         """
 
-        if is_css_javascript_working == True:
-            search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/a[1]/i")  # trova la posizione dell'elemento per far comparire il tasto di cancellazione board  # #############################################################################################################################################################
-            search.click()
+        search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/a[1]/i")  # trova la posizione dell'elemento per far comparire il tasto di cancellazione board  # #############################################################################################################################################################
+        search.click()
 
         time.sleep(time_to_wait)
 
@@ -862,7 +859,7 @@ class TestSeleniumCard(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
-        #crea una carta
+        # Crea una carta
 
         search = bot.find_element_by_css_selector("#id_new_card_title")  # cerca la textbox per creare una nuova carta
         search.click()
@@ -1002,35 +999,34 @@ class TestSelenium(LiveServerTestCase):
         search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
         search.click()
 
-        time.sleep(4)
+        time.sleep(2)
 
         """
             test per aggiungere un utente alla board corrente
         """
 
-        time.sleep(1)
+        time.sleep(2)
 
         search = bot.find_element_by_css_selector('#open_toolbar')
         search.click()
-        time.sleep(1)
+        time.sleep(2)
 
         search = bot.find_element_by_id('manage_users_button')
         search.click()
-        time.sleep(5)
+        time.sleep(2)
 
-        search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
+        search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti
         search.click()
-        time.sleep(3)
+        time.sleep(2)
 
         search.send_keys('utente_di_prova_2')
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
 
-        if is_css_javascript_working:
-            print("Searching user to add...")
-            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente             #######################################################################
-            search.click()
-            print("user found.")
+        search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente
+        search.click()
+
+        time.sleep(2)
 
         time.sleep(time_to_wait)
 
@@ -1078,37 +1074,38 @@ class TestSelenium(LiveServerTestCase):
 
         # Aggiunge un utente alla board
 
-        if is_css_javascript_working == True:
-            search = bot.find_element_by_css_selector("body > div > div > div > a")  # cerca il pulsante per gestire gli utenti                ###################################################################################################################
-            search.click()
-        else:
-            search = bot.find_element_by_xpath("/html/body/div/div/ul/li[1]/a")  # cerca il pulsante per gestire gli utenti
-            search.click()
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
+        search = bot.find_element_by_css_selector('#open_toolbar')
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
+
+        search = bot.find_element_by_id('manage_users_button')
+        search.click()
+
+        time.sleep(2)
+
+        search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti
+        search.click()
+
+        time.sleep(2)
 
         search.send_keys('utente_di_prova_2')
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
 
-        if is_css_javascript_working == True:
+        search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente
+        search.click()
 
-            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente           #################################################################
-            search.click()
+        time.sleep(2)
 
         """
-            Test per rimuovere un utente dalla board corrente        
+            Test per rimuovere un utente dalla board corrente
         """
 
-        if is_css_javascript_working == True:
+        search = bot.find_element_by_css_selector("#results > li > form > button.delete_user_button > i")  # cerca il pulsante per eliminare il primo utente
+        search.click()
 
-            search = bot.find_element_by_css_selector("#results > li > form > button.delete_user_button > i")  # cerca il pulsante per eliminare il primo utente                  #######################################################
-            search.click()
+        time.sleep(2)
 
         time.sleep(time_to_wait)
 
