@@ -10,119 +10,115 @@ from ..models import Board, Column, Card
 from django.contrib.auth.models import User
 
 
-time_to_wait = 0
+time_to_wait = 2
 
 is_css_javascript_working = False
 
 
-class TestSelenium(LiveServerTestCase):
-
-    def setUp(self):
-
-        self.browser = Chrome()
-
-        self.browser.implicitly_wait(10)
-
-        self.browser.get(self.live_server_url)
-
-        """
-            inizzializzazione database temporaneo
-        """
-
-        User.objects.create_user(username='utente_di_prova_1',
-                                 password='password_di_prova_1')
-
-        User.objects.create_user(username='utente_di_prova_2',
-                                 password='password_di_prova_2')
-
-    def test_1(self):
-
-        print('sono nella test_1')
-
-        bot = self.browser
-
-        bot.get(self.live_server_url)
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
-        search.send_keys('utente_di_prova_1')
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
-        search.send_keys('password_di_prova_1')
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
-        search.click()
-
-        # Crea una board
-
-        search = bot.find_element_by_xpath("/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
-        search.click()
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
-        search.send_keys('board_di_prova')
-
-        time.sleep(time_to_wait)
-
-        search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
-        search.click()
-
-        time.sleep(time_to_wait)
-
-        """
-            test per aggiungere un utente alla board corrente
-        """
-
-        if is_css_javascript_working == True:
-            search = bot.find_element_by_css_selector("body > div > div > div > a")  # cerca il pulsante per gestire gli utenti                ###################################################################################################################
-            search.click()
-        else:
-            search = bot.find_element_by_xpath("/html/body/div/div/ul/li[1]/a")  # cerca il pulsante per gestire gli utenti
-            search.click()
-
-        time.sleep(time_to_wait)
-
-        time.sleep(5)
-
-        search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
-        search.click()
-
-        time.sleep(time_to_wait)
-
-        search.send_keys('utente_di_prova_2')
-
-        time.sleep(time_to_wait)
-
-
-        if is_css_javascript_working == True:
-
-            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere l'utente
-            search.click()
-
-        time.sleep(time_to_wait)
-
-        time.sleep(60)
-
-    def tearDown(self):
-
-        self.browser.refresh()
-        self.browser.quit()
-
-"""
-    if is_css_javascript_working == True:
-        search = bot.find_element_by_xpath("/html/body/main/ul/li/div/form/button")  # trova la posizione dell'elemento per far comparire il tasto di cancellazione board  # #############################################################################################################################################################
-        search.click()
-"""
-
-"""
-    /html/body/div/div/div/a
-"""
+# class TestSelenium(LiveServerTestCase):
+#
+#     """
+#         Prove varie
+#     """
+#
+#     def setUp(self):
+#
+#         self.browser = Chrome()
+#
+#         self.browser.implicitly_wait(10)
+#
+#         self.browser.get(self.live_server_url)
+#
+#         """
+#             inizzializzazione database temporaneo
+#         """
+#
+#         User.objects.create_user(username='utente_di_prova_1',
+#                                  password='password_di_prova_1')
+#
+#         User.objects.create_user(username='utente_di_prova_2',
+#                                  password='password_di_prova_2')
+#
+#     def test_1(self):
+#
+#         print('\nTEST VARI\n')
+#
+#         bot = self.browser
+#
+#         bot.get(self.live_server_url)
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
+#         search.send_keys('utente_di_prova_1')
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
+#         search.send_keys('password_di_prova_1')
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
+#         search.click()
+#
+#         time.sleep(time_to_wait)
+#
+#         # Crea una board
+#
+#         search = bot.find_element_by_xpath("/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
+#         search.click()
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
+#         search.send_keys('board_di_prova')
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
+#         search.click()
+#
+#         time.sleep(time_to_wait)
+#
+#         # Aggiunge un utente alla board
+#
+#         if is_css_javascript_working == True:
+#             search = bot.find_element_by_css_selector("body > div > div > div > a")  # cerca il pulsante per gestire gli utenti                ###################################################################################################################
+#             search.click()
+#         else:
+#             search = bot.find_element_by_xpath("/html/body/div/div/ul/li[1]/a")  # cerca il pulsante per gestire gli utenti
+#             search.click()
+#
+#         time.sleep(time_to_wait)
+#
+#         search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
+#         search.click()
+#
+#         time.sleep(time_to_wait)
+#
+#         search.send_keys('utente_di_prova_2')
+#
+#         time.sleep(time_to_wait)
+#
+#         if is_css_javascript_working == True:
+#             search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente           #################################################################
+#             search.click()
+#
+#         """
+#             Test per rimuovere un utente dalla board corrente
+#         """
+#
+#         if is_css_javascript_working == True:
+#             search = bot.find_element_by_css_selector("#results > li > form > button.delete_user_button > i")  # cerca il pulsante per eliminare il primo utente                  #######################################################
+#             search.click()
+#
+#         time.sleep(9999)
+#
+#     def tearDown(self):
+#
+#         self.browser.refresh()
+#         self.browser.quit()
 
 
 class TestSeleniumRegistrazione(LiveServerTestCase):
@@ -172,6 +168,8 @@ class TestSeleniumRegistrazione(LiveServerTestCase):
 
     def test_registrazione(self):
 
+        print('\nTEST REGISTRAZIONE\n')
+
         bot = self.browser  # bot prende il driver di selenium per il browser
 
         time.sleep(time_to_wait)  # metto il thread in attesa per vedere fisicamente le operazioni eseguite da selenium(DEBUG)
@@ -181,13 +179,13 @@ class TestSeleniumRegistrazione(LiveServerTestCase):
         """
 
         search = bot.find_element_by_name('signup_username')  # cerca la textbox per immettere l'username
-        search.send_keys('test')  # immette il testo nel campo
+        search.send_keys('utente_di_prova')  # immette il testo nel campo
 
         search = bot.find_element_by_name('signup_password')  # cerca la textbox per immettere la password
-        search.send_keys('provaprova')
+        search.send_keys('password_di_prova')
 
         search = bot.find_element_by_name('signup_password_confirm')  # cerca la textbox per immettere la conferma della password
-        search.send_keys('provaprova')
+        search.send_keys('password_di_prova')
 
         time.sleep(time_to_wait)
 
@@ -248,6 +246,8 @@ class TestSeleniumLogin(LiveServerTestCase):
         carta.users.add(user2)
 
     def test_login(self):
+
+        print('\nTEST LOGIN\n')
 
         bot = self.browser
 
@@ -323,6 +323,8 @@ class TestSeleniumLogout(LiveServerTestCase):
 
     def test_logout(self):
 
+        print('\nTEST LOGOUT\n')
+
         bot = self.browser
 
         time.sleep(time_to_wait)
@@ -348,6 +350,8 @@ class TestSeleniumLogout(LiveServerTestCase):
         search.click()
 
         time.sleep(time_to_wait)
+
+        time.sleep(1)
 
     def tearDown(self):
 
@@ -402,6 +406,8 @@ class TestSeleniumBoard(LiveServerTestCase):
 
     def test_create_board(self):
 
+        print('\nTEST CREATE BOARD\n')
+
         bot = self.browser
 
         time.sleep(time_to_wait)
@@ -431,7 +437,7 @@ class TestSeleniumBoard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
-        search.send_keys('board_di_prova_creata_ora')
+        search.send_keys('board_di_prova')
 
         time.sleep(time_to_wait)
 
@@ -441,6 +447,8 @@ class TestSeleniumBoard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
     def test_delete_board(self):
+
+        print('\nTEST DELETE BOARD\n')
 
         bot = self.browser
 
@@ -467,7 +475,7 @@ class TestSeleniumBoard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
-        search.send_keys('board_di_prova_creata_ora')
+        search.send_keys('board_di_prova')
 
         time.sleep(time_to_wait)
 
@@ -544,6 +552,8 @@ class TestSeleniumColumn(LiveServerTestCase):
 
     def test_create_column(self):
 
+        print('\nTEST CREATE COLUMN\n')
+
         bot = self.browser
 
         time.sleep(time_to_wait)
@@ -593,6 +603,8 @@ class TestSeleniumColumn(LiveServerTestCase):
         time.sleep(time_to_wait)
 
     def test_delete_column(self):
+
+        print('\nTEST DELETE COLUMN\n')
 
         bot = self.browser
 
@@ -665,6 +677,10 @@ class TestSeleniumColumn(LiveServerTestCase):
 
 class TestSeleniumCard(LiveServerTestCase):
 
+    """
+        Test riguardanti le carte
+    """
+
     def setUp(self):
         self.browser = Chrome()
 
@@ -705,6 +721,8 @@ class TestSeleniumCard(LiveServerTestCase):
 
     def test_create_card(self):
 
+        print('\nTEST CREATE CARD\n')
+
         bot = self.browser
 
         time.sleep(time_to_wait)
@@ -739,16 +757,171 @@ class TestSeleniumCard(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
+        # Crea una colonna
+
+        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search.send_keys('colonna_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath("/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+        search.click()
+
         """
-            Test per creare una carta in una colonna
+            Test per creare una carta
         """
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_title")  # cerca la textbox per creare una nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('carta_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_description")  # cerca la text box per immettere la descrizione della nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('descrizione_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_expire_date")  # cerca il pulsante per immettere la data di scadenza alla nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2019')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_story_points")  # cerca il pulsante per immettere il valore dei punti storia
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+    def test_delete_card(self):
+
+        print('\nTEST DELETE CARD\n')
+
+        bot = self.browser
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
+        search.send_keys('utente_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
+        search.send_keys('password_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
+        search.click()
+
+        # Crea una board
+
+        search = bot.find_element_by_xpath("/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
+        search.send_keys('board_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Crea una colonna
+
+        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search.send_keys('colonna_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath("/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        #crea una carta
+
+        search = bot.find_element_by_css_selector("#id_new_card_title")  # cerca la textbox per creare una nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('carta_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_description")  # cerca la text box per immettere la descrizione della nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('descrizione_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_expire_date")  # cerca il pulsante per immettere la data di scadenza alla nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2019')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("#id_new_card_story_points")  # cerca il pulsante per immettere il valore dei punti storia
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        """
+            Test per creare una carta
+        """
+        time.sleep(0)
+
+        search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > ul > li > div.card-title-container > form > div > button")  # cerca il pulsante per cancellare la carta
+        search.click()
+
+        time.sleep(time_to_wait)
 
     def tearDown(self):
         self.browser.refresh()
         self.browser.quit()
 
 
-################################################################################################################################
 class TestSeleniumUser(LiveServerTestCase):
 
     """
@@ -795,7 +968,7 @@ class TestSeleniumUser(LiveServerTestCase):
 
     def test_add_user_to_board(self):
 
-        print('sono nella test_1')
+        print('\nTEST ADD USER TO A BOARD\n')
 
         bot = self.browser
 
@@ -859,14 +1032,14 @@ class TestSeleniumUser(LiveServerTestCase):
 
         if is_css_javascript_working == True:
 
-            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente
+            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente             #######################################################################
             search.click()
 
         time.sleep(time_to_wait)
 
     def test_remove_user_to_board(self):
 
-        print('sono nella test_1')
+        print('\nTEST REMOVE USER TO A BOARD\n')
 
         bot = self.browser
 
@@ -886,6 +1059,8 @@ class TestSeleniumUser(LiveServerTestCase):
 
         search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
         search.click()
+
+        time.sleep(time_to_wait)
 
         # Crea una board
 
@@ -915,8 +1090,6 @@ class TestSeleniumUser(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
-        time.sleep(5)
-
         search = bot.find_element_by_css_selector("#id_user_name")  # cerca la barra di ricerca degli utenti                                ##################################################################################################################
         search.click()
 
@@ -928,7 +1101,7 @@ class TestSeleniumUser(LiveServerTestCase):
 
         if is_css_javascript_working == True:
 
-            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente
+            search = bot.find_element_by_css_selector("#results > li:nth-child(1) > form > button > i")  # cerca il pulsante per aggiungere il primo utente           #################################################################
             search.click()
 
         """
@@ -937,7 +1110,7 @@ class TestSeleniumUser(LiveServerTestCase):
 
         if is_css_javascript_working == True:
 
-            search = bot.find_element_by_css_selector("#results > li > form > button.delete_user_button > i")  # cerca il pulsante per aggiungere il primo utente
+            search = bot.find_element_by_css_selector("#results > li > form > button.delete_user_button > i")  # cerca il pulsante per eliminare il primo utente                  #######################################################
             search.click()
 
         time.sleep(time_to_wait)
