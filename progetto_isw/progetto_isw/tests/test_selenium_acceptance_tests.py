@@ -9,7 +9,7 @@ import datetime
 from ..models import Board, Column, Card
 from django.contrib.auth.models import User
 
-time_to_wait = 0
+time_to_wait = 0.6
 
 
 # class TestSelenium(LiveServerTestCase):
@@ -118,7 +118,7 @@ time_to_wait = 0
 #         self.browser.quit()
 
 
-class TestSeleniumRegistrazione(LiveServerTestCase):
+class TestSeleniumSignUp(LiveServerTestCase):
 
     """
         Test riguardanti la registrazione
@@ -163,7 +163,7 @@ class TestSeleniumRegistrazione(LiveServerTestCase):
         carta.users.add(user1)
         carta.users.add(user2)
 
-    def test_registrazione(self):
+    def test_sign_up(self):
 
         print('\nTEST REGISTRAZIONE\n')
 
@@ -174,6 +174,10 @@ class TestSeleniumRegistrazione(LiveServerTestCase):
         """
             Test per la registrazione
         """
+
+        search = bot.find_element_by_id('signup-button')
+        search.click()
+        time.sleep(2)
 
         search = bot.find_element_by_name('signup_username')  # cerca la textbox per immettere l'username
         search.send_keys('utente_di_prova')  # immette il testo nel campo
@@ -273,7 +277,7 @@ class TestSeleniumLogin(LiveServerTestCase):
         self.browser.quit()
 
 
-class TestSeleniumLogout(LiveServerTestCase):
+class TestSeleniumLogOut(LiveServerTestCase):
 
     """
         Test riguardanti il logout
@@ -341,9 +345,9 @@ class TestSeleniumLogout(LiveServerTestCase):
             Test per il logout
         """
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
 
-        search = bot.find_element_by_link_text('logout')  # cerca il pulsante per il logout
+        search = bot.find_element_by_id('logout_link')  # cerca il pulsante per il logout
         search.click()
 
         time.sleep(time_to_wait)
@@ -917,7 +921,7 @@ class TestSeleniumCard(LiveServerTestCase):
         self.browser.quit()
 
 
-class TestSelenium(LiveServerTestCase):
+class TestSeleniumUser(LiveServerTestCase):
 
     """
         Test riguardanti gli utenti
@@ -961,7 +965,7 @@ class TestSelenium(LiveServerTestCase):
         carta.users.add(user1)
         carta.users.add(user2)
 
-    def test_add_user_to_board(self):
+    def test_0_add_user_to_board(self):
 
         print('\nTEST ADD USER TO A BOARD\n')
 
@@ -1030,7 +1034,7 @@ class TestSelenium(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
-    def test_remove_user_from_board(self):
+    def test_1_remove_user_from_board(self):
 
         print('\nTEST REMOVE USER FROM A BOARD\n')
 
@@ -1107,6 +1111,62 @@ class TestSelenium(LiveServerTestCase):
 
         time.sleep(2)
 
+        time.sleep(time_to_wait)
+
+    def test_2_burndown(self):
+
+        print('\nTEST BURNDOWN\n')
+
+        bot = self.browser
+
+        bot.get(self.live_server_url)
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
+        search.send_keys('utente_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
+        search.send_keys('password_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
+        search.click()
+
+        # Crea una board
+
+        search = bot.find_element_by_xpath("/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
+        search.send_keys('board_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
+        search.click()
+
+        time.sleep(4)
+
+        """
+            test per aprire il burndown della board corrente
+        """
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector('#open_toolbar')
+        search.click()
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('burndown_button')
+        search.click()
+
+        time.sleep(time_to_wait)
         time.sleep(time_to_wait)
 
     def tearDown(self):
