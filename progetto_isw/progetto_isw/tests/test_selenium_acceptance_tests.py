@@ -197,7 +197,7 @@ class TestSeleniumSignUp(LiveServerTestCase):
 
     def tearDown(self):
 
-        self.browser.refresh()  # refresh alla pagina per evitare problemi con la quit()
+        # self.browser.refresh()  # refresh alla pagina per evitare problemi con la quit()
         self.browser.quit()  # chiude tutte le schede, il browser e termina il test in sicurezza
 
 
@@ -273,7 +273,7 @@ class TestSeleniumLogin(LiveServerTestCase):
 
     def tearDown(self):
 
-        self.browser.refresh()
+        # self.browser.refresh()
         self.browser.quit()
 
 
@@ -356,7 +356,7 @@ class TestSeleniumLogOut(LiveServerTestCase):
 
     def tearDown(self):
 
-        self.browser.refresh()
+        # self.browser.refresh()
         self.browser.quit()
 
 
@@ -501,7 +501,7 @@ class TestSeleniumBoard(LiveServerTestCase):
 
     def tearDown(self):
 
-        self.browser.refresh()
+        # self.browser.refresh()
         self.browser.quit()
 
 
@@ -600,7 +600,7 @@ class TestSeleniumColumn(LiveServerTestCase):
         search = bot.find_element_by_xpath("/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
 
     def test_edit_column(self):
 
@@ -668,12 +668,12 @@ class TestSeleniumColumn(LiveServerTestCase):
 
         search.send_keys('colonna_di_prova_modificata')
 
-        time.sleep(time_to_wait)
+        time.sleep(5)
 
         search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/button[1]")  # cerca il bottone per confermare le modifiche alla colonna
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(5)
 
     def test_delete_column(self):
 
@@ -743,11 +743,11 @@ class TestSeleniumColumn(LiveServerTestCase):
 
     def tearDown(self):
 
-        self.browser.refresh()
+        # self.browser.refresh()
         self.browser.quit()
 
 
-class TestSelenium(LiveServerTestCase):
+class TestSeleniumCard(LiveServerTestCase):
 
     """
         Test riguardanti le carte
@@ -1427,7 +1427,7 @@ class TestSeleniumUser(LiveServerTestCase):
         time.sleep(time_to_wait)
 
     def tearDown(self):
-        self.browser.refresh()
+        # self.browser.refresh()
         self.browser.quit()
 
 
