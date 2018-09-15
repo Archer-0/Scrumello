@@ -884,7 +884,10 @@ class TestSelenium(LiveServerTestCase):
         search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
+
+        bot.refresh()
+        bot.quit()
 
     def test_edit_card(self):
 
@@ -987,13 +990,13 @@ class TestSelenium(LiveServerTestCase):
 
         # Crea un'altra colonna
 
-        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search = bot.find_element_by_css_selector("#id_column_name") # cerca la textbox per immettere il nome della colonna
         search.send_keys('colonna_di_prova_2')
 
         time.sleep(time_to_wait)
 
         search = bot.find_element_by_xpath(
-            "/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+            "/html/body/main/ul/li[2]/div/form/button")  # cerca il pulsante per creare la colonna
         search.click()
 
         time.sleep(time_to_wait)
@@ -1060,6 +1063,9 @@ class TestSelenium(LiveServerTestCase):
         search.click()
 
         time.sleep(time_to_wait)
+
+        bot.refresh()
+        bot.quit()
 
     def test_delete_card(self):
 
@@ -1162,11 +1168,14 @@ class TestSelenium(LiveServerTestCase):
         search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > ul > li > div.card-title-container > form > div > button")  # cerca il pulsante per cancellare la carta
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
+
+        bot.quit()  # La teardown per qualche ragione non chiude bene il browser, quindi lo facciamo chiudere qua
 
     def tearDown(self):
-        self.browser.refresh()
-        self.browser.quit()
+        pass
+        # self.browser.refresh()
+        # self.browser.quit()
 
 
 class TestSeleniumUser(LiveServerTestCase):
