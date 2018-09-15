@@ -747,7 +747,7 @@ class TestSeleniumColumn(LiveServerTestCase):
         self.browser.quit()
 
 
-class TestSeleniumCard(LiveServerTestCase):
+class TestSelenium(LiveServerTestCase):
 
     """
         Test riguardanti le carte
@@ -882,6 +882,181 @@ class TestSeleniumCard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+    def test_edit_card(self):
+
+        print('\nTEST EDIT CARD')
+
+        bot = self.browser
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
+        search.send_keys('utente_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
+        search.send_keys('password_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
+        search.click()
+
+        # Crea una board
+
+        search = bot.find_element_by_xpath(
+            "/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
+        search.send_keys('board_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Crea una colonna
+
+        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search.send_keys('colonna_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath(
+            "/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Crea una carta
+
+        search = bot.find_element_by_css_selector("#id_new_card_title")  # cerca la textbox per creare una nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('carta_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_description")  # cerca la text box per immettere la descrizione della nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('descrizione_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_expire_date")  # cerca il pulsante per immettere la data di scadenza alla nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2019')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_story_points")  # cerca il pulsante per immettere il valore dei punti storia
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Crea un'altra colonna
+
+        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search.send_keys('colonna_di_prova_2')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath(
+            "/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Modifica una carta
+
+        search = bot.find_element_by_css_selector(
+            "body > main > ul > li:nth-child(1) > ul > li:nth-child(1) > div.card-title-container > form > h1 > span > button"
+        )
+        search.click()
+
+        search = bot.find_element_by_css_selector("#id_new_card_title")
+        search.send_keys("carta_modificata")
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_description")
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('descrizione_modificata')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_expire_date")
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('2020')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_story_points")
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search.send_keys('3')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_mother_column"
+        )
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "#id_new_card_mother_column > option:nth-child(2)"
+        )
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_css_selector(
+            "body > main > form > div > button"
+        )
         search.click()
 
         time.sleep(time_to_wait)
@@ -1247,6 +1422,6 @@ class TestSeleniumUser(LiveServerTestCase):
         self.browser.quit()
 
 
-# comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_selenium_acceptance_tests.py
+# comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_selenium_acceptance_tests.py"
 
 # comando python per far partire tutti i test della cartella tests: python manage.py test
