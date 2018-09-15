@@ -602,6 +602,79 @@ class TestSeleniumColumn(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
+    def test_edit_column(self):
+
+        print('\nTEST EDIT COLUMN\n')
+
+        bot = self.browser
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_username')  # cerca la textbox per immettere l'username
+        search.send_keys('utente_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('login_password')  # cerca la textbox per immettere la password
+        search.send_keys('password_di_prova_1')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('login_button')  # cerca il pulsante per confermare
+        search.click()
+
+        # Crea una board
+
+        search = bot.find_element_by_xpath("/html/body/main/div[1]/button/span")  # cerca il pulsante per far apparire la textbox per immettere il nome di una nuova board
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_name('board_name')  # cerca la textbox per immettere il nome della nuova board
+        search.send_keys('board_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
+        search.click()
+
+        time.sleep(time_to_wait)
+
+        # Crea una colonna
+
+        search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
+        search.send_keys('colonna_di_prova')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath("/html/body/main/ul/li/div/form/button")  # cerca il pulsante per creare la colonna
+        search.click()
+
+        time.sleep(2)
+
+        """
+            Test per modificare una colonna
+        """
+
+        search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/a[1]/i")  # cerca il pulsante per modificare la colonna
+        search.click()
+
+        time.sleep(2)
+
+        search = bot.find_element_by_css_selector("#id_new_column_name")  # cerca la textbox per modificare il nome della colonna
+        search.click()
+
+        time.sleep(2)
+
+        search.send_keys('colonna_di_prova_modificata')
+
+        time.sleep(time_to_wait)
+
+        search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/button[1]")  # cerca il bottone per confermare le modifiche alla colonna
+        search.click()
+
+        time.sleep(time_to_wait)
+
     def test_delete_column(self):
 
         print('\nTEST DELETE COLUMN\n')
