@@ -118,6 +118,7 @@ time_to_wait = 0.6
 #         self.browser.quit()
 
 
+# self.browser.refresh()  # refresh alla pagina per evitare problemi con la quit()  # funziona solo su alcuni test, altri non ne hanno bisogno
 class TestSeleniumSignUp(LiveServerTestCase):
 
     """
@@ -197,7 +198,7 @@ class TestSeleniumSignUp(LiveServerTestCase):
 
     def tearDown(self):
 
-        # self.browser.refresh()  # refresh alla pagina per evitare problemi con la quit()
+        # self.browser.refresh()  # NO
         self.browser.quit()  # chiude tutte le schede, il browser e termina il test in sicurezza
 
 
@@ -273,11 +274,11 @@ class TestSeleniumLogin(LiveServerTestCase):
 
     def tearDown(self):
 
-        # self.browser.refresh()
+        self.browser.refresh()  # OK
         self.browser.quit()
 
 
-class TestSeleniumLogOut(LiveServerTestCase):
+class TestSeleniumLogout(LiveServerTestCase):
 
     """
         Test riguardanti il logout
@@ -344,19 +345,20 @@ class TestSeleniumLogOut(LiveServerTestCase):
         """
             Test per il logout
         """
-
         time.sleep(2)
+
+        time.sleep(time_to_wait)
 
         search = bot.find_element_by_id('logout_link')  # cerca il pulsante per il logout
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
 
-        time.sleep(1)
+        time.sleep(time_to_wait)
 
     def tearDown(self):
 
-        # self.browser.refresh()
+        # self.browser.refresh()  # NO
         self.browser.quit()
 
 
@@ -501,7 +503,7 @@ class TestSeleniumBoard(LiveServerTestCase):
 
     def tearDown(self):
 
-        # self.browser.refresh()
+        self.browser.refresh()  # OK
         self.browser.quit()
 
 
@@ -550,7 +552,7 @@ class TestSeleniumColumn(LiveServerTestCase):
         carta.users.add(user1)
         carta.users.add(user2)
 
-    def test_create_column(self):
+    def test_1_create_column(self):
 
         print('\nTEST CREATE COLUMN\n')
 
@@ -589,7 +591,7 @@ class TestSeleniumColumn(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         """
-            Test per creare una colonna in una board
+            Test per creare una colonna
         """
 
         search = bot.find_element_by_name('column_name')  # cerca la textbox per immettere il nome della colonna
@@ -602,7 +604,7 @@ class TestSeleniumColumn(LiveServerTestCase):
 
         time.sleep(2)
 
-    def test_edit_column(self):
+    def test_2_edit_column(self):
 
         print('\nTEST EDIT COLUMN\n')
 
@@ -673,9 +675,11 @@ class TestSeleniumColumn(LiveServerTestCase):
         search = bot.find_element_by_xpath("/html/body/main/ul/li[1]/div[1]/form/button[1]")  # cerca il bottone per confermare le modifiche alla colonna
         search.click()
 
-        time.sleep(5)
+        time.sleep(time_to_wait)
 
-    def test_delete_column(self):
+        bot.refresh()  # il tearDown creava qualche problema senza un refresh
+
+    def test_3_delete_column(self):
 
         print('\nTEST DELETE COLUMN\n')
 
@@ -743,7 +747,7 @@ class TestSeleniumColumn(LiveServerTestCase):
 
     def tearDown(self):
 
-        # self.browser.refresh()
+        # self.browser.refresh()  # NO
         self.browser.quit()
 
 
@@ -791,7 +795,7 @@ class TestSeleniumCard(LiveServerTestCase):
         carta.users.add(user1)
         carta.users.add(user2)
 
-    def test_create_card(self):
+    def test_1_create_card(self):
 
         print('\nTEST CREATE CARD\n')
 
@@ -884,12 +888,11 @@ class TestSeleniumCard(LiveServerTestCase):
         search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > div.card-container.last_card > form > div.card-content.new_card.hidden > div.new_card_button-set > button.new_card_submit_button")  # cerca il pulsante per creare la nuova carta
         search.click()
 
-        time.sleep(2)
+        time.sleep(time_to_wait)
 
         bot.refresh()
-        bot.quit()
 
-    def test_edit_card(self):
+    def test_2_edit_card(self):
 
         print('\nTEST EDIT CARD')
 
@@ -1065,9 +1068,8 @@ class TestSeleniumCard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         bot.refresh()
-        bot.quit()
 
-    def test_delete_card(self):
+    def test_3_delete_card(self):
 
         print('\nTEST DELETE CARD\n')
 
@@ -1161,21 +1163,19 @@ class TestSeleniumCard(LiveServerTestCase):
         time.sleep(time_to_wait)
 
         """
-            Test per creare una carta
+            Test per cancellare una carta
         """
-        time.sleep(0)
+        time.sleep(time_to_wait)
 
         search = bot.find_element_by_css_selector("body > main > ul > li:nth-child(1) > ul > li > div.card-title-container > form > div > button")  # cerca il pulsante per cancellare la carta
         search.click()
 
-        time.sleep(2)
-
-        bot.quit()  # La teardown per qualche ragione non chiude bene il browser, quindi lo facciamo chiudere qua
+        time.sleep(time_to_wait)
 
     def tearDown(self):
-        pass
-        # self.browser.refresh()
-        # self.browser.quit()
+
+        # self.browser.refresh()  # NO
+        self.browser.quit()
 
 
 class TestSeleniumUser(LiveServerTestCase):
@@ -1222,7 +1222,7 @@ class TestSeleniumUser(LiveServerTestCase):
         carta.users.add(user1)
         carta.users.add(user2)
 
-    def test_0_add_user_to_board(self):
+    def test_1_add_user_to_board(self):
 
         print('\nTEST ADD USER TO A BOARD\n')
 
@@ -1291,7 +1291,9 @@ class TestSeleniumUser(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
-    def test_1_remove_user_from_board(self):
+        bot.refresh()
+
+    def test_2_remove_user_from_board(self):
 
         print('\nTEST REMOVE USER FROM A BOARD\n')
 
@@ -1370,7 +1372,9 @@ class TestSeleniumUser(LiveServerTestCase):
 
         time.sleep(time_to_wait)
 
-    def test_2_burndown(self):
+        bot.refresh()
+
+    def test_3_burndown(self):
 
         print('\nTEST BURNDOWN\n')
 
@@ -1408,7 +1412,7 @@ class TestSeleniumUser(LiveServerTestCase):
         search = bot.find_element_by_id('create_board_button')  # cerca il pulsante per confermare
         search.click()
 
-        time.sleep(4)
+        time.sleep(2)
 
         """
             test per aprire il burndown della board corrente
@@ -1418,18 +1422,23 @@ class TestSeleniumUser(LiveServerTestCase):
 
         search = bot.find_element_by_css_selector('#open_toolbar')
         search.click()
+
         time.sleep(time_to_wait)
 
         search = bot.find_element_by_id('burndown_button')
         search.click()
 
-        time.sleep(time_to_wait)
+        time.sleep(2)
+
         time.sleep(time_to_wait)
 
     def tearDown(self):
-        # self.browser.refresh()
+
+        # self.browser.refresh()  # NO
         self.browser.quit()
 
+
+# ricordarsi di fare: python manage.py collectstatic se non lo si e' gia' fatto per far funzionare javascript e il css
 
 # comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_selenium_acceptance_tests.py"
 
