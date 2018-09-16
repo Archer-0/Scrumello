@@ -11,6 +11,17 @@ from django.contrib.auth.models import User
 
 time_to_wait = 0.6
 
+''' 
+    IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE 
+    
+        - ricordarsi di fare: python manage.py collectstatic se non lo si e' gia' fatto per far funzionare javascript e il css
+        
+        - comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_selenium_acceptance_tests.py"
+        
+        - comando python per far partire tutti i test della cartella tests: python manage.py test
+    
+    IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE 
+'''
 
 # class TestSelenium(LiveServerTestCase):
 #
@@ -1436,10 +1447,3 @@ class TestSeleniumUser(LiveServerTestCase):
 
         # self.browser.refresh()  # NO
         self.browser.quit()
-
-
-# ricordarsi di fare: python manage.py collectstatic se non lo si e' gia' fatto per far funzionare javascript e il css
-
-# comando python per far partire i soltanto i test di questo file: python manage.py test --pattern="test_selenium_acceptance_tests.py"
-
-# comando python per far partire tutti i test della cartella tests: python manage.py test
